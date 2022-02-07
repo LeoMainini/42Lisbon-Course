@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   memset.c                                           :+:      :+:    :+:   */
+/*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: leferrei <leferrei@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 13:27:33 by leferrei          #+#    #+#             */
-/*   Updated: 2022/02/05 22:27:58 by leferrei         ###   ########.fr       */
+/*   Updated: 2022/02/07 12:37:04 by leferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
-
+/*
 int	iter_pow(int nb, int pow)
 {
 	int	result;
@@ -31,19 +31,19 @@ int	convert_to_binary(int c)
 	result = c * (iter_pow(2, 24) + iter_pow(2, 16) + iter_pow(2, 8) + 1);
 	return (result);
 }
-
+*/
 void	*ft_memset(void *s, int c, size_t n)
 {
 	size_t	i;
-	int		**p;
+	char	**p;
 	int		bc;
 
 	bc = convert_to_binary(c);
-	p = (int **)&s;
+	p = (char **)&s;
 	i = 0;
-	while (i < n / sizeof(int))
+	while (i < n)
 	{
-		(*p)[i] = bc;
+		(*p)[i] = c;
 		i++;
 	}
 	return (s);
@@ -51,18 +51,18 @@ void	*ft_memset(void *s, int c, size_t n)
 
 int main(void)
 {
-	int	*leo = (int *)malloc(12 * sizeof(*leo));
-	int	*lib = (int *)malloc(12 * sizeof(*lib));
-	int	i;
+	char	*leo = (char *)malloc(12 * sizeof(*leo));
+	char	*lib = (char *)malloc(12 * sizeof(*lib));
+	int		i;
 
-	leo = ft_memset(leo, '4', 0);
-	lib = memset(lib, '4', 0);
+	leo = ft_memset(leo, '4', 10);
+	lib = memset(lib, '4', 10);
 
 	i = -1;
 	while (++i < 12)
 	{
-			printf("leo = %d\n", leo[i]);
-			printf("lib = %d\n", lib[i]);
+		printf("leo = %d\n", leo[i]);
+		printf("lib = %d\n", lib[i]);
 	}	
 }
 

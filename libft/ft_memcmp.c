@@ -6,7 +6,7 @@
 /*   By: leferrei <leferrei@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 18:47:30 by leferrei          #+#    #+#             */
-/*   Updated: 2022/02/06 18:54:31 by leferrei         ###   ########.fr       */
+/*   Updated: 2022/02/09 13:33:28 by leferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 int	ft_memcmp(const void *s1, const void *s2, size_t n)
 {
-	unsigned char **b_s1;
-	unsigned char **b_s2;
+	unsigned char	**b_s1;
+	unsigned char	**b_s2;
 
 	b_s1 = (unsigned char **)&s1;
 	b_s2 = (unsigned char **)&s2;

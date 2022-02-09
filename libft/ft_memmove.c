@@ -6,7 +6,7 @@
 /*   By: leferrei <leferrei@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 16:52:05 by leferrei          #+#    #+#             */
-/*   Updated: 2022/02/06 17:02:38 by leferrei         ###   ########.fr       */
+/*   Updated: 2022/02/07 19:33:37 by leferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,5 @@ int main(void)
 	printf("return lib = %s\n", memmove(lib, test, 1));
 	printf("leo = %s\n", leo);
 	printf("lib = %s\n", lib);
+	Bom dia ? como guardar este frase??
 }

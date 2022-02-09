@@ -6,7 +6,7 @@
 /*   By: leferrei <leferrei@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 13:27:33 by leferrei          #+#    #+#             */
-/*   Updated: 2022/02/07 12:37:04 by leferrei         ###   ########.fr       */
+/*   Updated: 2022/02/07 21:33:28 by leferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,7 @@ void	*ft_memset(void *s, int c, size_t n)
 {
 	size_t	i;
 	char	**p;
-	int		bc;
 
-	bc = convert_to_binary(c);
 	p = (char **)&s;
 	i = 0;
 	while (i < n)
@@ -55,14 +53,14 @@ int main(void)
 	char	*lib = (char *)malloc(12 * sizeof(*lib));
 	int		i;
 
-	leo = ft_memset(leo, '4', 10);
-	lib = memset(lib, '4', 10);
+	leo = ft_memset(leo, 'T', 10);
+	lib = memset(lib, 'T', 10);
 
 	i = -1;
 	while (++i < 12)
 	{
-		printf("leo = %d\n", leo[i]);
-		printf("lib = %d\n", lib[i]);
+		printf("leo = %c\n", leo[i]);
+		printf("lib = %c\n", lib[i]);
 	}	
 }
 

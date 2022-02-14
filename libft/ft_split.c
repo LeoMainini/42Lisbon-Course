@@ -6,7 +6,7 @@
 /*   By: leferrei <leferrei@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 15:44:32 by leferrei          #+#    #+#             */
-/*   Updated: 2022/02/14 17:59:00 by leferrei         ###   ########.fr       */
+/*   Updated: 2022/02/14 18:01:25 by leferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ char	**ft_split(char const *s, char c)
 	if (words == 0)
 		return (NULL);
 	result = (char **)malloc((words + 2) * sizeof(char *));
+	if (result == 0)
+		return (NULL);
 	result[words] = (char *) NULL;
 	separate_words(result, s, c, 0);
 	return (result);

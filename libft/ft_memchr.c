@@ -6,7 +6,7 @@
 /*   By: leferrei <leferrei@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 18:12:26 by leferrei          #+#    #+#             */
-/*   Updated: 2022/02/06 18:20:20 by leferrei         ###   ########.fr       */
+/*   Updated: 2022/02/16 12:59:09 by leferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	*ft_memchr(const void *s, int c, size_t n)
 
 	b_s = (unsigned char **)&s;
 	index = -1;
-	while (++index < n)
+	while (++index < (int)n)
 		if ((*b_s)[index] == c)
 			return ((&(*b_s)[index]));
 	return (NULL);
@@ -28,7 +28,7 @@ void	*ft_memchr(const void *s, int c, size_t n)
 
 int main(void)
 {
-	char test[] = "0123456789";
-	printf("leo = %s\n", ft_memchr(test, 'g', 4));
-	printf("lib = %s\n", memchr(test, 'g', 4));
+	char test[] = "";
+	printf("leo = %s\n", ft_memchr(test, 'g', 2));
+	printf("lib = %s\n", memchr(test, 'g', 2));
 }

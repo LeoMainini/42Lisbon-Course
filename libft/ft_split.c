@@ -6,7 +6,7 @@
 /*   By: leferrei <leferrei@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 15:44:32 by leferrei          #+#    #+#             */
-/*   Updated: 2022/02/14 18:01:25 by leferrei         ###   ########.fr       */
+/*   Updated: 2022/02/15 13:22:31 by leferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	separate_words(char **result, const char *s, char c, int i)
 	k = 0;
 	while (s[i] != '\0')
 	{
-		if (s[i] == c || s[i + 1] == '\0')
+		if ((s[i] == c && s[i - 1] != c) || s[i + 1] == '\0')
 		{
 			result[j] = (char *)malloc((i - k) * sizeof(char));
 			l = 0;
@@ -50,15 +50,20 @@ char	**ft_split(char const *s, char c)
 
 	i = 0;
 	words = 0;
+	if (s[0] == c)
+		s++;
 	while (s[i] != '\0')
 	{
-		if (s[i] == c)
+		if (s[i] == c && s[i - 1] != c)
+			words++;
+		if (s[i + 1] == '\0' && s[i] != c)
 			words++;
 		i++;
 	}
 	if (words == 0)
 		return (NULL);
-	result = (char **)malloc((words + 2) * sizeof(char *));
+	printf("words = %d\n", words + 1);
+	result = (char **)malloc((words + 1) * sizeof(char *));
 	if (result == 0)
 		return (NULL);
 	result[words] = (char *) NULL;
@@ -68,9 +73,9 @@ char	**ft_split(char const *s, char c)
 
 int main(void)
 {
-	char *test = "ola o meu nome e leo";
+	char *test = "        ola o meu nome e leo 1 1 1 1 1";
 	char **test_o = ft_split(test, ' ');
-	for (int i = 0; i < 7; i++)
-		printf("%p\n", test_o[i]);
+	for (int i = 0; i < 12; i++)
+		printf("%s\n", test_o[i]);
 
 }

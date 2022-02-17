@@ -6,7 +6,7 @@
 /*   By: leferrei <leferrei@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 19:02:21 by leferrei          #+#    #+#             */
-/*   Updated: 2022/02/17 13:21:03 by leferrei         ###   ########.fr       */
+/*   Updated: 2022/02/17 14:29:24 by leferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ char	*ft_strdup(const char *s)
 	int		size;
 	char	*r;
 
+	size = 0;
 	while (s[size] == '\0')
 		size++;
 	r = (char *)malloc(size + 1 * (sizeof(*r)));

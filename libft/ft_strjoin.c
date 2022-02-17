@@ -6,7 +6,7 @@
 /*   By: leferrei <leferrei@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 14:17:02 by leferrei          #+#    #+#             */
-/*   Updated: 2022/02/14 14:25:52 by leferrei         ###   ########.fr       */
+/*   Updated: 2022/02/17 13:21:09 by leferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,4 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	while (s2[++k] != '\0')
 		result[i + k] = s2[k];
 	return (&result[0]);
-}
-
-int main(void)
-{
-	printf("%s\n", ft_strjoin("123", "123"));
 }

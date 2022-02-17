@@ -6,7 +6,7 @@
 /*   By: leferrei <leferrei@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 12:44:34 by leferrei          #+#    #+#             */
-/*   Updated: 2022/02/09 13:32:47 by leferrei         ###   ########.fr       */
+/*   Updated: 2022/02/17 13:23:15 by leferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,4 @@ char	*ft_strrchr(const char *s, int c)
 	if (result != -1)
 		return (&(*sp)[result]);
 	return (NULL);
-}
-
-int main(void)
-{
-	char test[1024] = "0123245267289";
-	printf("2 leo = %s\n", ft_strrchr(test, '2'));
-	printf("2 lib = %s\n", strrchr(test, '2'));
-	printf("h leo = %s\n", ft_strrchr(test, 'h'));
-	printf("h lib = %s\n", strrchr(test, 'h'));
-	printf("\\0 leo = %s\n", ft_strrchr(test, '\0'));
-	printf("\\0 lib = %s\n", strrchr(test, '\0'));
 }

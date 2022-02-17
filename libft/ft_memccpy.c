@@ -6,7 +6,7 @@
 /*   By: leferrei <leferrei@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 16:15:25 by leferrei          #+#    #+#             */
-/*   Updated: 2022/02/06 16:36:24 by leferrei         ###   ########.fr       */
+/*   Updated: 2022/02/17 13:12:55 by leferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,15 +39,4 @@ void	*ft_memccpy(void *restrict dest, const void *restrict src,
 	if (c_i == -1)
 		return (NULL);
 	return (&(*b_dest)[c_i]);
-}
-
-int main(void)
-{
-	char test[1024] = "0123456789";
-	char *leo = (char *)malloc(10 * sizeof(*leo));
-	char *lib = (char *)malloc(10 * sizeof(*lib));
-	printf("return leo = %p\n", ft_memccpy(leo, test, 50, 5));
-	printf("return lib = %p\n", memccpy(lib, test, 50, 5));
-	printf("leo = %s\n", leo);
-	printf("lib = %s\n", lib);
 }

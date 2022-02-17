@@ -6,7 +6,7 @@
 /*   By: leferrei <leferrei@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 13:12:06 by leferrei          #+#    #+#             */
-/*   Updated: 2022/02/09 13:34:25 by leferrei         ###   ########.fr       */
+/*   Updated: 2022/02/17 13:21:59 by leferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,19 +34,4 @@ char	*ft_strnstr(const char *big, const char *little, size_t len)
 		}	
 	}
 	return (NULL);
-}
-
-int main(void)
-{
-	char test[1024] = "Ola o meu nome e leo!";
-	printf("'o 'leo = %s\n", ft_strnstr(test, "o ", 1));
-	printf("'o 'lib = %s\n", strstr(test, "o "));
-	printf("''leo = %s\n", ft_strnstr(test, "", 1));
-	printf("''lib = %s\n", strstr(test, ""));
-	printf("'!'leo = %s\n", ft_strnstr(test, "!", 1));
-	printf("'!'lib = %s\n", strstr(test, "!"));
-	printf("'nome'leo = %s\n", ft_strnstr(test, "nome", 1));
-	printf("'nome'lib = %s\n", strstr(test, "nome"));
-	printf("'lol nao tou la'leo = %s\n", ft_strnstr(test, "lol nao tou la", 10));
-	printf("'lol nao tou la'lib = %s\n", strstr(test, "lol nao tou la"));
 }

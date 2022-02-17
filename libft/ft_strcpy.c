@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   strcpy.c                                           :+:      :+:    :+:   */
+/*   ft_strcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: leferrei <leferrei@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 13:56:20 by leferrei          #+#    #+#             */
-/*   Updated: 2022/02/08 14:18:12 by leferrei         ###   ########.fr       */
+/*   Updated: 2022/02/17 13:20:29 by leferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,4 @@ char	*ft_strcpy(char *restrict dest, const char *src)
 	}
 	dest[index] = '\0';
 	return (dest);
-}
-
-int main(void)
-{
-	char *test = "Ola o meu nome e leo";
-	char pdest[1024];
-	char *dest = (char *)malloc(50 * sizeof(*dest));
-	dest = ft_strcpy(pdest, test);
-	printf("dest = %s\npdest = %s\n", dest, pdest);
 }

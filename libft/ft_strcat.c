@@ -6,7 +6,7 @@
 /*   By: leferrei <leferrei@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 15:07:07 by leferrei          #+#    #+#             */
-/*   Updated: 2022/02/08 15:16:35 by leferrei         ###   ########.fr       */
+/*   Updated: 2022/02/17 13:40:30 by leferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,3 @@ char	*ft_strcat(char *restrict dest, const char *restrict src)
 	dest[jindex + index] = '\0';
 	return (dest);
 }
-
-int main(void)
-{
-	char test[1024] =  "Ola o meu nome e leo";
-	char *cat = "123!";
-	ft_strcat(test, cat);
-	printf("%s\n", test);
-}
-

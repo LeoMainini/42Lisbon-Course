@@ -6,7 +6,7 @@
 /*   By: leferrei <leferrei@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 11:15:33 by leferrei          #+#    #+#             */
-/*   Updated: 2022/02/10 12:04:38 by leferrei         ###   ########.fr       */
+/*   Updated: 2022/02/17 13:20:23 by leferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,4 @@ int	ft_strcmp(const char *s1, const char *s2)
 	if (s1[i] < s2[i])
 		return (-1);
 	return (0);
-}
-
-int main(void)
-{
-	printf("leo %d\n", ft_strcmp("1", "123456789"));
-	printf("lib %d\n", strcmp("1", "123456789"));
-	printf("leo %d\n", ft_strcmp("1", ""));
-	printf("lib %d\n", strcmp("1", ""));
-	printf("leo %d\n", ft_strcmp("", ""));
-	printf("lib %d\n", strcmp("", ""));
-
-
 }

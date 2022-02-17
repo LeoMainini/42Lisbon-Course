@@ -6,7 +6,7 @@
 /*   By: leferrei <leferrei@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 15:44:32 by leferrei          #+#    #+#             */
-/*   Updated: 2022/02/16 16:36:49 by leferrei         ###   ########.fr       */
+/*   Updated: 2022/02/17 13:15:48 by leferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,13 +66,4 @@ char	**ft_split(char const *s, char c)
 	result[words] = (char *) NULL;
 	separate_words(result, s, c, 0);
 	return (result);
-}
-
-int main(void)
-{
-	char *test = "asfuasofiu";
-	char **test_o = ft_split(test, '\0');
-	for (int i = 0; i < 3; i++)
-		printf("%s\n", test_o[i]);
-
 }

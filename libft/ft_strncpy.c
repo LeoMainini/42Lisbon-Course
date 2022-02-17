@@ -6,7 +6,7 @@
 /*   By: leferrei <leferrei@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 13:56:20 by leferrei          #+#    #+#             */
-/*   Updated: 2022/02/08 15:03:01 by leferrei         ###   ########.fr       */
+/*   Updated: 2022/02/17 13:21:42 by leferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,4 @@ char	*ft_strncpy(char *restrict dest, const char *src, size_t n)
 	while (++index < n)
 		dest[index] = '\0';
 	return (dest);
-}
-
-int main(void)
-{
-	char *test = "Ola o meu nome e leo";
-	char pdest[1024];
-	char *dest = (char *)malloc(50 * sizeof(*dest));
-	dest = ft_strncpy(pdest, test, 20);
-	printf("dest = %s\npdest = %s\n", dest, pdest);
 }

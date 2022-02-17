@@ -6,7 +6,7 @@
 /*   By: leferrei <leferrei@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 14:11:45 by leferrei          #+#    #+#             */
-/*   Updated: 2022/02/14 14:16:25 by leferrei         ###   ########.fr       */
+/*   Updated: 2022/02/17 13:41:39 by leferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,15 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	char	*result;
 	size_t	i;
 
-	result = (char *)malloc(len + 1 * (sizeof(*result)));
-	result[len] = '\0';
+	i = 0;
+	while (s[start + i] != '\0')
+		i++;
+	result = (char *)malloc(i * (sizeof(*result)));
 	if (result == 0)
 		return (NULL);
 	i = -1;
-	while (++i < len)
+	while (++i < len - 1 && s[start + i] != '\0')
 		result[i] = s[start + i];
+	result[i] = '\0';
 	return (&result[0]);
-}
-
-int main(void)
-{
-	char *test = "Ola sou o leo";
-	char *r = ft_substr(test, 4, 3);
-	printf("%s\n", r);
 }

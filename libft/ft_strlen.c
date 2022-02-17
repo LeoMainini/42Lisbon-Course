@@ -6,7 +6,7 @@
 /*   By: leferrei <leferrei@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 18:58:59 by leferrei          #+#    #+#             */
-/*   Updated: 2022/02/06 19:02:04 by leferrei         ###   ########.fr       */
+/*   Updated: 2022/02/17 13:40:52 by leferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,4 @@ size_t	ft_strlen(const char *s)
 	while (s[size] != '\0')
 		size++;
 	return (size);
-}
-
-int main(void)
-{
-	printf("leo = %d\n", ft_strlen(""));
-	printf("lib = %d\n", strlen(""));
 }

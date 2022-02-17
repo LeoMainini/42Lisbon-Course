@@ -6,7 +6,7 @@
 /*   By: leferrei <leferrei@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 11:51:00 by leferrei          #+#    #+#             */
-/*   Updated: 2022/02/10 12:02:04 by leferrei         ###   ########.fr       */
+/*   Updated: 2022/02/17 13:38:21 by leferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,20 +36,4 @@ int	ft_atoi(const char *nptr)
 		i++;
 	}
 	return (result * neg);
-}
-
-
-int main(void)
-{
-	printf("%d\n", atoi("123"));
-	printf("%d\n", atoi(" -123"));
-	printf("%d\n", atoi(" --123"));
-	printf("%d\n", atoi(" 	+123"));
-	printf("%d\n", atoi("   	123"));
-	printf("%d\n", ft_atoi("123"));
-	printf("%d\n", ft_atoi(" -123"));
-	printf("%d\n", ft_atoi(" --123"));
-	printf("%d\n", ft_atoi(" 	+123"));
-	printf("%d\n", ft_atoi("   	123"));
-
 }

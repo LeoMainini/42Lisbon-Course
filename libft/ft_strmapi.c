@@ -1,29 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcpy.c                                        :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: leferrei <leferrei@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/06 14:01:11 by leferrei          #+#    #+#             */
-/*   Updated: 2022/02/18 16:51:42 by leferrei         ###   ########.fr       */
+/*   Created: 2022/02/18 12:31:58 by leferrei          #+#    #+#             */
+/*   Updated: 2022/02/18 13:16:11 by leferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <string.h>
-#include <stdio.h>
-#include <stdlib.h>
+#include "libft.h"
 
-void	*ft_memcpy(void *dest, const void *src, size_t n)
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	char	**b_src;
-	char	**b_dest;
-	size_t	index;
+	int		i;
+	char	*result;
 
-	b_dest = (char **)&dest;
-	b_src = (char **)&src;
-	index = -1;
-	while (++index < n)
-		(*b_dest)[index] = (*b_src)[index];
-	return (&((*b_dest)[0]));
+	result = ft_strdup(s);
+	i = -1;
+	while (s[++i] != '\0')
+		result[i] = f((unsigned int)i, s[i]);
+	return (result);
 }

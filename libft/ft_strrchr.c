@@ -6,28 +6,23 @@
 /*   By: leferrei <leferrei@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 12:44:34 by leferrei          #+#    #+#             */
-/*   Updated: 2022/02/17 13:23:15 by leferrei         ###   ########.fr       */
+/*   Updated: 2022/02/18 17:53:13 by leferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <string.h>
-#include <stdio.h>
+#include "libft.h"
 
 char	*ft_strrchr(const char *s, int c)
 {
 	int		i;
-	int		result;
-	char	**sp;
 
-	sp = (char **)&s;
-	i = -1;
-	result = -1;
-	while (s[++i] != '\0')
-		if (s[i] == c)
-			result = i;
-	if (s[i] == c)
-		return (&(*sp)[i]);
-	if (result != -1)
-		return (&(*sp)[result]);
-	return (NULL);
+	i = ft_strlen(s);
+	i++;
+	if ((char)c == s[i])
+		return ((char *)&s[i]);
+	while (--i >= 0)
+		if (s[i] == (char)c)
+			return ((char *)&s[i]);
+	return ((char *) NULL);
 }

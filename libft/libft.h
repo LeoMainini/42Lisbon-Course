@@ -6,12 +6,14 @@
 /*   By: leferrei <leferrei@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 17:25:44 by leferrei          #+#    #+#             */
-/*   Updated: 2022/02/17 18:24:01 by leferrei         ###   ########.fr       */
+/*   Updated: 2022/02/18 16:51:15 by leferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
+
+# include <ctype.h>
 
 int		ft_atoi(const char *nptr);
 void	ft_bzero(void *s, size_t n);
@@ -30,16 +32,16 @@ int		ft_tolower(int c);
 int		ft_toupper(int c);
 char	*ft_itoa(int n);
 void	*ft_memchr(const void *s, int c, size_t n);
-void	*ft_memcpy(void *restrict dest, const void *restrict src, size_t n);
+void	*ft_memcpy(void *dest, const void *src, size_t n);
 void	*ft_memmove(void *dest, const void *src, size_t n);
 void	*ft_memset(void *s, int c, size_t n);
-char	*ft_strcat(char *restrict dest, const char *restrict src);
+char	*ft_strcat(char *dest, const char *src);
 char	*ft_strchr(const char *s, int c);
-char	*ft_strcpy(char *restrict dest, const char *src);
+char	*ft_strcpy(char *dest, const char *src);
 char	*ft_strdup(const char *s);
 char	*ft_strjoin(char const *s1, char const *s2);
-char	*ft_strncat(char *restrict dest, const char *restrict src, size_t n);
-char	*ft_strncpy(char *restrict dest, const char *src, size_t n);
+char	*ft_strncat(char *dest, const char *src, size_t n);
+char	*ft_strncpy(char *dest, const char *src, size_t n);
 char	*ft_strnstr(const char *big, const char *little, size_t len);
 char	*ft_strrchr(const char *s, int c);
 char	*ft_strstr(const char *haystack, const char *needle);

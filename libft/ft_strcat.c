@@ -6,14 +6,14 @@
 /*   By: leferrei <leferrei@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 15:07:07 by leferrei          #+#    #+#             */
-/*   Updated: 2022/02/17 13:40:30 by leferrei         ###   ########.fr       */
+/*   Updated: 2022/02/18 16:52:08 by leferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <string.h>
 #include <stdio.h>
 
-char	*ft_strcat(char *restrict dest, const char *restrict src)
+char	*ft_strcat(char *dest, const char *src)
 {
 	int	index;
 	int	jindex;

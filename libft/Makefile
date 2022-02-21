@@ -32,7 +32,7 @@ SRCS	=	ft_atoi.c		ft_bzero.c		ft_calloc.c		ft_isalnum.c	\
 			ft_strcpy.c		ft_strdup.c		ft_strjoin.c	ft_strlcat.c	\
 			ft_strlen.c		ft_tolower.c	ft_strncmp.c	ft_strncpy.c	\
 			ft_strnstr.c	ft_strrchr.c 	ft_strstr.c		ft_substr.c		\
-			
+			ft_strlcpy.c
 
 OBJS	= ${SRCS:.c=.o}
 

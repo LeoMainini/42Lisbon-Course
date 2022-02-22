@@ -6,7 +6,7 @@
 /*   By: leferrei <leferrei@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 18:00:32 by leferrei          #+#    #+#             */
-/*   Updated: 2022/02/18 20:20:22 by leferrei         ###   ########.fr       */
+/*   Updated: 2022/02/21 17:40:00 by leferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,10 @@ static char	*clean_output(char *temp, int neg, int i)
 
 	size = 11 - i + neg - 1;
 	i = 10;
-	result = (char *)malloc(size * sizeof(*result));
+	result = (char *)malloc(size + 1 * sizeof(*result));
+	if (result == NULL)
+		return (NULL);
+	result[size] = '\0';
 	while (temp[i] != '\0')
 	{
 		result[size - 1] = temp [i];

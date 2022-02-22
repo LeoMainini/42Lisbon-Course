@@ -6,12 +6,13 @@
 /*   By: leferrei <leferrei@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 15:44:32 by leferrei          #+#    #+#             */
-/*   Updated: 2022/02/18 14:36:38 by leferrei         ###   ########.fr       */
+/*   Updated: 2022/02/22 13:31:25 by leferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include <stdlib.h>
+#include "libft.h"
 
 static void	separate_words(char **result, const char *s, char c, int i)
 {
@@ -27,7 +28,7 @@ static void	separate_words(char **result, const char *s, char c, int i)
 	{
 		if (((s[i] == c) && s[i + 1] != c) || s[i + 1] == '\0')
 		{
-			result[j] = (char *)malloc((i - k) * sizeof(char));
+			result[j] = (char *)malloc((i - k + 1) * sizeof(char));
 			l = 0;
 			while (s[k] != c && s[k] != '\0')
 			{
@@ -35,6 +36,7 @@ static void	separate_words(char **result, const char *s, char c, int i)
 				l++;
 				k++;
 			}
+			result[j][l] = '\0';
 			k = i + 1;
 			j++;
 		}
@@ -66,4 +68,13 @@ char	**ft_split(char const *s, char c)
 	result[words] = (char *) NULL;
 	separate_words(result, s, c, 0);
 	return (result);
+}
+
+int main(void)
+{
+	char *s = "      split       this for   me  !       ";
+	char **result = ft_split(s, ' ');
+	ft_memset(result[0], 'A', 10);
+	result = ft_split(s, ' ');
+	printf("%s\n", result[0]);
 }

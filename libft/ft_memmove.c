@@ -6,7 +6,7 @@
 /*   By: leferrei <leferrei@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 16:52:05 by leferrei          #+#    #+#             */
-/*   Updated: 2022/02/17 13:15:01 by leferrei         ###   ########.fr       */
+/*   Updated: 2022/02/21 16:18:33 by leferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ void	*ft_memmove(void *dest, const void *src, size_t n)
 {
 	int	i;
 
+	if (dest == NULL && src == NULL)
+		return (0);
 	if (dest > src)
 	{
 		i = (int)n;

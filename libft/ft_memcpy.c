@@ -6,7 +6,7 @@
 /*   By: leferrei <leferrei@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 14:01:11 by leferrei          #+#    #+#             */
-/*   Updated: 2022/02/18 16:51:42 by leferrei         ###   ########.fr       */
+/*   Updated: 2022/02/21 16:16:56 by leferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void	*ft_memcpy(void *dest, const void *src, size_t n)
 	char	**b_dest;
 	size_t	index;
 
+	if (dest == NULL && src == NULL)
+		return (dest);
 	b_dest = (char **)&dest;
 	b_src = (char **)&src;
 	index = -1;

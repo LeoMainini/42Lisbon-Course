@@ -1,27 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strmapi.c                                       :+:      :+:    :+:   */
+/*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leferrei <leferrei@student.42lisboa.com>   +#+  +:+       +#+        */
+/*   By: leferrei <leferrei@student.42lisboa>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/18 12:31:58 by leferrei          #+#    #+#             */
-/*   Updated: 2022/02/22 19:19:56 by leferrei         ###   ########.fr       */
+/*   Created: 2022/02/22 19:20:47 by leferrei          #+#    #+#             */
+/*   Updated: 2022/02/22 19:32:29 by leferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <unistd.h>
 
-char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
+void	ft_putendl_fd(char *s, int fd)
 {
-	int		i;
-	char	*result;
-
-	result = ft_strdup(s);
-	if (result == NULL)
-		return (NULL);
-	i = -1;
-	while (s[++i] != '\0')
-		result[i] = f((unsigned int)i, s[i]);
-	return (result);
+	ft_putstr_fd(s, fd);
+	write(fd, "\n", 1);
 }

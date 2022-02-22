@@ -6,7 +6,7 @@
 /*   By: leferrei <leferrei@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 15:44:32 by leferrei          #+#    #+#             */
-/*   Updated: 2022/02/22 13:31:25 by leferrei         ###   ########.fr       */
+/*   Updated: 2022/02/22 20:33:26 by leferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@ static void	separate_words(char **result, const char *s, char c, int i)
 	int	l;
 
 	l = 0;
-	i = 0;
+	i = -1;
 	j = 0;
 	k = 0;
-	while (s[i] != '\0' && !(s[0] == '\0'))
+	while (s[++i] != '\0' && !(s[0] == '\0'))
 	{
 		if (((s[i] == c) && s[i + 1] != c) || s[i + 1] == '\0')
 		{
@@ -40,7 +40,6 @@ static void	separate_words(char **result, const char *s, char c, int i)
 			k = i + 1;
 			j++;
 		}
-		i++;
 	}
 }
 
@@ -68,13 +67,4 @@ char	**ft_split(char const *s, char c)
 	result[words] = (char *) NULL;
 	separate_words(result, s, c, 0);
 	return (result);
-}
-
-int main(void)
-{
-	char *s = "      split       this for   me  !       ";
-	char **result = ft_split(s, ' ');
-	ft_memset(result[0], 'A', 10);
-	result = ft_split(s, ' ');
-	printf("%s\n", result[0]);
 }

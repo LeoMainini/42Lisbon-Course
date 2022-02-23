@@ -28,7 +28,7 @@ SRCS	=	ft_atoi.c		ft_bzero.c		ft_calloc.c		ft_isalnum.c	\
 			ft_isalpha.c	ft_isascii.c	ft_isdigit.c	ft_isprint.c	\
 			ft_itoa.c		ft_toupper.c 	ft_memchr.c		ft_memcmp.c		\
 			ft_memcpy.c		ft_memmove.c	ft_memset.c		ft_split.c		\
-			ft_strcat.c		ft_strchr.c		ft_strclr.c		ft_strcmp.c		\
+			ft_strcat.c		ft_strchr.c		ft_strcmp.c		\
 			ft_strcpy.c		ft_strdup.c		ft_strjoin.c	ft_strlcat.c	\
 			ft_strlen.c		ft_tolower.c	ft_strncmp.c	ft_strncpy.c	\
 			ft_strnstr.c	ft_strrchr.c 	ft_strstr.c		ft_substr.c		\
@@ -52,7 +52,7 @@ CFLAGS	= -Wall -Werror -Wextra
 
 ${NAME}:	${OBJS}
 			@echo -e	"$(_RED)	(      (             (              \n$(_RED)	 )\ )   )\ )     (    )\ )    *   )  \n$(_RED)	(()/(  (()/(   ( )\  (()/(    )  /(  	\n$(_RED)	 )(_))  /(_))  )((_)  /(_))  ( )(_)) \n$(_RED)	(_))   (_))   ((_)_  (_))_| (_(_())  	\n$(_PURPLE)	| |    |_ _|   | _ ) | |_   |_   _|  	\n$(_PURPLE)	| |__   | |    | _ \ | __|    | |    	\n	|____| |___|   |___/ |_|      |_|    \n"
-			@echo -e	"$(_CYAN)\tCREATING AND COMPILING UPDATED OBJECT FILES"
+			@echo -e	"$(_CYAN)\tCREATING AND COMPILING UPDATED OBJECT FILES\n"
 			@echo -e	"$(_CYAN)\tar rc libft.a *.o\n"
 			@${AR} ${NAME} ${OBJS}
 			@echo -e	"$(_PURPLE)\tDONE"
@@ -60,10 +60,10 @@ ${NAME}:	${OBJS}
 all:		${NAME}
 		
 clean:
-			@echo -e	"$(_RED)\tCLEANING FILES"
+			@echo -e	"$(_RED)\tCLEANING FILES\n"
 			@${RM} ${OBJS}
 			@echo -e	"$(_CYAN)\trm -f *.c\n"
-			@echo -e	"$(_PURPLE)\tDONE"
+			@echo -e	"$(_PURPLE)\tDONE\n"
 
 fclean:		clean
 			@echo -e	"$(_CYAN)\trm -f libft.a\n"

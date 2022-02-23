@@ -6,7 +6,7 @@
 /*   By: leferrei <leferrei@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 12:31:58 by leferrei          #+#    #+#             */
-/*   Updated: 2022/02/22 19:19:56 by leferrei         ###   ########.fr       */
+/*   Updated: 2022/02/23 17:29:32 by leferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 	int		i;
 	char	*result;
 
+	if (!s)
+		return (NULL);
 	result = ft_strdup(s);
 	if (result == NULL)
 		return (NULL);

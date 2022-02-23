@@ -6,7 +6,7 @@
 /*   By: leferrei <leferrei@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 14:17:02 by leferrei          #+#    #+#             */
-/*   Updated: 2022/02/22 15:48:59 by leferrei         ###   ########.fr       */
+/*   Updated: 2022/02/23 17:30:53 by leferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	int		k;
 	char	*result;
 
+	if (!s1 || !s2)
+		return (NULL);
 	i = 0;
 	while (s1[i] != '\0')
 		i++;

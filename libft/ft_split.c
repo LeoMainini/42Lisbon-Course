@@ -6,7 +6,7 @@
 /*   By: leferrei <leferrei@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 15:44:32 by leferrei          #+#    #+#             */
-/*   Updated: 2022/02/22 20:33:26 by leferrei         ###   ########.fr       */
+/*   Updated: 2022/02/23 17:28:51 by leferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ char	**ft_split(char const *s, char c)
 
 	i = 0;
 	words = 0;
+	if (!s)
+		return (NULL);
 	while (*s == c && c != '\0')
 		s++;
 	while (s[i] != '\0')

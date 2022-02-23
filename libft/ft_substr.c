@@ -6,7 +6,7 @@
 /*   By: leferrei <leferrei@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 14:11:45 by leferrei          #+#    #+#             */
-/*   Updated: 2022/02/23 13:19:42 by leferrei         ###   ########.fr       */
+/*   Updated: 2022/02/23 17:31:18 by leferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	unsigned int	size;
 	size_t			i;
 
+	if (!s)
+		return (NULL);
 	size = (unsigned int)ft_strlen(s);
 	if (start >= size)
 		return (ft_strdup(""));

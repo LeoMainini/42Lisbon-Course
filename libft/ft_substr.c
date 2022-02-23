@@ -6,7 +6,7 @@
 /*   By: leferrei <leferrei@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 14:11:45 by leferrei          #+#    #+#             */
-/*   Updated: 2022/02/22 21:06:15 by leferrei         ###   ########.fr       */
+/*   Updated: 2022/02/23 13:19:42 by leferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,23 +21,23 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	size_t			i;
 
 	size = (unsigned int)ft_strlen(s);
-	i = 0;
 	if (start >= size)
-	{
-		result = (char *)malloc(1 * sizeof(*result));
-		result[0] = '\0';
-		return (result);
-	}
-	if (len > size - start)
-		len = size - start;
-	while (s[start + i] != '\0')
+		return (ft_strdup(""));
+	i = 0;
+	while (s[start + i] != '\0' && i < len)
 		i++;
 	result = (char *)malloc((i + 1) * sizeof(*result));
-	if (result == 0)
+	if (result == NULL)
 		return (NULL);
 	i = -1;
-	while (++i < len - 1 && s[start + i] != '\0')
+	while (s[start + ++i] != '\0' && i < len)
 		result[i] = s[start + i];
 	result[i] = '\0';
-	return (&result[0]);
+	return (result);
 }
+/*
+int main(void)
+{
+	char *test = ft_substr("Ola o meu nome e leo", 0, 20);
+	ft_putendl_fd(test, 1);
+}*/

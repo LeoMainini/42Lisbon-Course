@@ -50,7 +50,7 @@ CFLAGS	= -Wall -Werror -Wextra
 .c.o:
 			@${CC} ${CFLAGS} -c $< -o ${<:.c=.o}
 
-${NAME}:	${OBJS}
+$(NAME):	${OBJS}
 			@echo -e	"$(_RED)	(      (             (              \n$(_RED)	 )\ )   )\ )     (    )\ )    *   )  \n$(_RED)	(()/(  (()/(   ( )\  (()/(    )  /(  	\n$(_RED)	 )(_))  /(_))  )((_)  /(_))  ( )(_)) \n$(_RED)	(_))   (_))   ((_)_  (_))_| (_(_())  	\n$(_PURPLE)	| |    |_ _|   | _ ) | |_   |_   _|  	\n$(_PURPLE)	| |__   | |    | _ \ | __|    | |    	\n	|____| |___|   |___/ |_|      |_|    \n"
 			@echo -e	"$(_CYAN)\tCREATING AND COMPILING UPDATED OBJECT FILES\n"
 			@echo -e	"$(_CYAN)\tar rc libft.a *.o\n"

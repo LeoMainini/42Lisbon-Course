@@ -51,19 +51,29 @@ CFLAGS	= -Wall -Werror -Wextra
 			@${CC} ${CFLAGS} -c $< -o ${<:.c=.o}
 
 ${NAME}:	${OBJS}
-			@echo	"$(_RED)	(      (             (              \n$(_RED)	 )\ )   )\ )     (    )\ )    *   )  \n$(_RED)	(()/(  (()/(   ( )\  (()/(    )  /(  	\n$(_RED)	 )(_))  /(_))  )((_)  /(_))  ( )(_)) \n$(_RED)	(_))   (_))   ((_)_  (_))_| (_(_())  	\n$(_PURPLE)	| |    |_ _|   | _ ) | |_   |_   _|  	\n$(_PURPLE)	| |__   | |    | _ \ | __|    | |    	\n	|____| |___|   |___/ |_|      |_|    "	 
+			@echo -e	"$(_RED)	(      (             (              \n$(_RED)	 )\ )   )\ )     (    )\ )    *   )  \n$(_RED)	(()/(  (()/(   ( )\  (()/(    )  /(  	\n$(_RED)	 )(_))  /(_))  )((_)  /(_))  ( )(_)) \n$(_RED)	(_))   (_))   ((_)_  (_))_| (_(_())  	\n$(_PURPLE)	| |    |_ _|   | _ ) | |_   |_   _|  	\n$(_PURPLE)	| |__   | |    | _ \ | __|    | |    	\n	|____| |___|   |___/ |_|      |_|    \n"
+			@echo -e	"$(_CYAN)\tCREATING AND COMPILING UPDATED OBJECT FILES"
+			@echo -e	"$(_CYAN)\tar rc libft.a *.o\n"
 			@${AR} ${NAME} ${OBJS}
+			@echo -e	"$(_PURPLE)\tDONE"
 
 all:		${NAME}
 		
 clean:
-			@echo "$(_RED)CLEANING FILES"
+			@echo -e	"$(_RED)\tCLEANING FILES"
 			@${RM} ${OBJS}
-			@echo "$(_PURPLE)DONE"
+			@echo -e	"$(_CYAN)\trm -f *.c\n"
+			@echo -e	"$(_PURPLE)\tDONE"
 
 fclean:		clean
+			@echo -e	"$(_CYAN)\trm -f libft.a\n"
 			@${RM} ${NAME}
+			@echo -e	"$(_PURPLE)\tDONE\n"
 
 re:			fclean	all
+
+#so:
+#	$(CC) -nostartfiles -fPIC $(CFLAGS) $(SRCS)
+#	gcc -nostartfiles -shared -o libft.so $(OBJS)
 
 .PHONY:		all clean fclean re

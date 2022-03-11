@@ -6,7 +6,7 @@
 /*   By: leferrei <leferrei@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 15:44:32 by leferrei          #+#    #+#             */
-/*   Updated: 2022/03/04 15:17:53 by leferrei         ###   ########.fr       */
+/*   Updated: 2022/03/10 18:02:01 by leferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ static void	separate_words(char **result, const char *s, char c, int i)
 		if (((s[i] == c) && s[i + 1] != c) || s[i + 1] == '\0')
 		{
 			result[j] = (char *)malloc((i - k + 1) * sizeof(char));
+			printf("%d\n", i);
 			l = 0;
 			while (s[k] != c && s[k] != '\0')
 			{
@@ -37,6 +38,7 @@ static void	separate_words(char **result, const char *s, char c, int i)
 				k++;
 			}
 			result[j][l] = '\0';
+			printf("%s\n", result[j]);
 			k = i + 1;
 			j++;
 		}
@@ -69,4 +71,9 @@ char	**ft_split(char const *s, char c)
 	result[words] = (char *) NULL;
 	separate_words(result, s, c, 0);
 	return (result);
+}
+
+int main(void)
+{
+	ft_split("           a              ", ' ');
 }

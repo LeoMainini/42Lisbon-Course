@@ -6,14 +6,14 @@
 /*   By: leferrei <leferrei@student.42lisboa>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 19:32:55 by leferrei          #+#    #+#             */
-/*   Updated: 2022/03/15 17:16:42 by leferrei         ###   ########.fr       */
+/*   Updated: 2022/03/15 17:14:47 by leferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include <unistd.h>
 
-static void	clean_temp(char *temp)
+static void	clean_temp2(char *temp)
 {
 	int	i;
 
@@ -22,46 +22,36 @@ static void	clean_temp(char *temp)
 		temp[i] = '\0';
 }
 
-int	output_index_generator(long n_l, int neg, char *temp)
+static int	output_index_generator2(unsigned int n_l, char *temp, char *base)
 {
 	int	i;
+	int	basesize;
 
-	clean_temp(temp);
+	basesize = ft_strlen(base);
+	clean_temp2(temp);
 	temp[11] = '\0';
 	i = 10;
 	while (n_l != 0 && i >= 0)
 	{
-		temp[i] = "0123456789"[n_l % 10];
+		temp[i] = base[n_l % basesize];
 		i--;
-		n_l = n_l / 10;
+		n_l = n_l / basesize;
 	}
-	if (neg == 1)
-		temp[i] = '-';
-	else
-		i++;
+	i++;
 	return (i);
 }
 
-void	ft_putnbr_fd(int n, int fd, int *counter)
+void	ft_putbase10_plus(unsigned int n, int fd, char *base, int *counter)
 {
-	long	n_l;
 	int		i;
 	char	temp[12];
-	int		neg;
 
-	n_l = (long)n;
-	neg = 0;
-	if (n_l < 0)
-	{
-		neg = 1;
-		n_l = -n_l;
-	}
-	if (n_l == 0)
+	if (n == 0)
 		ft_putchar_fd('0', fd, counter);
 	else
 	{
 		i = 0;
-		i = output_index_generator(n_l, neg, temp);
+		i = output_index_generator2(n, temp, base);
 		ft_putstr_fd(&temp[i], fd, counter);
 	}
 }

@@ -6,62 +6,55 @@
 /*   By: leferrei <leferrei@student.42lisboa>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 14:18:03 by leferrei          #+#    #+#             */
-/*   Updated: 2022/03/11 14:37:24 by leferrei         ###   ########.fr       */
+/*   Updated: 2022/03/15 19:32:33 by leferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdarg.h>
+#include "ft_printf.h" 
 #include <stdio.h>
-#include "libft/libft.h"
 
-static int	check_type(char c, va_list value)
+static void check_type(char c, va_list value, int	*n)
 {
 	if (c == 'c')
-		ft_putchar_fd((char)va_arg(value, int), 1);
+		ft_putchar_fd((char)va_arg(value, int), 1, n);
 	else if (c == 's')
-		ft_putstr_fd((char *)va_arg(value, int *), 1);
+		ft_putstr_fd((char *)va_arg(value, int *), 1, n);
 	else if (c == 'p')
-		pointer_func(value);
-	else if (c == 'd')
-		ft_putstr_fd("digit", 1);
-	else if (c == 'i')
-		ft_putnbr_fd((int)va_arg(value, int), 1);
+		ft_printmemory(va_arg(value, unsigned long), 1,
+				"0123456789abcdef", n);
+	else if (c == 'd' || c == 'i')
+		ft_putnbr_fd((int)va_arg(value, int), 1, n);
 	else if (c == 'u')
-		ft_putstr_fd("unsigned digit", 1);
+		ft_putbase10_plus(va_arg(value, unsigned int), 1, "0123456789", n);
 	else if (c == 'x')
-		ft_putstr_fd("small hex", 1);
+		ft_putbase10_plus(va_arg(value, unsigned int), 1,
+				"0123456789abcdef", n);
 	else if(c == 'X')
-		ft_putstr_fd("Big HEX", 1);
+		ft_putbase10_plus(va_arg(value, unsigned int), 1,
+				"0123456789ABCDEF", n);
 	else if (c == '%')
-		ft_putstr_fd("percent", 1);
-	return (0);
+		ft_putchar_fd('%', 1, n);
 }
 
 int	ft_printf(const char *s, ...)
 {
 	va_list value;
-	//char	*temp;
+	int		counter;
 	int		i;
 
+	counter = 0;
 	i = -1;
 	va_start(value, s);
 	while (s[++i])
 	{
 		if (s[i] == '%')
 		{
-			check_type(s[i + 1], value);
+			check_type(s[i + 1], value, &counter);
 			i++;
 		}
 		else
-			ft_putchar_fd(s[i], 1);
+			ft_putchar_fd(s[i], 1, &counter);
 	}
-	return (0);
-}
-
-int main(void)
-{
-	int	i;
-
-	i = 48;
-	ft_printf("Ola o meu nome e %c %s %d %i %u %x %X %% ", 'H', "Ola o meu nome e leo", i);
+	va_end(value);
+	return (counter);
 }

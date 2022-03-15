@@ -1,21 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isdigit.c                                       :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: leferrei <leferrei@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/10 12:56:04 by leferrei          #+#    #+#             */
-/*   Updated: 2022/02/17 13:10:06 by leferrei         ###   ########.fr       */
+/*   Created: 2022/02/06 18:58:59 by leferrei          #+#    #+#             */
+/*   Updated: 2022/03/15 17:16:04 by leferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <ctype.h>
 #include <stdio.h>
 
-int	ft_isdigit(int c)
+size_t	ft_strlen(const char *s)
 {
-	if (c >= '0' && c <= '9')
-		return (1);
-	return (0);
+	int	size;
+
+	size = 0;
+	while (s[size] != '\0')
+		size++;
+	return (size);
 }

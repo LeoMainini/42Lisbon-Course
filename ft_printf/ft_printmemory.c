@@ -6,14 +6,14 @@
 /*   By: leferrei <leferrei@student.42lisboa>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 19:32:55 by leferrei          #+#    #+#             */
-/*   Updated: 2022/02/22 21:06:00 by leferrei         ###   ########.fr       */
+/*   Updated: 2022/03/15 17:24:20 by leferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 #include <unistd.h>
 
-static void	clean_temp(char *temp)
+static void	clean_temp3(char *temp)
 {
 	int	i;
 
@@ -22,46 +22,38 @@ static void	clean_temp(char *temp)
 		temp[i] = '\0';
 }
 
-int	output_index_generator(long n_l, int neg, char *temp)
+static int	output_index_generator3(unsigned long n_l, char *temp, char *base)
 {
 	int	i;
+	int	basesize;
 
-	clean_temp(temp);
-	temp[11] = '\0';
-	i = 10;
+	basesize = ft_strlen(base);
+	clean_temp3(temp);
+	temp[17] = '\0';
+	i = 16;
 	while (n_l != 0 && i >= 0)
 	{
-		temp[i] = "0123456789"[n_l % 10];
+		temp[i] = base[n_l % basesize];
 		i--;
-		n_l = n_l / 10;
+		n_l = n_l / basesize;
 	}
-	if (neg == 1)
-		temp[i] = '-';
-	else
-		i++;
+	i++;
 	return (i);
 }
 
-void	ft_putnbr_fd(int n, int fd)
+void	ft_printmemory(unsigned long n, int fd, char *base, int *counter)
 {
-	long	n_l;
 	int		i;
-	char	temp[12];
-	int		neg;
+	char	temp[18];
 
-	n_l = (long)n;
-	neg = 0;
-	if (n_l < 0)
-	{
-		neg = 1;
-		n_l = -n_l;
-	}
-	if (n_l == 0)
-		ft_putchar_fd('0', fd);
+	if (n == 0)
+		ft_putstr_fd("0x0", fd, counter);
 	else
 	{
 		i = 0;
-		i = output_index_generator(n_l, neg, temp);
-		ft_putstr_fd(&temp[i], fd);
+		i = output_index_generator3(n, temp, base);
+		ft_putstr_fd("0x", 1, counter);
+		ft_putstr_fd(&temp[i], fd, counter);
 	}
+
 }

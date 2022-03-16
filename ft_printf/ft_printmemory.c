@@ -6,7 +6,7 @@
 /*   By: leferrei <leferrei@student.42lisboa>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 19:32:55 by leferrei          #+#    #+#             */
-/*   Updated: 2022/03/15 17:24:20 by leferrei         ###   ########.fr       */
+/*   Updated: 2022/03/16 16:24:02 by leferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +55,4 @@ void	ft_printmemory(unsigned long n, int fd, char *base, int *counter)
 		ft_putstr_fd("0x", 1, counter);
 		ft_putstr_fd(&temp[i], fd, counter);
 	}
-
 }

@@ -6,7 +6,7 @@
 /*   By: leferrei <leferrei@student.42lisboa>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 15:43:11 by leferrei          #+#    #+#             */
-/*   Updated: 2022/03/18 16:54:23 by leferrei         ###   ########.fr       */
+/*   Updated: 2022/03/18 17:04:27 by leferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,4 +20,20 @@ int main(void)
 	printf("fd = %d\n", fd);
 	char *c = get_next_line(fd);
 	printf("%s\n", c);
+	c = get_next_line(fd);
+	printf("%s\n", c);
+	c = get_next_line(fd);
+	printf("%s\n", c);
+	c = get_next_line(fd);
+	printf("%s\n", c);
+	c = get_next_line(fd);
+	printf("%s\n", c);
+	c = get_next_line(fd);
+	printf("%s\n", c);
+
+
+
+
+
+
 }

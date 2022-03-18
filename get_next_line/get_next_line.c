@@ -6,7 +6,7 @@
 /*   By: leferrei <leferrei@student.42lisboa>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 15:46:49 by leferrei          #+#    #+#             */
-/*   Updated: 2022/03/18 17:10:23 by leferrei         ###   ########.fr       */
+/*   Updated: 2022/03/18 17:26:37 by leferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,35 +60,28 @@ char	*ft_strcata(char *dest, const char *src)
 
 char *get_next_line(int fd)
 {
-	static 	int progress;
+	int progress;
 	char *buf;
 	char *result;
 	int	i;
-	int	j;
 
-	buf = (char *)ft_calloc(2, sizeof(*buf));
+	progress = 0;
+	buf = (char *)ft_calloc((BUFFER_SIZE + 1), sizeof(*buf));
 	while (1)
 	{
-		j = 0;
-		while (++j <= BUFFER_SIZE)
-		{
-			progress += read(fd, buf, 1);
+		progress += read(fd, buf, BUFFER_SIZE);
+
+		i = 0;
+		while (buf[i] && buf[i] != '\n')
+			i++;
+		result = ft_strcata(result, buf);
+		if (i == BUFFER_SIZE)
 			i = 0;
-			while (buf[i] && buf[i] != '\n')
-				i++;
-			printf("i = %d buf = %s\n", i, buf);
-			result = ft_strcata(result, buf);
-			if (i == 1)
-				i = 0;
-			else
-			{
-				free(buf);
-				printf("size = %d\n", progress);
-				break;
-			}
-			j = 1;
+		else
+		{
+			free(buf);
+			break;
 		}
 	}
-	return result;
-
+	return (result);	
 }

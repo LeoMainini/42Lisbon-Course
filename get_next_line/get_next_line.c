@@ -6,7 +6,7 @@
 /*   By: leferrei <leferrei@student.42lisboa>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 15:46:49 by leferrei          #+#    #+#             */
-/*   Updated: 2022/03/18 17:26:37 by leferrei         ###   ########.fr       */
+/*   Updated: 2022/03/21 17:33:00 by leferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,19 +57,64 @@ char	*ft_strcata(char *dest, const char *src)
 	}
 	return (result);
 }
+char	*ft_strdup(const char *s)
+{
+	int		size;
+	char	*r;
+
+	size = 0;
+	while (s[size] != '\0')
+		size++;
+	r = (char *)malloc(size + 1 * (sizeof(*r)));
+	if (r == NULL)
+		return (NULL);
+	r[size] = '\0';
+	size = -1;
+	while (s[++size] != '\0')
+		r[size] = s[size];
+	return (r);
+}
+
+char	*attatch_start(char *start, char *rest)
+{
+	int		i;
+	char	*first;
+
+	i = 0;
+	while (start[i] && start[i] != '\n')
+		i++;
+	first = ft_strdup(&start[i + 1]);	
+	free(start);
+	return (ft_strcata(first, rest));
+}
+
+char	*ft_strchr(const char *s, int c)
+{
+	int		i;
+	char	**sp;
+
+	sp = (char **)&s;
+	i = -1;
+	while ((*sp)[++i] != '\0')
+		if ((*sp)[i] == (unsigned char)c)
+			return (&(*sp)[i]);
+	if (s[i] == (unsigned char)c)
+		return (&(*sp)[i]);
+	return (NULL);
+}
 
 char *get_next_line(int fd)
 {
-	int progress;
+	int	response;
 	char *buf;
+	static char *start;
 	char *result;
 	int	i;
 
-	progress = 0;
 	buf = (char *)ft_calloc((BUFFER_SIZE + 1), sizeof(*buf));
-	while (1)
+	while (1 && fd >= 0 && BUFFER_SIZE > 0)
 	{
-		progress += read(fd, buf, BUFFER_SIZE);
+		response = read(fd, buf, BUFFER_SIZE);
 
 		i = 0;
 		while (buf[i] && buf[i] != '\n')
@@ -79,9 +124,14 @@ char *get_next_line(int fd)
 			i = 0;
 		else
 		{
-			free(buf);
+			if (ft_strchr(buf, '\n'))
+				start = ft_strdup(buf);
+			else
+				result = attatch_start(start, result);
 			break;
 		}
 	}
-	return (result);	
+	if (response > 0)
+		return (result);
+	return (NULL);
 }

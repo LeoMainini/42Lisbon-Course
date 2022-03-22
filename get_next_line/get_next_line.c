@@ -6,7 +6,7 @@
 /*   By: leferrei <leferrei@student.42lisboa>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 15:46:49 by leferrei          #+#    #+#             */
-/*   Updated: 2022/03/21 17:33:00 by leferrei         ###   ########.fr       */
+/*   Updated: 2022/03/22 18:30:41 by leferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,36 @@ char	*ft_strcata(char *dest, const char *src)
 	}
 	return (result);
 }
+
+char	*ft_strjoin(char const *s1, char const *s2)
+{
+	int		i;
+	int		j;
+	int		k;
+	char	*result;
+
+	if (!s2)
+		return (NULL);
+	i = 0;
+	if (s1)
+		while (s1[i] != '\0')
+			i++;
+	j = 0;
+	while (s2[j] != '\0')
+		j++;
+	result = (char *)malloc((i + j + 1) * sizeof(*result));
+	if (result == NULL)
+		return (NULL);
+	result[i + j] = '\0';
+	k = -1;
+	while (i > 0 && s1[++k] != '\0')
+		result[k] = s1[k];
+	k = -1;
+	while (s2[++k] != '\0')
+		result[i + k] = s2[k];
+	return (result);
+}
+
 char	*ft_strdup(const char *s)
 {
 	int		size;
@@ -85,7 +115,7 @@ char	*attatch_start(char *start, char *rest)
 		i++;
 	first = ft_strdup(&start[i + 1]);	
 	free(start);
-	return (ft_strcata(first, rest));
+	return (ft_strjoin(first, rest));
 }
 
 char	*ft_strchr(const char *s, int c)
@@ -102,36 +132,60 @@ char	*ft_strchr(const char *s, int c)
 		return (&(*sp)[i]);
 	return (NULL);
 }
+char	*ft_substr(char *s, unsigned int start, size_t len)
+{
+	char			*result;
+	unsigned int	size;
+	size_t			i;
+
+	if (!s)
+		return (NULL);
+	size = (unsigned int)ft_strlen(s);
+	if (start >= size)
+		return (ft_strdup(""));
+	i = 0;
+	while (s[start + i] != '\0' && i < len)
+		i++;
+	result = (char *)malloc((i + 1) * sizeof(*result));
+	if (result == NULL)
+		return (NULL);
+	i = -1;
+	while (s[start + ++i] != '\0' && i < len)
+		result[i] = s[start + i];
+	result[i] = '\0';
+	if (start > 0)
+		free(s);
+	return (result);
+}
+
+
 
 char *get_next_line(int fd)
 {
 	int	response;
-	char *buf;
-	static char *start;
+	static char *buf;
+	char *read_data;
 	char *result;
-	int	i;
+	long i;
 
-	buf = (char *)ft_calloc((BUFFER_SIZE + 1), sizeof(*buf));
-	while (1 && fd >= 0 && BUFFER_SIZE > 0)
+	result = NULL;
+	read_data = (char *)ft_calloc((BUFFER_SIZE + 1), sizeof(*buf));
+	while (fd >= 0 && BUFFER_SIZE > 0)
 	{
-		response = read(fd, buf, BUFFER_SIZE);
-
+		response = read(fd, read_data, BUFFER_SIZE);
+		if (response < 0)
+			return (0);
+		buf = ft_strjoin(buf, read_data);
+		if (!buf)
+			return (0);
 		i = 0;
-		while (buf[i] && buf[i] != '\n')
-			i++;
-		result = ft_strcata(result, buf);
-		if (i == BUFFER_SIZE)
-			i = 0;
-		else
+		if ((i = (long)ft_strchr(buf, '\n')))
 		{
-			if (ft_strchr(buf, '\n'))
-				start = ft_strdup(buf);
-			else
-				result = attatch_start(start, result);
-			break;
+			i = i - (long)buf + 1;
+			result = ft_substr(buf, 0, i);
+			buf = ft_substr(buf, i, ft_strlen(buf));
+			return(result);
 		}
 	}
-	if (response > 0)
-		return (result);
-	return (NULL);
+	return (0);
 }

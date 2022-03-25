@@ -11,3 +11,4 @@ ft_printf/trip
 ft_printf/pixel
 ft_printf/maz
 get_next_line/libft/*
+get_next_line/trip

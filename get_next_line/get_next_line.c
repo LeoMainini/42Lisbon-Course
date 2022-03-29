@@ -6,7 +6,7 @@
 /*   By: leferrei <leferrei@student.42lisboa>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 15:46:49 by leferrei          #+#    #+#             */
-/*   Updated: 2022/03/29 17:30:53 by leferrei         ###   ########.fr       */
+/*   Updated: 2022/03/29 19:12:44 by leferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,7 @@ char	*ft_substr(char **s, unsigned int start, size_t len)
 		return (NULL);
 	size = (unsigned int)ft_strlen(*s);
 	if (start >= size)
-	{
-		free(*s);
 		return (NULL);
-	}
 	i = 0;
 	while ((*s)[start + i] != '\0' && i < len)
 		i++;
@@ -58,19 +55,26 @@ char *get_next_line(int fd)
 	{
 		response = read(fd, read_data, BUFFER_SIZE);
 		buf[fd] = ft_strjoin(&buf[fd], &read_data);
-		if (!buf[fd])
-			return (0);
+		//if (!buf[fd])
+		//	return (0);
 		i = 0;
-		if ((i = (long)ft_strchr(buf[fd], '\n')))
+		if ((i = (long)ft_strchr(buf[fd], '\n', ft_strlen(buf[fd]))))
 		{
+			printf("got here\n");
 			i = i - (long)buf[fd] + 1;
 			result = ft_substr(&buf[fd], 0, i);
 			buf[fd] = ft_substr(&buf[fd], i, ft_strlen(buf[fd]));
 			free(read_data);
 			return(result);
 		}
+		else if ((i = (long)ft_strchr(buf[fd], '\0', ft_strlen(buf[fd]))))
+		{
+			printf("got here 3\n");
+			return (buf[fd]);
+		}
 		if (response <= 0)
 		{
+			printf("Got here1\n");
 			free(read_data);
 			return (0);	
 		}

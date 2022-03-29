@@ -6,11 +6,12 @@
 /*   By: leferrei <leferrei@student.42lisboa>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 16:45:29 by leferrei          #+#    #+#             */
-/*   Updated: 2022/03/29 16:34:58 by leferrei         ###   ########.fr       */
+/*   Updated: 2022/03/29 19:13:43 by leferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include <stdio.h>
 
 size_t	ft_strlen(const char *s)
 {
@@ -43,8 +44,8 @@ char	*ft_strjoin(char **s1, char **s2)
 	int		k;
 	char	*result;
 
-//	if (!*s2)
-//		return (NULL);
+	if (!*s2)
+		return (NULL);
 	i = 0;
 	if (*s1)
 		while ((*s1)[i] != '\0')
@@ -84,7 +85,7 @@ char	*ft_strdup(char *s)
 	return (r);
 }
 
-char	*ft_strchr(const char *s, int c)
+char	*ft_strchr(const char *s, int c, int len)
 {
 	int		i;
 	char	**sp;
@@ -94,7 +95,9 @@ char	*ft_strchr(const char *s, int c)
 	while ((*sp)[++i] != '\0')
 		if ((*sp)[i] == (unsigned char)c)
 			return (&(*sp)[i]);
-	if (s[i] == (unsigned char)c)
+//	printf("len = %d\n", len);
+//	printf("i = %d\n", i);
+	if (s[i] == (unsigned char)c && i < len)
 		return (&(*sp)[i]);
 	return (NULL);
 }

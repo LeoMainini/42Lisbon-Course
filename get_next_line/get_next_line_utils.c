@@ -6,7 +6,7 @@
 /*   By: leferrei <leferrei@student.42lisboa>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 16:45:29 by leferrei          #+#    #+#             */
-/*   Updated: 2022/03/23 17:19:48 by leferrei         ###   ########.fr       */
+/*   Updated: 2022/03/29 16:34:58 by leferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,25 +43,25 @@ char	*ft_strjoin(char **s1, char **s2)
 	int		k;
 	char	*result;
 
-	if (!*s2)
-		return (NULL);
+//	if (!*s2)
+//		return (NULL);
 	i = 0;
 	if (*s1)
-		while (*s1[i] != '\0')
+		while ((*s1)[i] != '\0')
 			i++;
 	j = 0;
-	while (*s2[j] != '\0')
+	while ((*s2)[j] != '\0')
 		j++;
 	result = (char *)malloc((i + j + 1) * sizeof(*result));
 	if (result == NULL)
 		return (NULL);
 	result[i + j] = '\0';
 	k = -1;
-	while (i > 0 && *s1[++k] != '\0')
-		result[k] = *s1[k];
+	while (i > 0 && (*s1)[++k] != '\0')
+		result[k] = (*s1)[k];
 	k = -1;
-	while (*s2[++k] != '\0')
-		result[i + k] = *s2[k];
+	while ((*s2)[++k] != '\0')
+		result[i + k] = (*s2)[k];
 	free(*s1);
 	return (result);
 }

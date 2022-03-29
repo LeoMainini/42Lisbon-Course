@@ -6,7 +6,7 @@
 /*   By: leferrei <leferrei@student.42lisboa>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 15:46:49 by leferrei          #+#    #+#             */
-/*   Updated: 2022/03/29 16:45:25 by leferrei         ###   ########.fr       */
+/*   Updated: 2022/03/29 16:56:54 by leferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,29 +47,30 @@ char	*ft_substr(char **s, unsigned int start, size_t len)
 char *get_next_line(int fd)
 {
 	int	response;
-	static char *buf;
+	static char *buf[1024];
 	char *read_data;
 	char *result;
 	long i;
 
 	result = NULL;
 	read_data = (char *)ft_calloc((BUFFER_SIZE + 1), sizeof(*buf));
-	while (fd >= 0 && fd < 4096 && BUFFER_SIZE > 0)
+	while (fd >= 0 && fd < 1024 && BUFFER_SIZE > 0)
 	{
 		response = read(fd, read_data, BUFFER_SIZE);
-		buf = ft_strjoin(&buf, &read_data);
+		buf[fd] = ft_strjoin(&buf[fd], &read_data);
+		if (!buf[fd])
+			return (0);
 		i = 0;
-		if ((i = (long)ft_strchr(buf, '\n')))
+		if ((i = (long)ft_strchr(buf[fd], '\n')))
 		{
-			i = i - (long)buf + 1;
-			result = ft_substr(&buf, 0, i);
-			buf = ft_substr(&buf, i, ft_strlen(buf));
+			i = i - (long)buf[fd] + 1;
+			result = ft_substr(&buf[fd], 0, i);
+			buf[fd] = ft_substr(&buf[fd], i, ft_strlen(buf[fd]));
 			free(read_data);
 			return(result);
 		}
 		if (response <= 0)
 		{
-			free(buf);
 			free(read_data);
 			return (0);	
 		}

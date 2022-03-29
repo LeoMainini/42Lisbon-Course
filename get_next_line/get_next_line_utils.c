@@ -6,7 +6,7 @@
 /*   By: leferrei <leferrei@student.42lisboa>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 16:45:29 by leferrei          #+#    #+#             */
-/*   Updated: 2022/03/29 19:13:43 by leferrei         ###   ########.fr       */
+/*   Updated: 2022/03/29 21:18:30 by leferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,9 +95,7 @@ char	*ft_strchr(const char *s, int c, int len)
 	while ((*sp)[++i] != '\0')
 		if ((*sp)[i] == (unsigned char)c)
 			return (&(*sp)[i]);
-//	printf("len = %d\n", len);
-//	printf("i = %d\n", i);
-	if (s[i] == (unsigned char)c && i < len)
+	if (s[i] == (unsigned char)c && i < len - 1)
 		return (&(*sp)[i]);
 	return (NULL);
 }

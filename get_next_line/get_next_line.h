@@ -6,7 +6,7 @@
 /*   By: leferrei <leferrei@student.42lisboa>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 15:41:59 by leferrei          #+#    #+#             */
-/*   Updated: 2022/03/29 18:03:12 by leferrei         ###   ########.fr       */
+/*   Updated: 2022/03/30 17:36:39 by leferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <unistd.h>
 # include <stdlib.h>
+# include <string.h>
 # include <ctype.h>
 
 char	*get_next_line(int fd);

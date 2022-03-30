@@ -6,7 +6,7 @@
 /*   By: leferrei <leferrei@student.42lisboa>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 15:46:49 by leferrei          #+#    #+#             */
-/*   Updated: 2022/03/30 14:10:35 by leferrei         ###   ########.fr       */
+/*   Updated: 2022/03/30 18:33:23 by leferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,12 @@ char	*ft_substr(char **s, unsigned int start, size_t len)
 	return (result);
 }
 
+void ft_putstr(char *str);
+
 char *get_next_line(int fd)
 {
 	int	response;
-	static char *buf[1024];
+	static char buf[1024][BUFFER_SIZE];
 	char *read_data;
 	char *result;
 	long i;
@@ -50,6 +52,8 @@ char *get_next_line(int fd)
 	result = NULL;
 	while (fd >= 0 && fd < 1024 && BUFFER_SIZE > 0)
 	{
+		//TODO: Change return string from buff to read_data
+
 		read_data = (char *)ft_calloc((BUFFER_SIZE + 1), sizeof(*buf));
 		response = read(fd, read_data, BUFFER_SIZE);
 		buf[fd] = ft_strjoin(&buf[fd], &read_data);
@@ -57,27 +61,27 @@ char *get_next_line(int fd)
 			return (0);
 		i = 0;
 		if ((i = (long)ft_strchr(buf[fd], '\n', ft_strlen(buf[fd]))))
-		{
+		{	
+			ft_putstr("found \\n ");
 			i = i - (long)buf[fd] + 1;
 			result = ft_substr(&buf[fd], 0, i);
-			buf[fd] = ft_substr(&buf[fd], i, ft_strlen(buf[fd]));
-			free(read_data);
+			buf[fd] = ft_substr(&buf[fd], i, (ft_strlen(buf[fd])
+					- ft_strlen(result)) + 1);
 			return(result);
 		}
-		else if ((i = (long)ft_strchr(buf[fd], '\0', ft_strlen(buf[fd])))
-				|| (ft_strlen(read_data) < BUFFER_SIZE
-					&& ft_strlen(read_data) > 0))
+		else if (response > 0 && response < BUFFER_SIZE)
 		{
-			free(read_data);
+			ft_putstr("stoped reading before buffer ");
 			return (ft_substr(&buf[fd], 0, ft_strlen(buf[fd])));
 		}
+
 		else if(response <= 0)
 		{
-			free(read_data);
+			free(buf[fd]);
+			ft_putstr("end of read ");
 			return (0);	
 		}
-		free(read_data);
 	}
-	free(buf[fd]);
 	return (0);
 }
+

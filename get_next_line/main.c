@@ -6,7 +6,7 @@
 /*   By: leferrei <leferrei@student.42lisboa>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 15:43:11 by leferrei          #+#    #+#             */
-/*   Updated: 2022/03/29 21:50:20 by leferrei         ###   ########.fr       */
+/*   Updated: 2022/03/30 14:15:51 by leferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,14 @@ int main(void)
 	c = get_next_line(0);
 	printf("%s", c);
 	free(c);
-
-
+	printf("\n\n");
+	printf("with \\0\n\n");
+	fd =  open("test_slash_0.txt", O_RDONLY);
+	c = get_next_line(fd);
+	printf("%s", c);
+	free(c);
+	c = get_next_line(fd);
+	printf("%s", c);
+	free(c);
 
 }

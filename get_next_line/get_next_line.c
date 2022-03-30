@@ -6,7 +6,7 @@
 /*   By: leferrei <leferrei@student.42lisboa>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 15:46:49 by leferrei          #+#    #+#             */
-/*   Updated: 2022/03/29 21:54:50 by leferrei         ###   ########.fr       */
+/*   Updated: 2022/03/30 14:10:35 by leferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,6 @@ char	*ft_substr(char **s, unsigned int start, size_t len)
 	return (result);
 }
 
-void ft_putstr(char *str);
-
 char *get_next_line(int fd)
 {
 	int	response;
@@ -64,22 +62,18 @@ char *get_next_line(int fd)
 			result = ft_substr(&buf[fd], 0, i);
 			buf[fd] = ft_substr(&buf[fd], i, ft_strlen(buf[fd]));
 			free(read_data);
-			ft_putstr("with \\n ");
 			return(result);
 		}
 		else if ((i = (long)ft_strchr(buf[fd], '\0', ft_strlen(buf[fd])))
 				|| (ft_strlen(read_data) < BUFFER_SIZE
 					&& ft_strlen(read_data) > 0))
 		{
-			ft_putstr("no \\n ");
 			free(read_data);
 			return (ft_substr(&buf[fd], 0, ft_strlen(buf[fd])));
 		}
-		if (response <= 0)
+		else if(response <= 0)
 		{
-			ft_putstr("response <= 0 ");
 			free(read_data);
-			free(buf[fd]);
 			return (0);	
 		}
 		free(read_data);

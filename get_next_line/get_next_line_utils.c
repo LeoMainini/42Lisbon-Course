@@ -6,7 +6,7 @@
 /*   By: leferrei <leferrei@student.42lisboa>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 16:45:29 by leferrei          #+#    #+#             */
-/*   Updated: 2022/03/30 17:55:10 by leferrei         ###   ########.fr       */
+/*   Updated: 2022/03/31 15:47:34 by leferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,21 +37,21 @@ void	*ft_calloc(size_t count, size_t size)
 	return (area);
 }
 
-char	*ft_strjoin(char **s1, char **s2)
+char	*ft_sj(char **s1, char *s2)
 {
 	int		i;
 	int		j;
 	int		k;
 	char	*result;
 
-	//if (!*s2)
-	//	return (NULL);
+//	if (!*s2)
+//		return (NULL);
 	i = 0;
 	if (*s1)
 		while ((*s1)[i] != '\0')
 			i++;
 	j = 0;
-	while ((*s2)[j] != '\0')
+	while ((s2)[j] != '\0')
 		j++;
 	result = (char *)malloc((i + j + 1) * sizeof(*result));
 	if (result == NULL)
@@ -61,10 +61,9 @@ char	*ft_strjoin(char **s1, char **s2)
 	while (i > 0 && (*s1)[++k] != '\0')
 		result[k] = (*s1)[k];
 	k = -1;
-	while ((*s2)[++k] != '\0')
-		result[i + k] = (*s2)[k];
+	while ((s2)[++k] != '\0')
+		result[i + k] = (s2)[k];
 	free(*s1);
-	free(*s2);
 	return (result);
 }
 
@@ -86,7 +85,7 @@ char	*ft_strdup(char *s)
 	return (r);
 }
 
-char	*ft_strchr(const char *s, int c, int len)
+char	*ft_strchr(const char *s, int c, int buf_size)
 {
 	int		i;
 	char	**sp;
@@ -96,7 +95,7 @@ char	*ft_strchr(const char *s, int c, int len)
 	while ((*sp)[++i] != '\0')
 		if ((*sp)[i] == (unsigned char)c)
 			return (&(*sp)[i]);
-	if (s[i] == (unsigned char)c && i < len - 1)
+	if (s[i] == (unsigned char)c && i <= buf_size)
 		return (&(*sp)[i]);
 	return (NULL);
 }

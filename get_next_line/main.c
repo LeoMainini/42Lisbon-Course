@@ -6,7 +6,7 @@
 /*   By: leferrei <leferrei@student.42lisboa>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 15:43:11 by leferrei          #+#    #+#             */
-/*   Updated: 2022/04/05 23:37:59 by leferrei         ###   ########.fr       */
+/*   Updated: 2022/04/06 16:37:43 by leferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,62 @@ void ft_putstr(char *str)
 		while (*str != '\0')
 			write(1, str++, 1);
 }
+
+static void	clean_temp(char *temp)
+{
+	int	i;
+
+	i = -1;
+	while (++i < 31)
+		temp[i] = '\0';
+}
+
+int	output_index_generator(long long n_l, int neg, char *temp)
+{
+	int	i;
+
+	clean_temp(temp);
+	temp[31] = '\0';
+	i = 30;
+	while (n_l != 0 && i >= 0)
+	{
+		temp[i] = "0123456789"[n_l % 10];
+		i--;
+		n_l = n_l / 10;
+	}
+	if (neg == 1)
+		temp[i] = '-';
+	else
+		i++;
+	return (i);
+}
+
+
+
+void	ft_putnbr(long n)
+{
+	long long	n_l;
+	int		i;
+	char	temp[32];
+	int		neg;
+
+	n_l = (long long)n;
+	neg = 0;
+	if (n_l < 0)
+	{
+		neg = 1;
+		n_l = -n_l;
+	}
+	if (n_l == 0)
+		ft_putstr("0");
+	else
+	{
+		i = 0;
+		i = output_index_generator(n_l, neg, temp);
+		ft_putstr(&temp[i]);
+	}
+}
+
 
 int main(void)
 {
@@ -75,5 +131,25 @@ int main(void)
 	c = get_next_line(fd);
 	ft_putstr(c);
 	free(c);
+	ft_putstr("\n\n");
+	ft_putstr("with mixed \\n\n\n");
+	fd =  open("test_mixed_nl.txt", O_RDONLY);
+	c = get_next_line(fd);
+	ft_putstr(c);
+	free(c);
+	c = get_next_line(fd);
+	ft_putstr(c);
+	free(c);
+	c = get_next_line(fd);
+	ft_putstr(c);
+	free(c);
+	c = get_next_line(fd);
+	ft_putstr(c);
+	free(c);
+	c = get_next_line(fd);
+	ft_putstr(c);
+	free(c);
+
+
 
 }

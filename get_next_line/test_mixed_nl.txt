@@ -1,8 +1,3 @@
-Ola isto e 
-um teste
-com
-
-
-novas linhas e texto sem novas linhas
-
-ooooooooooo
+this is a test with mixed new lines
+this line has a new line
+This line has no new line

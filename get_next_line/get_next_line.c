@@ -6,75 +6,16 @@
 /*   By: leferrei <leferrei@student.42lisboa>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 15:46:49 by leferrei          #+#    #+#             */
-/*   Updated: 2022/04/06 16:26:19 by leferrei         ###   ########.fr       */
+/*   Updated: 2022/04/06 17:35:55 by leferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 #include <stdio.h>
-/*
 
+//void ft_putstr(char *str);
+//void	ft_putnbr(long n):
 
-void ft_putstr(char *str);
-
-static void	clean_temp(char *temp)
-{
-	int	i;
-
-	i = -1;
-	while (++i < 31)
-		temp[i] = '\0';
-}
-
-int	output_index_generator(long long n_l, int neg, char *temp)
-{
-	int	i;
-
-	clean_temp(temp);
-	temp[31] = '\0';
-	i = 30;
-	while (n_l != 0 && i >= 0)
-	{
-		temp[i] = "0123456789"[n_l % 10];
-		i--;
-		n_l = n_l / 10;
-	}
-	if (neg == 1)
-		temp[i] = '-';
-	else
-		i++;
-	return (i);
-}
-
-
-
-void	ft_putnbr(long n)
-{
-	long long	n_l;
-	int		i;
-	char	temp[32];
-	int		neg;
-
-	n_l = (long long)n;
-	neg = 0;
-	if (n_l < 0)
-	{
-		neg = 1;
-		n_l = -n_l;
-	}
-	if (n_l == 0)
-		ft_putstr("0");
-	else
-	{
-		i = 0;
-		i = output_index_generator(n_l, neg, temp);
-		ft_putstr(&temp[i]);
-	}
-}
-
-
-
-*/
 void	*ft_memmove(void *dest, const void *src, size_t n)
 {
 	int	i;

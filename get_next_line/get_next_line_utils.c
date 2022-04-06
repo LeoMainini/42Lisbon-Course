@@ -6,7 +6,7 @@
 /*   By: leferrei <leferrei@student.42lisboa>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 16:45:29 by leferrei          #+#    #+#             */
-/*   Updated: 2022/03/31 15:47:34 by leferrei         ###   ########.fr       */
+/*   Updated: 2022/04/06 01:31:38 by leferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,6 @@ char	*ft_sj(char **s1, char *s2)
 	int		k;
 	char	*result;
 
-//	if (!*s2)
-//		return (NULL);
 	i = 0;
 	if (*s1)
 		while ((*s1)[i] != '\0')
@@ -67,22 +65,29 @@ char	*ft_sj(char **s1, char *s2)
 	return (result);
 }
 
-char	*ft_strdup(char *s)
+char	*ft_substr(char **s, unsigned int start, size_t len)
 {
-	int		size;
-	char	*r;
+	char			*result;
+	unsigned int	size;
+	size_t			i;
 
-	size = 0;
-	while (s[size] != '\0')
-		size++;
-	r = (char *)malloc(size + 1 * sizeof(*r));
-	if (r == NULL)
+	if (!*s)
 		return (NULL);
-	r[size] = '\0';
-	size = -1;
-	while (s[++size] != '\0')
-		r[size] = s[size];
-	return (r);
+	size = (unsigned int)ft_strlen(*s);
+	if (start >= size)
+		return (NULL);
+	i = 0;
+	while ((*s)[start + i] != '\0' && i < len)
+		i++;
+	result = (char *)malloc((i + 1) * sizeof(*result));
+	if (result == NULL)
+		return (NULL);
+	i = -1;
+	while ((*s)[start + ++i] != '\0' && i < len)
+		result[i] = (*s)[start + i];
+	result[i] = '\0';
+	free(*s);
+	return (result);
 }
 
 char	*ft_strchr(const char *s, int c, int buf_size)
@@ -95,7 +100,7 @@ char	*ft_strchr(const char *s, int c, int buf_size)
 	while ((*sp)[++i] != '\0')
 		if ((*sp)[i] == (unsigned char)c)
 			return (&(*sp)[i]);
-	if (s[i] == (unsigned char)c && i <= buf_size)
+	if (s[i] == (unsigned char)c && i < buf_size)
 		return (&(*sp)[i]);
 	return (NULL);
 }

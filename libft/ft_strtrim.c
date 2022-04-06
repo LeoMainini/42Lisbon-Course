@@ -6,7 +6,7 @@
 /*   By: leferrei <leferrei@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 12:47:53 by leferrei          #+#    #+#             */
-/*   Updated: 2022/02/23 17:51:28 by leferrei         ###   ########.fr       */
+/*   Updated: 2022/02/26 19:28:47 by leferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char	*ft_strtrim(char const *s1, char const *set)
 	while (char_in_str(s1[i], set))
 		i++;
 	j = ft_strlen(s1) - 1;
-	while (char_in_str(s1[j], set) && j >= 0)
+	while (char_in_str(s1[j], set) && j >= i)
 		j--;
 	return (ft_substr(s1, i, j + 1 - i));
 }

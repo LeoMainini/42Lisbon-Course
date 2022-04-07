@@ -1,3 +1,2 @@
-this is a test with mixed new lines
-this line has a new line
-This line has no new line
+0123456789012345678901234567890123456789
+0

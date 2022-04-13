@@ -6,7 +6,7 @@
 /*   By: leferrei <leferrei@student.42lisboa>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 16:45:29 by leferrei          #+#    #+#             */
-/*   Updated: 2022/04/13 18:29:01 by leferrei         ###   ########.fr       */
+/*   Updated: 2022/04/13 18:45:07 by leferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ size_t	ft_strlen(const char *s)
 		if (s[size] == '\n')
 			return (size + 1);
 		size++;
-		
 	}
 	return (size);
 }
@@ -45,7 +44,7 @@ void	*ft_calloc(size_t count, size_t size)
 char	*ft_sj(char *read_data, char *buf)
 {
 	int		i;
-	int 	j;
+	int		j;
 	char	*result;
 
 	i = 0;
@@ -70,43 +69,22 @@ char	*ft_sj(char *read_data, char *buf)
 	return (result);
 }
 
-char	*ft_substr(char **s, unsigned int start, size_t len)
+int	clean_buf(char *buf)
 {
-	char			*result;
-	unsigned int	size;
-	size_t			i;
+	int	found;
+	int	j;
+	int	i;
 
-	if (!*s)
-		return (NULL);
-	size = (unsigned int)ft_strlen(*s);
-	if (start >= size)
-		return (NULL);
-	i = 0;
-	while ((*s)[start + i] != '\0' && i < len)
-		i++;
-	result = (char *)malloc((i + 1) * sizeof(*result));
-	if (result == NULL)
-		return (NULL);
 	i = -1;
-	while ((*s)[start + ++i] != '\0' && i < len)
-		result[i] = (*s)[start + i];
-	result[i] = '\0';
-	free(*s);
-	return (result);
+	j = -1;
+	found = 0;
+	while (buf[++i])
+	{
+		if (found)
+			buf[++j] = buf[i];
+		if (buf[i] == '\n')
+			found = 1;
+		buf[i] = 0;
+	}
+	return (found);
 }
-
-char	*ft_strchr(const char *s, int c, int buf_size)
-{
-	int		i;
-	char	**sp;
-
-	sp = (char **)&s;
-	i = -1;
-	while ((*sp)[++i] != '\0')
-		if ((*sp)[i] == (unsigned char)c)
-			return (&(*sp)[i]);
-	if (s[i] == (unsigned char)c && i < buf_size)
-		return (&(*sp)[i]);
-	return (NULL);
-}
-

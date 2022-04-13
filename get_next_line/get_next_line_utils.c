@@ -6,7 +6,7 @@
 /*   By: leferrei <leferrei@student.42lisboa>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 16:45:29 by leferrei          #+#    #+#             */
-/*   Updated: 2022/04/06 01:31:38 by leferrei         ###   ########.fr       */
+/*   Updated: 2022/04/13 18:29:01 by leferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,13 @@ size_t	ft_strlen(const char *s)
 	int	size;
 
 	size = 0;
-	while (s[size] != '\0')
+	while (s && s[size] != '\0')
+	{
+		if (s[size] == '\n')
+			return (size + 1);
 		size++;
+		
+	}
 	return (size);
 }
 
@@ -37,31 +42,31 @@ void	*ft_calloc(size_t count, size_t size)
 	return (area);
 }
 
-char	*ft_sj(char **s1, char *s2)
+char	*ft_sj(char *read_data, char *buf)
 {
 	int		i;
-	int		j;
-	int		k;
+	int 	j;
 	char	*result;
 
 	i = 0;
-	if (*s1)
-		while ((*s1)[i] != '\0')
-			i++;
-	j = 0;
-	while ((s2)[j] != '\0')
-		j++;
-	result = (char *)malloc((i + j + 1) * sizeof(*result));
+	result = malloc((ft_strlen(read_data) + ft_strlen(buf) + 1));
 	if (result == NULL)
 		return (NULL);
-	result[i + j] = '\0';
-	k = -1;
-	while (i > 0 && (*s1)[++k] != '\0')
-		result[k] = (*s1)[k];
-	k = -1;
-	while ((s2)[++k] != '\0')
-		result[i + k] = (s2)[k];
-	free(*s1);
+	while (read_data && read_data[i])
+	{
+		result[i] = read_data[i];
+		i++;
+	}
+		j = 0;
+	while (buf[j])
+	{
+		result[i++] = buf[j];
+		if (buf[j++] == '\n')
+			break ;
+	}
+	result[i] = '\0';
+	if (read_data)
+		free(read_data);
 	return (result);
 }
 

@@ -1,0 +1,18 @@
+1. open firewall and enable ssh on port 4242
+	install ufw with apt-get install ufw
+	ufw allow 4242
+	ufw status check
+	start ssh service with systemctl enable ssh
+	get server ip with ip a under inet
+	login using ssh user@ip -p 4242
+2. setup a strong password polic
+	edit "PASS_MAX_DAYS", "PASS_MIN_DAYS" and "PASS_WARN_AGE" in /etc/login.defs
+  to setup expiry age, minimum change age and warn age
+  	for password complexity and relationship rules apt install lib_pamcrack and
+  set rules in /etc/pam.d/common-password following https://linux.die.net/man/8/pam_cracklib
+3. strong sudoers configuration
+	3 attempts set by default
+	set Defaults "secure_path" and "logfile" to paths set in subject in path
+  /etc/sudoers - open with visudo in root/sudo shell or sudo vim /etc/sudoers
+	set Defaults requiretty and edit Defaults badpass_message with a custom
+  failed auth message

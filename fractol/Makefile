@@ -4,7 +4,9 @@ PF_SRCS	=	ft_printf/ft_putbase10_plus.c	ft_printf/ft_putnbr_fd.c	ft_printf/ft_st
 
 PF_OBJS	=	${PF_SRCS:.c=.o}
 
-OBJS	=	fractol.c
+SRCS	=	fractol.c
+
+OBJS	=	${SRCS:.c=.o}
 
 PF_NAME	= ft_printf/libftprintf.a
 
@@ -18,13 +20,11 @@ AR		= ar rc
 
 CFLAGS	= -Wall -Werror -Wextra
 
-.c.o:
-			${CC} ${CFLAGS} -c $< -o ${<:.c=.o}
-%.o: %.c
-			$(CC) ${CFLAGS} -Imlx -c $< -o $@
+.o: .c
+	$(CC) -Wall -Wextra -Werror -Imlx -c $< -o $@
 
-$(NAME):	${OBJS} printf
-			$(CC) $(OBJS) -Lmlx -lmlx -framework OpenGL -framework AppKit -o $(NAME)
+$(NAME):	$(OBJS) printf
+			$(CC) $(CFLAGS) $(OBJS) -Lmlx -lmlx -Lft_printf -I . -lftprintf -framework OpenGL -framework AppKit -o $(NAME)
 
 printf:		${PF_OBJS}
 			${AR} ${PF_NAME} ${PF_OBJS}

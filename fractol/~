@@ -6,12 +6,11 @@
 /*   By: leferrei <leferrei@student.42lisboa>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 15:13:07 by leferrei          #+#    #+#             */
-/*   Updated: 2022/05/17 18:12:42 by leferrei         ###   ########.fr       */
+/*   Updated: 2022/05/17 17:41:02 by leferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mlx/mlx.h"
-#include "ft_printf/ft_printf.h"
 #include <math.h>
 
 typedef struct	s_data {
@@ -30,15 +29,13 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
-unsigned int get_color(unsigned char t, unsigned char r,
-		unsigned char g, unsigned char b)
+int get_color(unsigned char t, unsigned char r, unsigned char g, unsigned char b)
 {
-	unsigned int	color;
+	int	color;
+	((unsigned char *)&color)[0] = t;
+	((unsigned char *)&color)[0] = r;
+	((unsigned char *)&color)[0] = g;
 	((unsigned char *)&color)[0] = b;
-	((unsigned char *)&color)[1] = g;
-	((unsigned char *)&color)[2] = r;
-	((unsigned char *)&color)[3] = t;
-	ft_printf("color = %u", color);
 	return (color);
 }
 
@@ -53,7 +50,7 @@ void	make_circle(t_data *img, int radius, int y, int x)
 	{
 		while (x2++ < radius * 2)
 			if (pow(y2 - 100, 2) + pow(x2 - 100, 2) < pow(100, 2))
-				my_mlx_pixel_put(img, x2 + x , y2 + y, get_color(0, 0, 255, 0));
+				my_mlx_pixel_put(img, x2 + x , y2 + y, get_color(0, 255, 0, 0));
 		x2 = 0;
 	}
 

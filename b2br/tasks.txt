@@ -1,3 +1,6 @@
+root: RPassword123
+leferrei: LeoMainini123
+
 1. open firewall and enable ssh on port 4242
 	install ufw with apt-get install ufw
 	ufw allow 4242
@@ -16,3 +19,9 @@
   /etc/sudoers - open with visudo in root/sudo shell or sudo vim /etc/sudoers
 	set Defaults requiretty and edit Defaults badpass_message with a custom
   failed auth message
+4. monitoring script
+	get net-tools for conection data
+	crontab -e under root
+	*/1 - every minute all minutes * * * * - all days weeks months days of week
+  /home/scripts/monitoring.sh
+

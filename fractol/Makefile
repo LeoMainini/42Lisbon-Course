@@ -10,7 +10,7 @@ OBJS	=	${SRCS:.c=.o}
 
 PF_NAME	= ft_printf/libftprintf.a
 
-NAME = fratol
+NAME = fractol
 
 CC		= cc
 
@@ -20,13 +20,13 @@ AR		= ar rc
 
 CFLAGS	= -Wall -Werror -Wextra
 
-.o: .c
+%.o: %.c
 	$(CC) -Wall -Wextra -Werror -Imlx -c $< -o $@
 
-$(NAME):	$(OBJS) printf
+$(NAME):	$(OBJS) PF_NAME
 			$(CC) $(CFLAGS) $(OBJS) -Lmlx -lmlx -Lft_printf -I . -lftprintf -framework OpenGL -framework AppKit -o $(NAME)
 
-printf:		${PF_OBJS}
+PF_NAME:	${PF_OBJS}
 			${AR} ${PF_NAME} ${PF_OBJS}
 
 all:		${NAME}

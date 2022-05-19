@@ -5,6 +5,7 @@ leferrei: LeoMainini123
 	install ufw with apt-get install ufw
 	ufw allow 4242
 	ufw status check
+	ufe disable all other ports
 	start ssh service with systemctl enable ssh
 	get server ip with ip a under inet
 	login using ssh user@ip -p 4242
@@ -21,7 +22,7 @@ leferrei: LeoMainini123
   failed auth message
 4. monitoring script
 	get net-tools for conection data
-	crontab -e under root
+	crontab -e under root session
 	*/1 - every minute all minutes * * * * - all days weeks months days of week
   /home/scripts/monitoring.sh
 

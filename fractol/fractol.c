@@ -10,51 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mlx/mlx.h"
-#include "ft_printf/ft_printf.h"
-#include <unistd.h>
-#include <math.h>
-
-typedef struct	s_data {
-	void	*img;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-}	t_data;
-
-typedef	struct 	s_circle {
-	int		x;
-	int 	y;
-	int 	radius;
-	int 	color;
-}	t_circle;
-
-typedef	struct	s_vars {
-	void 		*mlx;
-	void 		*win;
-	t_data		img;
-	t_circle	ball;
-}	t_vars;
-
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
-{
-	char *dst;
-
-	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
-	*(unsigned int *)dst = color;
-}
-
-int get_color(unsigned char t, unsigned char r,
-					   unsigned char g, unsigned char b)
-{
-	int	color;
-	((unsigned char *)&color)[0] = b;
-	((unsigned char *)&color)[1] = g;
-	((unsigned char *)&color)[2] = r;
-	((unsigned char *)&color)[3] = t;
-	return (color);
-}
+#include "fractol.h"
 
 void	make_circle(t_data *img, t_circle *ball)
 {
@@ -87,29 +43,7 @@ void	make_circle(t_data *img, t_circle *ball)
 //	return (0);
 //}
 
-void ft_b_zero(void *ptr, int size)
-{
-	int i;
 
-	i = 0;
-	while (i++ < size)
-		((char *)ptr)[i] = 0;
-}
-
-int render_frame(t_vars *vars)
-{
-	//ft_printf("got here");
-	ft_b_zero(vars->img.addr, 1080 * vars->img.line_length + 1080 * (vars->img.bits_per_pixel / 8));
-	make_circle(&vars->img, &vars->ball);
-	mlx_put_image_to_window(vars->mlx, vars->win, vars->img.img, 0, 0);
-	return (0);
-}
-
-int close_view(t_vars *vars)
-{
-	mlx_destroy_window(vars->mlx, vars->win);
-	_exit(0);
-}
 
 int move_ball(int keycode, t_vars *vars)
 {
@@ -120,27 +54,62 @@ int move_ball(int keycode, t_vars *vars)
 		vars->ball.y += 20;
 	else if (keycode == 123 && vars->ball.x > 0 && (ft_printf("moved L\n")))
 		vars->ball.x -= 20;
-	else if (keycode == 124 && vars -> ball.x < 1080 - 2 * vars->ball.radius
+	else if (keycode == 124 && vars->ball.x < 1080 - 2 * vars->ball.radius
 			 && (ft_printf("moved R\n")))
 		vars->ball.x += 20;
 	else if (keycode == 53)
 		close_view(vars);
-	else if (keycode == 69)
+	else if (keycode == 69 && vars->ball.radius < 200)
 		vars->ball.radius += 20;
 	else if (keycode == 78 && vars->ball.radius > 20)
 		vars->ball.radius -= 20;
 	return (0);
 }
 
-int mouse_zoom(int mouse_code, t_vars *vars)
+int set_coords(int x, int y, t_vars *vars)
 {
-	if (mouse_code == 4)
+	//ft_printf("x = %d, y = %d\n, ball_x = %d, ball_y = %d",
+		//   x, y, vars->ball.x, vars->ball.y);
+	x = x - vars->ball.radius;
+	y = y - vars->ball.radius;
+	if (vars->m_down && x > 0 && x < 1080 - 2 * vars->ball.radius
+		&& y > 0 && y < 1080 -2 * vars->ball.radius)
+	{
+
+		vars->ball.x = x;
+		vars->ball.y = y;
+	}
+	return 0;
+}
+
+int mouse_zoom(int mouse_code, int x, int y, t_vars *vars)
+{
+	//ft_printf("x = %d, y = %d\n", x, y);
+
+	if (mouse_code == 4 && vars->ball.radius < 200
+		&& vars->ball.x + ((vars->ball.radius + 20) * 2) <= 1080
+		&& vars->ball.y + ((vars->ball.radius + 20) * 2) <= 1080)
 		vars->ball.radius += 20;
 	else if (mouse_code == 5 && vars->ball.radius > 20)
 		vars->ball.radius -= 20;
+	else if (mouse_code == 1 && ft_printf("mouse down\n"))
+	{
+		vars->m_down = 1;
+		set_coords(x, y, vars);
+	}
 	return (0);
-
 }
+
+int m_up(int a, int b, int c, t_vars *vars)
+{
+	//ft_printf("a = %d, b = %d, c = %d, d = %d, m_down = %d\n", a, b, c, vars->m_down);
+	while (a || b || c)
+		break ;
+	ft_printf("mouse up\n");
+	vars->m_down = 0;
+	return 0;
+}
+
 int	main(void) {
 	t_vars	vars;
 
@@ -154,9 +123,12 @@ int	main(void) {
 	vars.img.img = mlx_new_image(vars.mlx, 1080, 1080);
 	vars.img.addr = mlx_get_data_addr(vars.img.img, &vars.img.bits_per_pixel,
 									   &vars.img.line_length, &vars.img.endian);
-	mlx_key_hook(vars.win, &move_ball, &vars);
-	mlx_mouse_hook(vars.win, &mouse_zoom, &vars);
+	vars.m_down = 0;
+	mlx_hook(vars.win, 2, 0, &move_ball, &vars);
+	mlx_hook(vars.win, 6, 0, &set_coords, &vars);
+	mlx_hook(vars.win, 5, 0, &m_up, &vars);
 	mlx_hook(vars.win, 17, 0, close_view, &vars);
+	mlx_mouse_hook(vars.win, &mouse_zoom, &vars);
 	mlx_loop_hook(vars.mlx, &render_frame, &vars);
 
 	mlx_loop(vars.mlx);

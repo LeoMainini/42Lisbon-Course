@@ -18,7 +18,7 @@ RM		= rm -f
 
 AR		= ar rc
 
-CFLAGS	= -Wall -Werror -Wextra
+CFLAGS	= -Wall -Werror -Wextra -fsanitize=address -g
 
 %.o: %.c
 	$(CC) -Wall -Wextra -Werror -Imlx -c $< -o $@

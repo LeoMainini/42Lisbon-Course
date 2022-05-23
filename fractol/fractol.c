@@ -12,6 +12,7 @@
 
 #include "mlx/mlx.h"
 #include "ft_printf/ft_printf.h"
+#include <unistd.h>
 #include <math.h>
 
 typedef struct	s_data {
@@ -33,7 +34,6 @@ typedef	struct	s_vars {
 	void 		*mlx;
 	void 		*win;
 	t_data		img;
-	t_data		bimg;
 	t_circle	ball;
 }	t_vars;
 
@@ -66,56 +66,84 @@ void	make_circle(t_data *img, t_circle *ball)
 	while (y2++ < ball->radius * 2)
 	{
 		while (x2++ < ball->radius * 2)
-			if (pow(y2 - ball->radius, 2) + pow(x2 - 100, 2) < pow(100, 2))
+			if (pow(y2 - ball->radius, 2) + pow(x2 - ball->radius, 2) < pow(ball->radius, 2))
 				my_mlx_pixel_put(img, x2 + ball->x , y2 + ball->y, ball->color);
 		x2 = 0;
 	}
 }
 
-int get_codes(int keycode, t_vars *vars)
+//int get_codes(int keycode, t_vars *vars)
+//{
+//	static int index = 0;
+//	char *legend[8] = {"up", "down", "left", "right", "enter", "escape", "+", "-"};
+//	if (index < 8)
+//	{
+//		ft_printf("Key: %s	|	", legend[index++]);
+//		ft_printf("Keycode: %d\n", keycode);
+//		return (0);
+//	}
+//	if (keycode == 530)
+//		mlx_destroy_window(vars->mlx, vars->win);
+//	return (0);
+//}
+
+void ft_b_zero(void *ptr, int size)
 {
-	static int index = 0;
-	char *legend[8] = {"up", "down", "left", "right", "enter", "escape", "+", "-"};
-	if (index < 8)
-	{
-		ft_printf("Key: %s	|	", legend[index++]);
-		ft_printf("Keycode: %d\n", keycode);
-		return (0);
-	}
-	if (keycode == 530)
-		mlx_destroy_window(vars->mlx, vars->win);
-	return (0);
+	int i;
+
+	i = 0;
+	while (i++ < size)
+		((char *)ptr)[i] = 0;
 }
 
 int render_frame(t_vars *vars)
 {
-	ft_printf("got here");
-	mlx_clear_window(vars->mlx, vars->win);
-	mlx_put_image_to_window(vars->mlx, vars->win, vars->bimg.img, 0, 0);
+	//ft_printf("got here");
+	ft_b_zero(vars->img.addr, 1080 * vars->img.line_length + 1080 * (vars->img.bits_per_pixel / 8));
 	make_circle(&vars->img, &vars->ball);
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->img.img, 0, 0);
 	return (0);
 }
 
+int close_view(t_vars *vars)
+{
+	mlx_destroy_window(vars->mlx, vars->win);
+	_exit(0);
+}
+
 int move_ball(int keycode, t_vars *vars)
 {
 	if (keycode == 126 && vars->ball.y > 0 && (ft_printf("moved U\n")))
-		vars->ball.y -= 25;
+		vars->ball.y -= 20;
 	else if (keycode == 125 && vars -> ball.y < 1080 - 2 * vars->ball.radius
-		&& (ft_printf("moved D\n")))
-		vars->ball.y += 25;
+			 && (ft_printf("moved D\n")))
+		vars->ball.y += 20;
 	else if (keycode == 123 && vars->ball.x > 0 && (ft_printf("moved L\n")))
-		vars->ball.x -= 25;
+		vars->ball.x -= 20;
 	else if (keycode == 124 && vars -> ball.x < 1080 - 2 * vars->ball.radius
-	&& (ft_printf("moved R\n")))
-		vars->ball.x += 25;
+			 && (ft_printf("moved R\n")))
+		vars->ball.x += 20;
+	else if (keycode == 53)
+		close_view(vars);
+	else if (keycode == 69)
+		vars->ball.radius += 20;
+	else if (keycode == 78 && vars->ball.radius > 20)
+		vars->ball.radius -= 20;
 	return (0);
 }
 
+int mouse_zoom(int mouse_code, t_vars *vars)
+{
+	if (mouse_code == 4)
+		vars->ball.radius += 20;
+	else if (mouse_code == 5 && vars->ball.radius > 20)
+		vars->ball.radius -= 20;
+	return (0);
+
+}
 int	main(void) {
 	t_vars	vars;
-	int y;
-	int x;
+
 
 	vars.mlx = mlx_init();
 	vars.win = mlx_new_window(vars.mlx, 1080, 1080, "fract-ol");
@@ -127,18 +155,8 @@ int	main(void) {
 	vars.img.addr = mlx_get_data_addr(vars.img.img, &vars.img.bits_per_pixel,
 									   &vars.img.line_length, &vars.img.endian);
 	mlx_key_hook(vars.win, &move_ball, &vars);
-	vars.bimg.img = mlx_new_image(vars.mlx, 1080, 1080);
-	vars.bimg.addr = mlx_get_data_addr(vars.bimg.img, &vars.bimg.bits_per_pixel,
-			&vars.bimg.line_length, &vars.bimg.endian);
-	y = 0;
-	while (y++ < 1080)
-	{
-		x = 0;
-		while (x++ < 1080)
-			my_mlx_pixel_put(vars.bimg.img, x, y, 0x00FFFFFF);
-	}
-
-
+	mlx_mouse_hook(vars.win, &mouse_zoom, &vars);
+	mlx_hook(vars.win, 17, 0, close_view, &vars);
 	mlx_loop_hook(vars.mlx, &render_frame, &vars);
 
 	mlx_loop(vars.mlx);

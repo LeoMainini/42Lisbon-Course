@@ -4,41 +4,44 @@ PF_SRCS	=	ft_printf/ft_putbase10_plus.c	ft_printf/ft_putnbr_fd.c	ft_printf/ft_st
 
 PF_OBJS	=	${PF_SRCS:.c=.o}
 
-SRCS	=	fractol.c	view_utils.c
+SRCS	=	fractol.c	view_utils.c	fractol_gens.c	interaction_hooks.c
 
 OBJS	=	${SRCS:.c=.o}
 
-PF_NAME	= ft_printf/libftprintf.a
+PF_NAME	=	libftprintf
 
-NAME = fractol
+NAME	=	fractol
 
-CC		= cc
+CC		=	cc
 
-RM		= rm -f
+RM		=	rm -f
 
-AR		= ar rc
+AR		=	ar rc
 
-CFLAGS	= -Wall -Werror -Wextra -fsanitize=address -g -lm
+CFLAGS	=	-Wall -Werror -Wextra -fsanitize=address -g -lm
 
-INC		= -Lmlx -lmlx -Lft_printf -I . -lftprintf 
+INC		=	-Lmlx -lmlx -Lft_printf -I . -lftprintf
 
 %.o: %.c
-	$(CC) -Wall -Wextra -Werror -Imlx -c $< -o $@
+	@echo "\033[32mCompiling $< in fancy colors"
+	@$(CC) -Wall -Wextra -Werror -Imlx -c $< -o $@
 
-$(NAME):	$(OBJS) PF_NAME
+$(NAME):	$(OBJS) $(PF_NAME)
 			$(AR) $(NAME).a $(OBJS)
 			$(CC) $(CFLAGS) $(OBJS) $(INC) -framework OpenGL -framework AppKit -o $(NAME)
 
 PF_NAME:	${PF_OBJS}
-			${AR} ${PF_NAME} ${PF_OBJS}
+			${AR} ft_libft/$(PF_NAME).a $(PF_OBJS)
 
 all:		${NAME}
 
-clean:			
-			${RM} ${OBJS} ${PF_OBJS}
+clean:	
+			
+			@echo "\033[31mCleaning files in fancy colors"
+			@${RM} ${OBJS} ${PF_OBJS}
 
 fclean:		clean
-			${RM} ${NAME}
+			@${RM} ${NAME} ${PF_NAME}
 
 re:			fclean	all
 

@@ -12,6 +12,9 @@
 
 #include "fractol.h"
 
+//#TODO: add juilia value interation with keys
+//#TODO: add menu for fractol selection
+
 int	main(void)
 {
 	t_vars	vars;

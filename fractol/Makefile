@@ -8,7 +8,7 @@ SRCS	=	fractol.c	view_utils.c	fractol_gens.c	interaction_hooks.c
 
 OBJS	=	${SRCS:.c=.o}
 
-PF_NAME	=	libftprintf
+PF_NAME	=	ft_printf/libftprintf.a
 
 NAME	=	fractol
 
@@ -30,8 +30,8 @@ $(NAME):	$(OBJS) $(PF_NAME)
 			$(AR) $(NAME).a $(OBJS)
 			$(CC) $(CFLAGS) $(OBJS) $(INC) -framework OpenGL -framework AppKit -o $(NAME)
 
-PF_NAME:	${PF_OBJS}
-			${AR} ft_libft/$(PF_NAME).a $(PF_OBJS)
+$(PF_NAME):	${PF_OBJS}
+			${AR} $(PF_NAME) $(PF_OBJS)
 
 all:		${NAME}
 

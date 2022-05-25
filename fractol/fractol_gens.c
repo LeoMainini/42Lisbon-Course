@@ -47,6 +47,41 @@ int	mandelbrot(int x, int y, t_atts *atts)
 	return (iterate_mandel(atts, &ax, &ay));
 }
 
+int	iterate_juilia(t_atts *atts, double *ax, double *ay)
+{
+	int		i;
+	double	sx;
+	double	sy;
+	double	temp;
+
+	sy = (((double)atts->y / 1080) * atts->scale) + atts->offset_y;
+	sx = (((double)atts->x / 1080) * atts->scale) + atts->offset_x;
+	i = -1;
+	while (++i < atts->itterations)
+	{
+		temp = sx * sx - sy * sy ;
+		sy = 2.0 * sx * sy + *ay;
+		sx = temp + *ax;
+		if (sx * sx + sy * sy > 4)
+			return (i);
+	}
+	if (i >= atts->itterations)
+		return (0);
+	return (i);
+}
+
+int	juilia(int x, int y, t_atts *atts)
+{
+	double	ax;
+	double	ay;
+
+	atts->x = x;
+	atts->y = y;
+	ax = 0.28;
+	ay = 0.5;
+	return (iterate_juilia(atts, &ax, &ay));
+}
+
 int	lerp(int c1, int c2, double t)
 {
 	int	result;

@@ -18,7 +18,7 @@
 # include <unistd.h>
 # include <math.h>
 
-typedef struct	s_data {
+typedef struct s_data {
 	void	*img;
 	char	*addr;
 	int		bits_per_pixel;
@@ -26,24 +26,24 @@ typedef struct	s_data {
 	int		endian;
 }	t_data;
 
-typedef	struct 	s_attributes {
+typedef struct s_attributes {
 	double		scale;
-	double 		offset_x;
-	double 		offset_y;
+	double		offset_x;
+	double		offset_y;
 	int			itterations;
 	int			x;
 	int			y;
 }	t_atts;
 
-typedef	struct	s_vars {
-	void 		*mlx;
-	void 		*win;
+typedef struct s_vars {
+	void		*mlx;
+	void		*win;
 	t_data		img;
 	t_atts		atts;
-	int 		m_down;
+	int			m_down;
 }	t_vars;
 
-void ft_b_zero(void *ptr, int size);
+void	ft_b_zero(void *ptr, int size);
 int		render_frame(t_vars *vars);
 int		close_view(t_vars *vars);
 int		get_color(unsigned char t, unsigned char r,
@@ -52,10 +52,11 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 void	make_circle(t_data *img, t_atts *ball);
 int		move_ball(int keycode, t_vars *vars);
 int		mouse_zoom(int mouse_code, int x, int y, t_vars *vars);
-int 	iterate_mandel(t_atts *atts, double *ax, double *ay);
-int 	lerp(int c1, int color2, double t);
-int 	mandelbrot(int x, int y, t_atts *atts);
+int		iterate_mandel(t_atts *atts, double *ax, double *ay);
+int		lerp(int c1, int color2, double t);
+int		mandelbrot(int x, int y, t_atts *atts);
 int		kb_interaction(int keycode, t_vars *vars);
-int 	(int mouse_code, int x, int y, t_vars *vars);
+int		mouse_zoom(int mouse_code, int x, int y, t_vars *vars);
+int		juilia(int x, int y, t_atts *atts);
 
 #endif

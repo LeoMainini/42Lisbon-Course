@@ -22,7 +22,7 @@ int	main(void)
 	vars.img.img = mlx_new_image(vars.mlx, 1080, 1080);
 	vars.img.addr = mlx_get_data_addr(vars.img.img, &vars.img.bits_per_pixel,
 			&vars.img.line_length, &vars.img.endian);
-	vars.atts.itterations = 50;
+	vars.atts.itterations = 100;
 	vars.atts.offset_x = -2.5;
 	vars.atts.offset_y = -2;
 	vars.atts.scale = 4;

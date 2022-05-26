@@ -19,8 +19,8 @@ int	iterate_mandel(t_atts *atts, double *ax, double *ay)
 	double	sy;
 	double	temp;
 
-	sy = (((double)atts->y / 1080) * atts->scale) + atts->offset_y;
-	sx = (((double)atts->x / 1080) * atts->scale) + atts->offset_x;
+	sy = (((double)atts->y / SIZE) * atts->scale) + atts->offset_y;
+	sx = (((double)atts->x / SIZE) * atts->scale) + atts->offset_x;
 	i = -1;
 	while (++i < atts->itterations)
 	{
@@ -37,14 +37,11 @@ int	iterate_mandel(t_atts *atts, double *ax, double *ay)
 
 int	mandelbrot(int x, int y, t_atts *atts)
 {
-	double	ax;
-	double	ay;
-
 	atts->x = x;
 	atts->y = y;
-	ax = 0.0;
-	ay = 0.0;
-	return (iterate_mandel(atts, &ax, &ay));
+	atts->ax = 0.0;
+	atts->ay = 0.0;
+	return (iterate_mandel(atts, &atts->ax, &atts->ay));
 }
 
 int	iterate_juilia(t_atts *atts, double *ax, double *ay)
@@ -54,8 +51,8 @@ int	iterate_juilia(t_atts *atts, double *ax, double *ay)
 	double	sy;
 	double	temp;
 
-	sy = (((double)atts->y / 1080) * atts->scale) + atts->offset_y;
-	sx = (((double)atts->x / 1080) * atts->scale) + atts->offset_x;
+	sy = (((double)atts->y / SIZE) * atts->scale) + atts->offset_y;
+	sx = (((double)atts->x / SIZE) * atts->scale) + atts->offset_x;
 	i = -1;
 	while (++i < atts->itterations)
 	{
@@ -72,14 +69,9 @@ int	iterate_juilia(t_atts *atts, double *ax, double *ay)
 
 int	juilia(int x, int y, t_atts *atts)
 {
-	double	ax;
-	double	ay;
-
 	atts->x = x;
 	atts->y = y;
-	ax = 0.28;
-	ay = 0.5;
-	return (iterate_juilia(atts, &ax, &ay));
+	return (iterate_juilia(atts, &atts->ax, &atts->ay));
 }
 
 int	lerp(int c1, int c2, double t)

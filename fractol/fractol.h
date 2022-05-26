@@ -16,6 +16,7 @@
 # include "mlx/mlx.h"
 # include "ft_printf/ft_printf.h"
 # include <unistd.h>
+# include <stdlib.h>
 # include <math.h>
 
 typedef struct s_data {
@@ -33,6 +34,8 @@ typedef struct s_attributes {
 	int			itterations;
 	int			x;
 	int			y;
+	double		ax;
+	double		ay;
 }	t_atts;
 
 typedef struct s_vars {
@@ -41,7 +44,12 @@ typedef struct s_vars {
 	t_data		img;
 	t_atts		atts;
 	int			m_down;
+	char		fractol_set;
 }	t_vars;
+
+# ifndef SIZE
+#  define SIZE 1080
+# endif
 
 void	ft_b_zero(void *ptr, int size);
 int		render_frame(t_vars *vars);

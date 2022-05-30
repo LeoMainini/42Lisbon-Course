@@ -10,19 +10,28 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUSH_SWAPPER_H
-# define PUSH_SWAPPER_H
+#ifndef PUSH_SWAP_H
+# define PUSH_SWAP_H
 
-# include "stdio.h"
+# include <stdio.h>
+# include <stdlib.h>
+# include <stddef.h>
 
 typedef struct s_a{
 	int		number;
 	int		index;
-	st_a	*prev;
-	st_a	*next;
-}	st_a;
+	void	*prev;
+	void	*next;
+}	a;
 
-int		ft_strlen(char *s);
+typedef struct s_b{
+	int		number;
+	int		index;
+	void	*prev;
+	void	*next;
+}	b;git
+
+int		ft_strlen(const char *s);
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
 char	**ft_split(char const *s, char c);
 int		ft_atoi(const char *nptr);

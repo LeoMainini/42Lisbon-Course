@@ -10,7 +10,7 @@ OBJS	=	${SRCS:.c=.o}
 
 PF_NAME	=	ft_printf/libftprintf.a
 
-NAME	=	fractol
+NAME	=	push_swap
 
 CC		=	cc
 

@@ -12,13 +12,15 @@
 
 #include <stdio.h>
 
-#TODO:Use split to parse multiple input parameters, atoi to check range
-#TODO:Organize indexes of numbers by ascending
-#TODO:Throw split output into a
-#TODO:Make stack organizing functions
-#TODO:Organize
+//#TODO:Use split to parse multiple input parameters, atoi to check range
+//#TODO://Organize indexes of numbers by ascending
+//#TODO://Throw split output into a
+//#TODO://Make stack organizing functions
+//#TODO://Organize
 
 int main(int argc, char **argv)
 {
-
+	while (argc || argv[0][0])
+		break ;
+	return (0);
 }

@@ -45,19 +45,14 @@ int	render_frame(t_vars *vars)
 {
 	int	x;
 	int	y;
-	int	(*f)(int, int, t_atts *);
 
 	y = 0;
-	if (vars->fractol_set == 1)
-		f = &mandelbrot;
-	else
-		f = &juilia;
 	while (y++ <= 1080)
 	{
 		x = 0;
 		while (x++ <= 1080)
 			my_mlx_pixel_put(&vars->img, x - 1, y - 1, lerp(0x00140f00,
-					0x00FFE222, (double)f(x - 1, y - 1,
+					0x00FFE222, (double)vars->fractol_eq(x - 1, y - 1,
 						&vars->atts) / vars->atts.itterations));
 	}
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->img.img, 0, 0);

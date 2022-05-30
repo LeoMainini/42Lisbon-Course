@@ -44,7 +44,7 @@ typedef struct s_vars {
 	t_data		img;
 	t_atts		atts;
 	int			m_down;
-	char		fractol_set;
+	int			(*fractol_eq)(int, int, t_atts *);
 }	t_vars;
 
 # ifndef SIZE

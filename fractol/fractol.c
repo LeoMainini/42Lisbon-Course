@@ -41,10 +41,10 @@ void	prompt(int count, char **options, t_vars *vars)
 			"\t1. Mandelbrot\n\t2. Juilia\n\t3. Help\n");
 	else if (count < 3 && options[1][0] == '1' && options[1][1] == '\0'
 		&& ft_printf("Mandelbrot set chosen.\n"))
-		vars->fractol_set = 1;
+		vars->fractol_eq = &mandelbrot;
 	else if (count < 3 && options[1][0] == '2' && options[1][1] == '\0'
 		&& ft_printf("Juilia set chosen.\n"))
-		vars->fractol_set = 2;
+		vars->fractol_eq = &juilia;
 	else if (count < 3 && options[1][0] == '3' && options[1][1] == '\0'
 		&& ft_printf("Help menu:\n"))
 		ft_printf(" -> Available options:\n\t-> 1. Mandelbrot set\n\t->"
@@ -57,23 +57,23 @@ int	main(int argc, char **argv)
 {
 	t_vars	vars;
 
-	vars.fractol_set = 0;
+	vars.fractol_eq = 0;
 	vars.atts.itterations = 40;
 	vars.atts.scale = 4;
 	prompt(argc, argv, &vars);
-	if (vars.fractol_set == 2)
+	if (vars.fractol_eq == &juilia)
 	{
 		vars.atts.offset_x = -2.0;
 		vars.atts.offset_y = -2.0;
 		vars.atts.ax = -0.53;
 		vars.atts.ay = -0.53;
 	}
-	else if (vars.fractol_set == 1)
+	else if (vars.fractol_eq == &mandelbrot)
 	{
 		vars.atts.offset_x = -2.5;
 		vars.atts.offset_y = -2.0;
 	}
-	if (vars.fractol_set)
+	if (vars.fractol_eq)
 		fractol(vars);
 	return (0);
 }

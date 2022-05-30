@@ -16,13 +16,13 @@ void	juilia_control(int keycode, t_vars *vars, int *itts)
 {
 	if (keycode == 69 && vars->atts.ax < 1 && vars->atts.ay < 1)
 	{
-		vars->atts.ay += 0.01;
-		vars->atts.ax += 0.01;
+		vars->atts.ay += 0.005;
+		vars->atts.ax += 0.005;
 	}
 	if (keycode == 78 && vars->atts.ax > -1 && vars->atts.ay > -1)
 	{
-		vars->atts.ay -= 0.01;
-		vars->atts.ax -= 0.01;
+		vars->atts.ay -= 0.005;
+		vars->atts.ax -= 0.005;
 	}
 	else if (keycode == 116 && ft_printf("Iterations = %d\n", (*itts) + 1))
 		*itts += 1;
@@ -42,9 +42,10 @@ int	kb_interaction(int keycode, t_vars *vars)
 		vars->atts.offset_x += (double)50 * vars->atts.scale / SIZE;
 	else if (keycode == 53)
 		close_view(vars);
-	else if (keycode == 78 && vars->atts.scale < 6 && vars->fractol_set == 1)
+	else if (keycode == 78 && vars->atts.scale < 6
+		&& vars->fractol_eq == &mandelbrot)
 		vars->atts.scale *= 1.2;
-	else if (keycode == 69 && vars->fractol_set == 1)
+	else if (keycode == 69 && vars->fractol_eq == &mandelbrot)
 		vars->atts.scale *= 0.8;
 	else
 		juilia_control(keycode, vars, &vars->atts.itterations);

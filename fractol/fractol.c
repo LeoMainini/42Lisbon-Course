@@ -12,9 +12,6 @@
 
 #include "fractol.h"
 
-//#TODO: add juilia value interation with keys
-//#TODO: add menu for fractol selection
-
 int	fractol(t_vars vars)
 {
 	ft_printf(("---\tCHEAT-SHEET\t---\n -> Use mouse-wheel and +- to zoom"

@@ -48,7 +48,7 @@ typedef struct s_vars {
 }	t_vars;
 
 # ifndef SIZE
-#  define SIZE 1080
+#  define SIZE 800
 # endif
 
 void	ft_b_zero(void *ptr, int size);

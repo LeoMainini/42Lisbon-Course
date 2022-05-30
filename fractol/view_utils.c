@@ -47,10 +47,10 @@ int	render_frame(t_vars *vars)
 	int	y;
 
 	y = 0;
-	while (y++ <= 1080)
+	while (y++ <= SIZE)
 	{
 		x = 0;
-		while (x++ <= 1080)
+		while (x++ <= SIZE)
 			my_mlx_pixel_put(&vars->img, x - 1, y - 1, lerp(0x00140f00,
 					0x00FFE222, (double)vars->fractol_eq(x - 1, y - 1,
 						&vars->atts) / vars->atts.itterations));

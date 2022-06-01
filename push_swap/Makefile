@@ -4,7 +4,7 @@ PF_SRCS	=	ft_printf/ft_putbase10_plus.c	ft_printf/ft_putnbr_fd.c	ft_printf/ft_st
 
 PF_OBJS	=	${PF_SRCS:.c=.o}
 
-SRCS	=	ps.c	ft_split.c
+SRCS	=	ps.c	ft_split.c	list_funtions/ft_lstnew.c	list_funtions/ft_lstsize.c
 
 OBJS	=	${SRCS:.c=.o}
 
@@ -27,7 +27,6 @@ INC		=	 -Lft_printf -I . -lftprintf
 	@$(CC) -Wall -Wextra -Werror -Imlx -c $< -o $@
 
 $(NAME):	$(OBJS) $(PF_NAME)
-			$(AR) $(NAME).a $(OBJS)
 			$(CC) $(CFLAGS) $(OBJS) $(INC) -o $(NAME)
 
 $(PF_NAME):	${PF_OBJS}

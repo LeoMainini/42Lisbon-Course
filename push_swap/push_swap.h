@@ -16,24 +16,30 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <stddef.h>
+# include "ft_printf/ft_printf.h"
 
-typedef struct s_a{
+typedef struct stack_node{
 	int		number;
 	int		index;
-	void	*prev;
-	void	*next;
-}	a;
+	struct stack_node	*prev;
+	struct stack_node	*next;
+}	node;
 
-typedef struct s_b{
-	int		number;
-	int		index;
-	void	*prev;
-	void	*next;
-}	b;git
+typedef struct stack{
+	node	*start;
+	node	*end;
+	int		size;
+}	stack;
 
-int		ft_strlen(const char *s);
+typedef struct stacks{
+	stack 	*a;
+	stack 	*b;
+}	ps;
+
+int		ft_lstsize(node *start);
+void	ft_lstnew(int num, node **head);
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
 char	**ft_split(char const *s, char c);
-int		ft_atoi(const char *nptr);
+long	ft_atol(char *nptr);
 
 #endif

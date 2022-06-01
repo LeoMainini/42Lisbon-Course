@@ -27,7 +27,6 @@ INC		=	-Lmlx -lmlx -Lft_printf -I . -lftprintf
 	@$(CC) -Wall -Wextra -Werror -Imlx -c $< -o $@
 
 $(NAME):	$(OBJS) $(PF_NAME)
-			$(AR) $(NAME).a $(OBJS)
 			$(CC) $(CFLAGS) $(OBJS) $(INC) -framework OpenGL -framework AppKit -o $(NAME)
 
 $(PF_NAME):	${PF_OBJS}

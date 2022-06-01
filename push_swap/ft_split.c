@@ -12,16 +12,6 @@
 
 #include "push_swap.h"
 
-int ft_strlen(const char *s)
-{
-	int i;
-
-	i = 0;
-	while (s[i])
-		i++;
-	return (i);
-}
-
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 {
 	size_t	i;
@@ -88,7 +78,7 @@ char	**ft_split(char const *s, char c)
 	return (dst);
 }
 
-int	ft_atoi(const char *nptr)
+long	ft_atol(char *nptr)
 {
 	int		i;
 	int		neg;

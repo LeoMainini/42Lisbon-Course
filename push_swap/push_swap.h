@@ -36,6 +36,10 @@ typedef struct stacks{
 	stack 	*b;
 }	ps;
 
+int		is_digit(char c);
+long	check_input(char *nums);
+int		check_duplicates_and_index(node *stack);
+void	ft_lstiterf(node **stack, void(*f)());
 int		ft_lstsize(node *start);
 void	ft_lstnew(int num, node **head);
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);

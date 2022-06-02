@@ -4,7 +4,8 @@ PF_SRCS	=	ft_printf/ft_putbase10_plus.c	ft_printf/ft_putnbr_fd.c	ft_printf/ft_st
 
 PF_OBJS	=	${PF_SRCS:.c=.o}
 
-SRCS	=	ps.c	ft_split.c	list_funtions/ft_lstnew.c	list_funtions/ft_lstsize.c
+SRCS	=	ps.c	ft_split.c	input_checks.c	list_funtions/ft_lstnew.c	\
+			list_funtions/ft_lstsize.c	list_funtions/ft_lstiterf.c
 
 OBJS	=	${SRCS:.c=.o}
 

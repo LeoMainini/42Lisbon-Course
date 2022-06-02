@@ -1,35 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstsize.c                                       :+:      :+:    :+:   */
+/*   ft_lstiterf.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: leferrei <leferrei@student.42lisboa>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/24 18:20:11 by leferrei          #+#    #+#             */
-/*   Updated: 2022/02/24 18:25:42 by leferrei         ###   ########.fr       */
+/*   Created: 2022/06/02 15:30:42 by leferrei          #+#    #+#             */
+/*   Updated: 2022/06/02 15:30:47 by leferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../push_swap.h"
-int	ft_lstsize(node *start)
-{
-	int	size;
-	node *temp;
 
-	temp = 0;
-	if (start)
-		temp = start->next;
-	size = 0;
-	while ( temp && temp != start)
+void ft_lstiterf(node **stack, void(*f)())
+{
+	node	*temp;
+	node	*ktemp;
+
+	temp = (*stack)->next;
+	while (temp != *stack)
 	{
-		size++;
-		ft_printf("num = %d\t\t|	index = %d\n", temp->prev->number, temp->prev->index);
-		temp = temp->next;
+		ktemp = temp->next;
+		f(temp);
+		temp = ktemp;
+		ktemp = 0;
 	}
 	if (temp)
-	{
-		size++;
-		ft_printf("num = %d\t\t|	index = %d\n", temp->prev->number, temp->prev->index);
-	}
-	return (size);
+		f(temp);
 }

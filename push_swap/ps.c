@@ -13,84 +13,64 @@
 #include <stdio.h>
 #include <unistd.h>
 #include "push_swap.h"
-
-//#TODO:Use split to parse multiple input parameters, atol to check range
-//#TODO:Organize indexes of numbers by ascending
-//#TODO:Throw split output into a
+#include <time.h> //REMOVE
+//#TODO:Use split to parse multiple input parameters, atol to check range✅
+	//#TODO: Bubble sort through list to check for duplicates and index✅
+//#TODO:Throw split output into a✅
 //#TODO:Make stack organizing functions
 //#TODO:Organize
 
-int	is_digit(char c)
+int	error_out_free(node **stack)
 {
-	if (c >= '0' && c <= '9')
-		return (1);
+	ft_printf("ERROR\n");
+	if (*stack)
+		ft_lstiterf(stack, &free);
 	return (0);
 }
 
-long check_input(char *nums)
-{
-	long num;
-	int i;
-
-	i = 0;
-	if (nums[i] == '-' || nums[i] == '+')
-		i++;
-	while (is_digit(nums[i]))
-		i++;
-	if (nums[i] != '\0' || i > 11)
-		return (-4000000000);
-	num = ft_atol(nums);
-	if (num > 2147483647 || num < -2147483648 )
-		return (-4000000000);
-	return (num);
-}
-
-//void init_stacks(ps *stacks)
-//{
-//	stacks->a = (stack *)malloc(sizeof(stack));
-//	stacks->a->start = 0;
-//	stacks->a->end = 0;
-//	stacks->a->size = 0;
-//	stacks->b = (stack *)malloc(sizeof(stack));
-//	stacks->b->start = 0;
-//	stacks->b->end = 0;
-//	stacks->b->size = 0;
-//}
-
-int main(int argc, char **argv)
+int	get_and_check_stack(int argc, char **argv, node **a)
 {
 	int		i;
 	int		k;
 	long	num;
 	char	**output;
-	node	*a;
-//	ps		stacks;
 
-//	init_stacks(&stacks);
-//	if (!stacks.a || !stacks.b)
-//		if (stacks.a)
-//			free(stacks.a);
-	a = 0;
-	if (argc < 2)
-		return (0);
 	i = 0;
 	while (++i < argc)
 	{
+		ft_printf("argv = %s\n", argv[i]);
 		output = ft_split(argv[i], ' ');
 		k = -1;
 		while (output[++k])
 		{
-			if ((num = check_input(output[k])) != -4000000000)
-			{
-				ft_lstnew(num, &a);
-			}
+			num = check_input(output[k]);
+			if (num != -4000000000)
+				ft_lstnew(num, a);
 			else
-			{
-				ft_printf("ERROR\n");
-				return (0);
-			}
+				return (error_out_free(a));
 		}
-		ft_printf("size = %d\n", ft_lstsize(a));
+		free(output);
 	}
-	return (0);
+	if (!check_duplicates_and_index(*a))
+		return (error_out_free(a));
+	return (1);
+}
+
+int	main(int argc, char **argv)
+{
+	node	*a;
+	double time_spent = 0.0;
+	clock_t begin = clock();
+
+	a = 0;
+	if (argc < 2)
+		return (0);
+	if (get_and_check_stack(argc, argv, &a))
+		ft_printf("size = %d\n", ft_lstsize(a));
+
+
+	clock_t end = clock();
+	time_spent += (double)(end - begin) / CLOCKS_PER_SEC;
+	printf("The elapsed time is %f seconds", time_spent);
+
 }

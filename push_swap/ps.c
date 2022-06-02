@@ -59,6 +59,9 @@ int	get_and_check_stack(int argc, char **argv, node **a)
 int	main(int argc, char **argv)
 {
 	node	*a;
+	node	*b;
+
+	b = 0;
 	double time_spent = 0.0;
 	clock_t begin = clock();
 
@@ -67,8 +70,19 @@ int	main(int argc, char **argv)
 		return (0);
 	if (get_and_check_stack(argc, argv, &a))
 		ft_printf("size = %d\n", ft_lstsize(a));
-
-
+	ft_rev_rotate(&a, 'a');
+	ft_printf("size = %d\n", ft_lstsize(a));
+	ft_rotate(&a, 'a');
+	ft_printf("size = %d\n", ft_lstsize(a));
+	ft_swap_one(&a, 'a');
+	ft_printf("size = %d\n", ft_lstsize(a));
+	ft_swap_one(&a, 'a');
+	ft_printf("size = %d\n", ft_lstsize(a));
+	ft_push_b(&a, &b);
+	ft_printf("size = %d\n", ft_lstsize(a));
+	ft_printf("size = %d\n", ft_lstsize(b));
+	ft_lstiterf(&a, &free);
+	ft_lstiterf(&b, &free);
 	clock_t end = clock();
 	time_spent += (double)(end - begin) / CLOCKS_PER_SEC;
 	printf("The elapsed time is %f seconds", time_spent);

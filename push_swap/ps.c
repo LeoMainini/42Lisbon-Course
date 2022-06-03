@@ -17,7 +17,8 @@
 //#TODO:Use split to parse multiple input parameters, atol to check range✅
 	//#TODO: Bubble sort through list to check for duplicates and index✅
 //#TODO:Throw split output into a✅
-//#TODO:Make stack organizing functions
+//#TODO:Make stack organizing functions✅
+//#TODO:Fix leak in split
 //#TODO:Organize
 
 int	error_out_free(node **stack)
@@ -62,8 +63,8 @@ int	main(int argc, char **argv)
 	node	*b;
 
 	b = 0;
-	double time_spent = 0.0;
-	clock_t begin = clock();
+	double time_spent = 0.0;//REMOVE
+	clock_t begin = clock();//REMOVE
 
 	a = 0;
 	if (argc < 2)
@@ -81,10 +82,19 @@ int	main(int argc, char **argv)
 	ft_push_b(&a, &b);
 	ft_printf("size = %d\n", ft_lstsize(a));
 	ft_printf("size = %d\n", ft_lstsize(b));
-	ft_lstiterf(&a, &free);
-	ft_lstiterf(&b, &free);
-	clock_t end = clock();
-	time_spent += (double)(end - begin) / CLOCKS_PER_SEC;
+    ft_push_b(&a, &b);
+    ft_printf("size = %d\n", ft_lstsize(a));
+    ft_printf("size = %d\n", ft_lstsize(b));
+    ft_push_b(&a, &b);
+    ft_printf("size = %d\n", ft_lstsize(a));
+    ft_printf("size = %d\n", ft_lstsize(b));
+    ft_push_b(&a, &b);
+    ft_printf("size = %d\n", ft_lstsize(a));
+    ft_printf("size = %d\n", ft_lstsize(b));
+    ft_lstiterf(&a, &free);
+    ft_lstiterf(&b, &free);
+	clock_t end = clock(); //REMOVE
+	time_spent += (double)(end - begin) / CLOCKS_PER_SEC;//REMOVE
 	printf("The elapsed time is %f seconds", time_spent);
 
 }

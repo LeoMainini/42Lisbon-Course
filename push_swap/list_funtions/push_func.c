@@ -19,6 +19,9 @@ void    ft_push_a(node **a, node **b)
     if (!*b)
         return ;
     temp = *b;
+    (*b)->next->prev = (*b)->prev;
+    (*b)->prev->next = (*b)->next;
+    *b = (*b) ->next;
     if (!*a)
     {
         *a = temp;
@@ -32,9 +35,6 @@ void    ft_push_a(node **a, node **b)
         (*a)->prev = temp;
         temp->next = (*a);
     }
-    (*b)->next->prev = (*b)->prev;
-    (*b)->prev->next = (*b)->next;
-    *b = (*b) ->next;
     ft_printf("pa\n");
 }
 
@@ -45,6 +45,9 @@ void    ft_push_b(node **a, node **b)
     if (!*a)
         return ;
     temp = *a;
+    (*a)->next->prev = (*a)->prev;
+    (*a)->prev->next = (*a)->next;
+    *a = (*a)->next;
     if (!*b)
     {
         *b = temp;
@@ -58,8 +61,5 @@ void    ft_push_b(node **a, node **b)
         (*b)->prev = temp;
         temp->next = (*b);
     }
-    (*a)->next->prev = (*a)->prev;
-    (*a)->prev->next = (*a)->next;
-    *a = (*a)->next;
     ft_printf("pb\n");
 }

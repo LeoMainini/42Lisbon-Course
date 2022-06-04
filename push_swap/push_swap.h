@@ -36,10 +36,12 @@ typedef struct stacks{
 	stack 	*b;
 }	ps;
 
+int		insert_sort(node **stack_a, node **stack_b, int max_i);
+int		ft_lstalign(node **stack_a, int i, char c);
 void	print_node(node *stack);
-void	push_all(node **a, node **b);
-int    insert_sort(node **stack_a, node **stack_b);
-int		is_sorted(node **stack);
+void	push_all_a(node **a, node **b);
+int		push_all_b(node **a, node **b);
+int		is_sorted(node **stack, int reverse);
 int		sort_indexes(node *stack);
 int		is_digit(char c);
 long	check_input(char *nums);

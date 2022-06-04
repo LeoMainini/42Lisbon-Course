@@ -75,7 +75,9 @@ int sort_indexes(node *stack)
 {
 	node	*temp;
 	node	*ktemp;
+	int		max_index;
 
+	max_index = 0;
 	temp = stack->next;
 	while (temp && temp != stack)
 	{
@@ -86,19 +88,28 @@ int sort_indexes(node *stack)
 				|| (ktemp->number < temp->number && ktemp->index > temp->index))
 				ft_swap(&(temp->index), &(ktemp->index));
 			if (ktemp->number == temp->number)
-				return (0);
+				return (-1);
 			ktemp = ktemp->next;
 		}
+		if (temp->index > max_index)
+			max_index = temp->index;
 		temp = temp->next;
 	}
-	return (1);
+	return (max_index);
 }
 
 int	check_duplicates_and_index(node *stack)
 {
+	int max_index;
+	int temp;
+
 	if (!stack)
 		return (0);
-	if (!sort_indexes(stack) || !sort_indexes(stack->prev))
-		return (0);
-	return (1);
+	temp = sort_indexes(stack);
+	max_index = sort_indexes(stack->prev);
+	if (temp == -1 || max_index == -1)
+		return (-1);
+	if (temp > max_index)
+		max_index = temp;
+	return (max_index);
 }

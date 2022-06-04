@@ -25,20 +25,22 @@
 		//#TODO: smallest rotate steps using counter in loop that looks for index, keep going until a is sorted
 		//#TODO: or reverse sorted, then push all of b to A
 
-int	error_out_free(node **stack)
-{
-	ft_printf("ERROR\n");
-	if (*stack)
-		ft_lstiterf(stack, &free);
-	return (0);
-}
-
 void    check_free_output(char ***output, int k)
 {
     while (**output && k>=0)
         free((*output)[k--]);
     if (*output)
     free(*output);
+}
+
+int	error_out_free(node **stack, char ***output, int k)
+{
+	ft_printf("ERROR\n");
+	if (*stack)
+		ft_lstiterf(stack, &free);
+	if (output)
+		check_free_output(output, k);
+	return (-1);
 }
 
 int	get_and_check_stack(int argc, char **argv, node **a)
@@ -51,7 +53,7 @@ int	get_and_check_stack(int argc, char **argv, node **a)
 	i = 0;
 	while (++i < argc)
 	{
-		ft_printf("argv = %s\n", argv[i]);
+		//ft_printf("argv = %s\n", argv[i]);
 		output = ft_split(argv[i], ' ');
 		k = -1;
 		while (output[++k])
@@ -60,13 +62,14 @@ int	get_and_check_stack(int argc, char **argv, node **a)
 			if (num != -4000000000)
 				ft_lstnew(num, a);
 			else
-				return (error_out_free(a));
+				return (error_out_free(a, &output, k));
 		}
         check_free_output(&output, k);
 	}
-	if (!check_duplicates_and_index(*a))
-		return (error_out_free(a));
-	return (1);
+	i = check_duplicates_and_index(*a);
+	if (i == -1)
+		return (error_out_free(a, NULL, 0));
+	return (i);
 }
 
 int	main(int argc, char **argv)
@@ -74,6 +77,7 @@ int	main(int argc, char **argv)
 	node	*a;
 	node	*b;
 	int		done_sorting;
+	int max_i;
 
 	b = 0;
 	double time_spent = 0.0;//REMOVE
@@ -82,8 +86,10 @@ int	main(int argc, char **argv)
 	a = 0;
 	if (argc < 2)
 		return (0);
-	if (get_and_check_stack(argc, argv, &a))
-		ft_printf("size = %d\n", ft_lstsize(a));
+	max_i = get_and_check_stack(argc, argv, &a);
+	if (max_i == -1)
+		return (0);
+	//ft_printf("size = %d\n", ft_lstsize(a));
 	/*ft_rev_rotate(&a, 'a');
 	ft_printf("size = %d\n", ft_lstsize(a));
 	ft_rotate(&a, 'a');
@@ -116,19 +122,19 @@ int	main(int argc, char **argv)
     ft_lstiterf(&a, &free);
     //ft_lstiterf(&b, &free);*/
 	done_sorting = 0;
-	if (!is_sorted(&a))
+	if (!is_sorted(&a, 0))
 	{
 		while (!done_sorting)
-			done_sorting = insert_sort(&a, &b);
-		ft_printf("DONE\n");
-		push_all(&a, &b);
+			done_sorting = insert_sort(&a, &b, max_i);
+	//	ft_printf("DONE\n");
+		push_all_a(&a, &b);
 	}
-	ft_printf("STACK A\n");
-	ft_lstiterf(&a, &print_node);
+	//ft_printf("STACK A\n");
+	//ft_lstiterf(&a, &print_node);
 	ft_lstiterf(&a, &free);
 	ft_lstiterf(&b, &free);
 	clock_t end = clock(); //REMOVE
 	time_spent += (double)(end - begin) / CLOCKS_PER_SEC;//REMOVE
-	printf("The elapsed time is %f seconds", time_spent);
+	//printf("The elapsed time is %f seconds", time_spent);
 
 }

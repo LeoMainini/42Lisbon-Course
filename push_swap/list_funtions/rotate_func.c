@@ -12,6 +12,26 @@
 
 #include "../push_swap.h"
 
+int	ft_lstalign(node **stack_a, int i, char c)
+{
+	int	size;
+
+	size = ft_lstsize(*stack_a);
+	if (i > size / 2)
+		while (i != size)
+		{
+			ft_rev_rotate(stack_a, c);
+			i++;
+		}
+	else
+		while (i > 0)
+		{
+			ft_rotate(stack_a, c);
+			i--;
+		}
+	return (1);
+}
+
 void    ft_rotate(node **stack, char c)
 {
     (*stack) = (*stack)->next;

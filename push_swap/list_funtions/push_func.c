@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../push_swap.h"
+
 void check_link(node **stack)
 {
 	if (*stack == (*stack)->next)
@@ -18,6 +19,7 @@ void check_link(node **stack)
 	else
 		*stack = (*stack)->next;
 }
+
 void    ft_push_a(node **a, node **b)
 {
 	node *temp;
@@ -42,7 +44,7 @@ void    ft_push_a(node **a, node **b)
 		(*a)->prev = temp;
 		*a = temp;
 	}
-	ft_printf("pb\n");
+	ft_printf("pa\n");
 }
 
 void    ft_push_b(node **a, node **b)
@@ -72,8 +74,15 @@ void    ft_push_b(node **a, node **b)
     ft_printf("pb\n");
 }
 
-void	push_all(node **a, node **b)
+void	push_all_a(node **a, node **b)
 {
 	while (*b)
 		ft_push_a(a, b);
+}
+
+int	push_all_b(node **a, node **b)
+{
+	while (*a)
+		ft_push_b(a, b);
+	return (1);
 }

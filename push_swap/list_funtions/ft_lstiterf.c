@@ -13,7 +13,7 @@
 #include "../push_swap.h"
 void	print_node(node *stack)
 {
-	ft_printf("NUMBER = %d\n", stack->number);
+	ft_printf("NUMBER = %d, 	INDEX = %d\n", stack->number, stack->index);
 }
 
 void ft_lstiterf(node **stack, void(*f)())

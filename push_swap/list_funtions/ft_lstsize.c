@@ -23,13 +23,13 @@ int	ft_lstsize(node *start)
 	while ( temp && temp != start)
 	{
 		size++;
-		ft_printf("num = %d\t\t|	index = %d\n", temp->prev->number, temp->prev->index);
+		//ft_printf("num = %d\t\t|	index = %d\n", temp->prev->number, temp->prev->index);
 		temp = temp->next;
 	}
 	if (temp)
 	{
 		size++;
-		ft_printf("num = %d\t\t|	index = %d\n", temp->prev->number, temp->prev->index);
+		//ft_printf("num = %d\t\t|	index = %d\n", temp->prev->number, temp->prev->index);
 	}
 	return (size);
 }

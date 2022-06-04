@@ -120,8 +120,13 @@ int	main(int argc, char **argv)
 	{
 		while (!done_sorting)
 			done_sorting = insert_sort(&a, &b);
-		push_all(&b, &a);
+		ft_printf("DONE\n");
+		push_all(&a, &b);
 	}
+	ft_printf("STACK A\n");
+	ft_lstiterf(&a, &print_node);
+	ft_lstiterf(&a, &free);
+	ft_lstiterf(&b, &free);
 	clock_t end = clock(); //REMOVE
 	time_spent += (double)(end - begin) / CLOCKS_PER_SEC;//REMOVE
 	printf("The elapsed time is %f seconds", time_spent);

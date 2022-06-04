@@ -36,7 +36,8 @@ typedef struct stacks{
 	stack 	*b;
 }	ps;
 
-void	push_all(node **from, node **to);
+void	print_node(node *stack);
+void	push_all(node **a, node **b);
 int    insert_sort(node **stack_a, node **stack_b);
 int		is_sorted(node **stack);
 int		sort_indexes(node *stack);

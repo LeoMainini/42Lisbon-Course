@@ -98,8 +98,6 @@ int    insert_sort(node **stack_a, node **stack_b)
 	else
 	{
 		size = get_size_sort_index(stack_a);
-		size = get_size_sort_index(stack_a);
-
 		if (i > size / 2)
 			while ((*stack_a)->index != 0)
 				ft_rev_rotate(stack_a, 'a');

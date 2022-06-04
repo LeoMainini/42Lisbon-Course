@@ -72,8 +72,8 @@ void    ft_push_b(node **a, node **b)
     ft_printf("pb\n");
 }
 
-void	push_all(node **from, node **to)
+void	push_all(node **a, node **b)
 {
-	while (*from)
-		ft_push_a(from, to);
+	while (*b)
+		ft_push_a(a, b);
 }

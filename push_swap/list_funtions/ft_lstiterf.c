@@ -11,6 +11,10 @@
 /* ************************************************************************** */
 
 #include "../push_swap.h"
+void	print_node(node *stack)
+{
+	ft_printf("NUMBER = %d\n", stack->number);
+}
 
 void ft_lstiterf(node **stack, void(*f)())
 {
@@ -19,6 +23,8 @@ void ft_lstiterf(node **stack, void(*f)())
 
 	if (!*stack)
 		return ;
+	if (*stack)
+		f(*stack);
 	temp = (*stack)->next;
 	while (temp != *stack)
 	{
@@ -27,6 +33,4 @@ void ft_lstiterf(node **stack, void(*f)())
 		temp = ktemp;
 		ktemp = 0;
 	}
-	if (temp)
-		f(temp);
 }

@@ -14,12 +14,16 @@
 #include <unistd.h>
 #include "push_swap.h"
 #include <time.h> //REMOVE
+
 //#TODO:Use split to parse multiple input parameters, atol to check range✅
 	//#TODO: Bubble sort through list to check for duplicates and index✅
 //#TODO:Throw split output into a✅
 //#TODO:Make stack organizing functions✅
 //#TODO:Fix leak in split
 //#TODO:Organize
+    //#TODO: push to b smallest index (index == 0) in stack a, after calculating
+		//#TODO: smallest rotate steps using counter in loop that looks for index, keep going until a is sorted
+		//#TODO: or reverse sorted, then push all of b to A
 
 int	error_out_free(node **stack)
 {
@@ -27,6 +31,14 @@ int	error_out_free(node **stack)
 	if (*stack)
 		ft_lstiterf(stack, &free);
 	return (0);
+}
+
+void    check_free_output(char ***output, int k)
+{
+    while (**output && k>=0)
+        free((*output)[k--]);
+    if (*output)
+    free(*output);
 }
 
 int	get_and_check_stack(int argc, char **argv, node **a)
@@ -50,7 +62,7 @@ int	get_and_check_stack(int argc, char **argv, node **a)
 			else
 				return (error_out_free(a));
 		}
-		free(output);
+        check_free_output(&output, k);
 	}
 	if (!check_duplicates_and_index(*a))
 		return (error_out_free(a));
@@ -61,6 +73,7 @@ int	main(int argc, char **argv)
 {
 	node	*a;
 	node	*b;
+	int		done_sorting;
 
 	b = 0;
 	double time_spent = 0.0;//REMOVE
@@ -71,7 +84,7 @@ int	main(int argc, char **argv)
 		return (0);
 	if (get_and_check_stack(argc, argv, &a))
 		ft_printf("size = %d\n", ft_lstsize(a));
-	ft_rev_rotate(&a, 'a');
+	/*ft_rev_rotate(&a, 'a');
 	ft_printf("size = %d\n", ft_lstsize(a));
 	ft_rotate(&a, 'a');
 	ft_printf("size = %d\n", ft_lstsize(a));
@@ -91,8 +104,24 @@ int	main(int argc, char **argv)
     ft_push_b(&a, &b);
     ft_printf("size = %d\n", ft_lstsize(a));
     ft_printf("size = %d\n", ft_lstsize(b));
+	ft_push_b(&a, &b);
+	ft_printf("size = %d\n", ft_lstsize(a));
+	ft_printf("size = %d\n", ft_lstsize(b));
+	ft_push_b(&a, &b);
+	ft_printf("size = %d\n", ft_lstsize(a));
+	ft_printf("size = %d\n", ft_lstsize(b));
+	ft_push_b(&a, &b);
+	ft_printf("size = %d\n", ft_lstsize(a));
+	ft_printf("size = %d\n", ft_lstsize(b));
     ft_lstiterf(&a, &free);
-    ft_lstiterf(&b, &free);
+    //ft_lstiterf(&b, &free);*/
+	done_sorting = 0;
+	if (!is_sorted(&a))
+	{
+		while (!done_sorting)
+			done_sorting = insert_sort(&a, &b);
+		push_all(&b, &a);
+	}
 	clock_t end = clock(); //REMOVE
 	time_spent += (double)(end - begin) / CLOCKS_PER_SEC;//REMOVE
 	printf("The elapsed time is %f seconds", time_spent);

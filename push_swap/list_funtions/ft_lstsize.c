@@ -16,9 +16,9 @@ int	ft_lstsize(node *start)
 	int	size;
 	node *temp;
 
-	temp = 0;
-	if (start)
-		temp = start->next;
+	if (!start)
+		return (0);
+	temp = start->next;
 	size = 0;
 	while ( temp && temp != start)
 	{

@@ -17,6 +17,8 @@ void ft_lstiterf(node **stack, void(*f)())
 	node	*temp;
 	node	*ktemp;
 
+	if (!*stack)
+		return ;
 	temp = (*stack)->next;
 	while (temp != *stack)
 	{

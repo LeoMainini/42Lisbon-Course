@@ -7,7 +7,7 @@ PF_OBJS	=	${PF_SRCS:.c=.o}
 SRCS	=	ps.c	ft_split.c	input_checks.c	list_funtions/ft_lstnew.c	\
 			list_funtions/ft_lstsize.c	list_funtions/ft_lstiterf.c			\
 			list_funtions/swap_func.c	list_funtions/rotate_func.c			\
-			list_funtions/push_func.c	sorting_func.c		\
+			list_funtions/push_func.c	sorting_func2.c		sorting_func.c
 
 OBJS	=	${SRCS:.c=.o}
 

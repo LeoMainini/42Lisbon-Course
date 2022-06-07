@@ -25,6 +25,11 @@ typedef struct stack_node{
 	struct stack_node	*next;
 }	node;
 
+typedef struct sort_moves{
+	int	a_moves;
+	int b_moves;
+}	moves;
+
 typedef struct stack{
 	node	*start;
 	node	*end;
@@ -36,8 +41,12 @@ typedef struct stacks{
 	stack 	*b;
 }	ps;
 
+int		predictive_insert_sort(node **stack_a, node **stack_b, int max_i);
+int		is_circular_sorted(node **stack, int max_i);
+void	sortStack(node **a, node **b);
+void	sort_stack_insert_recursive(node **a, node **b);
 int		insert_sort(node **stack_a, node **stack_b, int max_i);
-int		ft_lstalign(node **stack_a, int i, char c);
+int		ft_lstalign(node **stack_a, char c);
 void	print_node(node *stack);
 void	push_all_a(node **a, node **b);
 int		push_all_b(node **a, node **b);
@@ -47,14 +56,14 @@ int		is_digit(char c);
 long	check_input(char *nums);
 int		check_duplicates_and_index(node *stack);
 void	ft_lstiterf(node **stack, void(*f)());
-int		ft_lstsize(node *start);
+int		ft_lstsize(node **start);
 void	ft_lstnew(int num, node **head);
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
 char	**ft_split(char const *s, char c);
 long	ft_atol(char *nptr);
 void    ft_swap_one(node **stack, char c);
 void    swap_both(node **stack_a, node **stack_b);
-void    ft_rotate(node **stack, char c);
+void	ft_rotate(node **stack, char c);
 void    ft_rotate_both(node **stack_a, node **stack_b);
 void    ft_rev_rotate(node **stack, char c);
 void    ft_rev_rotate_both(node **stack_a, node **stack_b);

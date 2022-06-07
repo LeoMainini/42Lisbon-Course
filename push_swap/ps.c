@@ -19,11 +19,12 @@
 	//#TODO: Bubble sort through list to check for duplicates and index✅
 //#TODO:Throw split output into a✅
 //#TODO:Make stack organizing functions✅
-//#TODO:Fix leak in split
-//#TODO:Organize
-    //#TODO: push to b smallest index (index == 0) in stack a, after calculating
+//#TODO:Fix leak in split✅
+//#TODO:Organize✅
+    //#TODO: push to b smallest index (index == 0) in stack a, after calculating✅
 		//#TODO: smallest rotate steps using counter in loop that looks for index, keep going until a is sorted
-		//#TODO: or reverse sorted, then push all of b to A
+		//#TODO: or reverse sorted, then push all of b to A✅
+//#TODO:OPTIMIZE
 
 void    check_free_output(char ***output, int k)
 {
@@ -125,10 +126,11 @@ int	main(int argc, char **argv)
 	if (!is_sorted(&a, 0))
 	{
 		while (!done_sorting)
-			done_sorting = insert_sort(&a, &b, max_i);
+			done_sorting = predictive_insert_sort(&a, &b, max_i);
 	//	ft_printf("DONE\n");
-		push_all_a(&a, &b);
+		//push_all_a(&a, &b);
 	}
+	//ft_push_b(&a, &b);
 	//ft_printf("STACK A\n");
 	//ft_lstiterf(&a, &print_node);
 	ft_lstiterf(&a, &free);
@@ -136,5 +138,4 @@ int	main(int argc, char **argv)
 	clock_t end = clock(); //REMOVE
 	time_spent += (double)(end - begin) / CLOCKS_PER_SEC;//REMOVE
 	//printf("The elapsed time is %f seconds", time_spent);
-
 }

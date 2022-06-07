@@ -47,7 +47,7 @@ int get_size_sort_index(node *stack)
 
 	if (!stack)
 		return (0);
-	size = ft_lstsize(stack);
+	size = ft_lstsize(&stack);
 	return (size);
 }
 
@@ -97,7 +97,7 @@ int is_circular_sorted(node **stack, int max_i)
 		return (k);
 	return (0);
 }
-
+/*
 int    insert_sort(node **stack_a, node **stack_b, int max_i)
 {
 	int	i;
@@ -128,7 +128,7 @@ int    insert_sort(node **stack_a, node **stack_b, int max_i)
 	}
 	if ((*stack_a)->index != index)
 	{
-		size = ft_lstsize(*stack_a);
+		size = ft_lstsize(stack_a);
 		if ((i > (size - 1) / 2))
 			while ((*stack_a)->index != index && !is_sorted(stack_a, 0))
 				ft_rev_rotate(stack_a, 'a');
@@ -142,3 +142,4 @@ int    insert_sort(node **stack_a, node **stack_b, int max_i)
 	return (0);
 }
 
+*/

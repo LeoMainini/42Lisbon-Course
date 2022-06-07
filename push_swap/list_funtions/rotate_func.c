@@ -12,43 +12,48 @@
 
 #include "../push_swap.h"
 
-int	ft_lstalign(node **stack_a, int i, char c)
+int	ft_lstalign(node **stack_a, char c)
 {
 	int	size;
+	int i;
+	node	*temp;
 
-	size = ft_lstsize(*stack_a);
+	temp = *stack_a;
+	size = ft_lstsize(stack_a);
+	i = 0;
+	while (temp->index != 0)
+	{
+		i++;
+		temp = temp->next;
+	}
 	if (i > size / 2)
-		while (i != size)
-		{
+		while ((*stack_a)->index != 0)
 			ft_rev_rotate(stack_a, c);
-			i++;
-		}
 	else
-		while (i > 0)
-		{
+		while ((*stack_a)->index != 0)
 			ft_rotate(stack_a, c);
-			i--;
-		}
 	return (1);
 }
 
-void    ft_rotate(node **stack, char c)
+void	ft_rotate(node **stack, char c)
 {
-    (*stack) = (*stack)->next;
-    if (c != 'r')
-        ft_printf("r%c\n", c);
+	*stack = (*stack)->next;
+	if (c != 'r')
+		ft_printf("r%c\n", c);
 }
 
 void    ft_rotate_both(node **stack_a, node **stack_b)
 {
     ft_rotate(stack_a, 'r');
     ft_rotate(stack_b, 'r');
+	if (!*stack_a || !*stack_b)
+		return;
     ft_printf("rr\n");
 }
 
 void    ft_rev_rotate(node **stack, char c)
 {
-    (*stack) = (*stack)->prev;
+    *stack = (*stack)->prev;
     if (c != 'r')
         ft_printf("rr%c\n", c);
 }

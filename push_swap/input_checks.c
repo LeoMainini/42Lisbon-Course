@@ -73,27 +73,32 @@ void ft_swap(int *a, int *b)
 
 int sort_indexes(node *stack)
 {
+	int		i;
+	int 	k;
 	node	*temp;
 	node	*ktemp;
 	int		max_index;
 
 	max_index = 0;
-	temp = stack->next;
-	while (temp && temp != stack)
+	i = ft_lstsize(&stack);
+	k = ft_lstsize(&stack);
+	temp = stack;
+	while (k > 0)
 	{
 		ktemp = temp->next;
-		while (ktemp != temp)
+		while (i > 0)
 		{
+			if (temp->index > max_index)
+				max_index = temp->index;
 			if ((ktemp->number > temp->number && ktemp->index < temp->index)
 				|| (ktemp->number < temp->number && ktemp->index > temp->index))
-				ft_swap(&(temp->index), &(ktemp->index));
-			if (ktemp->number == temp->number)
-				return (-1);
-			ktemp = ktemp->next;
+				ft_swap(&ktemp->index, &temp->index);
+			temp = temp->next;
+			i--;
 		}
-		if (temp->index > max_index)
-			max_index = temp->index;
+		i = ft_lstsize(&stack);
 		temp = temp->next;
+		k--;
 	}
 	return (max_index);
 }

@@ -97,49 +97,59 @@ int is_circular_sorted(node **stack, int max_i)
 		return (k);
 	return (0);
 }
-/*
-int    insert_sort(node **stack_a, node **stack_b, int max_i)
-{
-	int	i;
-	int size;
-	int index;
-	node *temp;
 
-	if ((*stack_b && !*stack_a) || is_sorted(stack_a, 0))
-		return (1);
+int    insert_sort(node **a, node **b, int max_i)
+{
+	int			i;
+	static int	*sorted_array;
+	int 		size;
+	node		*t;
+
+	if (max_i <= -1)
+		return 1;
 	//ft_printf("max i = %d\n", max_i);
-	i = is_circular_sorted(stack_a, max_i);
+	//i = is_circular_sorted(a, max_i);
 	//ft_printf("i = %d\n", i);
-	if (i)
-		return (ft_lstalign(stack_a, i, 'a'));
-	if (!*stack_b)
-		index = 0;
-	else
-		index = (*stack_b)->index + 1;
-	sort_indexes(*stack_a);
+	size = ft_lstsize(a);
+	sorted_array = 0;
+	if (!sorted_array)
+	{
+		set_starting_point(a, size, 0, &sorted_array);
+		while (ft_lstsize(a) != size - ft_arraylen(sorted_array) && ft_printf("size = %d asize = %d\n array len = %d",
+																			  ft_lstsize(a), size - ft_arraylen(sorted_array),
+																			  ft_arraylen(sorted_array)))
+			check_is_in_array(a , b, sorted_array);
+	}
+	if (!*b)
+		return (ft_lstalign(a, 'a'));
 	i = 0;
-	temp = (*stack_a)->next;
-	while (temp != *stack_a)
+	t = (*a)->next;
+	while (t != *a)
 	{
 		i++;
-		if (temp->index == index)
+		if (((*b)->number > t->number && (*b)->prev->number < t->number) // in line
+			|| ((*b)->number < t->number
+				&& (*b)->index == gmini(a, ft_lstsize(b), max_i)) //
+			|| ((*b)->number < t->number && (*b)->prev->number < t->number
+				&& (*b)->prev->index == gmi_in_s(b, ft_lstsize(b))))
 			break ;
-		temp = temp->next;
+		t = t->next;
 	}
-	if ((*stack_a)->index != index)
-	{
-		size = ft_lstsize(stack_a);
-		if ((i > (size - 1) / 2))
-			while ((*stack_a)->index != index && !is_sorted(stack_a, 0))
-				ft_rev_rotate(stack_a, 'a');
-		else
-			while ((*stack_a)->index != index && !is_sorted(stack_a, 0))
-				ft_rotate(stack_a, 'a');
-	}
-	if ((*stack_b && !*stack_a) || is_sorted(stack_a, 0))
+	size = ft_lstsize(a);
+	if ((i > (size - 1) / 2))
+		while (i > 0 && !is_sorted(a, 0))
+		{
+			ft_rev_rotate(a, 'a');
+			i--;
+		}
+	else
+		while (i > 0 && !is_sorted(a, 0))
+		{
+			ft_rotate(a, 'a');
+			i--;
+		}
+	ft_push_a(a, b);
+	if (!*b)
 		return (1);
-	ft_push_b(stack_a, stack_b);
 	return (0);
 }
-
-*/

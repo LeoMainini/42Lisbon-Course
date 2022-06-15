@@ -25,13 +25,15 @@
 		//#TODO: smallest rotate steps using counter in loop that looks for index, keep going until a is sorted
 		//#TODO: or reverse sorted, then push all of b to A✅
 //#TODO:OPTIMIZE
+//#TODO: FIX DOUBLE FREE ON EMPTY ARGV INPUT
 
 void    check_free_output(char ***output, int k)
 {
-    while (**output && k>=0)
-        free((*output)[k--]);
+	while (*output && **output && k > 0)
+		free((*output)[--k]);
+	//ft_printf("output in check = %p\n", *output);
     if (*output)
-    free(*output);
+    	free(*output);
 }
 
 int	error_out_free(node **stack, char ***output, int k)
@@ -39,12 +41,15 @@ int	error_out_free(node **stack, char ***output, int k)
 	ft_printf("ERROR\n");
 	if (*stack)
 		ft_lstiterf(stack, &free);
-	if (output)
+	if (*output)
+	{
 		check_free_output(output, k);
+		*output = NULL;
+	}
 	return (-1);
 }
 
-int	get_and_check_stack(int argc, char **argv, node **a)
+int	get_and_check_stack(int argc, char **argv, node **a, int null)
 {
 	int		i;
 	int		k;
@@ -52,24 +57,28 @@ int	get_and_check_stack(int argc, char **argv, node **a)
 	char	**output;
 
 	i = 0;
+	//ft_printf("argc = %d\n", argc);
 	while (++i < argc)
 	{
-		//ft_printf("argv = %s\n", argv[i]);
-		output = ft_split(argv[i], ' ');
+		output = ft_split(argv[i], ' ', &null);
+		//ft_printf("OUTPUT POINTER = %p\n", output);
+		if (!output)
+			return (error_out_free(a, &output, null));
 		k = -1;
 		while (output[++k])
 		{
 			num = check_input(output[k]);
+			//printf("num = %ld\n", num);
 			if (num != -4000000000)
-				ft_lstnew(num, a);
+				ft_lstnew((int)num, a);
 			else
-				return (error_out_free(a, &output, k));
+				return (error_out_free(a, &output, null));
 		}
-        check_free_output(&output, k);
+        check_free_output(&output, null);
 	}
 	i = check_duplicates_and_index(*a);
-	if (i == -1)
-		return (error_out_free(a, NULL, 0));
+	if (i == 0)
+		return (error_out_free(a, &output, 0));
 	return (i);
 }
 
@@ -78,8 +87,10 @@ int	main(int argc, char **argv)
 	node	*a;
 	node	*b;
 	int		done_sorting;
-	int max_i;
+	int		max_i;
+	int		null;
 
+	null = 0;
 	b = 0;
 	double time_spent = 0.0;//REMOVE
 	clock_t begin = clock();//REMOVE
@@ -87,41 +98,9 @@ int	main(int argc, char **argv)
 	a = 0;
 	if (argc < 2)
 		return (0);
-	max_i = get_and_check_stack(argc, argv, &a);
+	max_i = get_and_check_stack(argc, argv, &a, null);
 	if (max_i == -1)
 		return (0);
-	//ft_printf("size = %d\n", ft_lstsize(a));
-	/*ft_rev_rotate(&a, 'a');
-	ft_printf("size = %d\n", ft_lstsize(a));
-	ft_rotate(&a, 'a');
-	ft_printf("size = %d\n", ft_lstsize(a));
-	ft_swap_one(&a, 'a');
-	ft_printf("size = %d\n", ft_lstsize(a));
-	ft_swap_one(&a, 'a');
-	ft_printf("size = %d\n", ft_lstsize(a));
-	ft_push_b(&a, &b);
-	ft_printf("size = %d\n", ft_lstsize(a));
-	ft_printf("size = %d\n", ft_lstsize(b));
-    ft_push_b(&a, &b);
-    ft_printf("size = %d\n", ft_lstsize(a));
-    ft_printf("size = %d\n", ft_lstsize(b));
-    ft_push_b(&a, &b);
-    ft_printf("size = %d\n", ft_lstsize(a));
-    ft_printf("size = %d\n", ft_lstsize(b));
-    ft_push_b(&a, &b);
-    ft_printf("size = %d\n", ft_lstsize(a));
-    ft_printf("size = %d\n", ft_lstsize(b));
-	ft_push_b(&a, &b);
-	ft_printf("size = %d\n", ft_lstsize(a));
-	ft_printf("size = %d\n", ft_lstsize(b));
-	ft_push_b(&a, &b);
-	ft_printf("size = %d\n", ft_lstsize(a));
-	ft_printf("size = %d\n", ft_lstsize(b));
-	ft_push_b(&a, &b);
-	ft_printf("size = %d\n", ft_lstsize(a));
-	ft_printf("size = %d\n", ft_lstsize(b));
-    ft_lstiterf(&a, &free);
-    //ft_lstiterf(&b, &free);*/
 	done_sorting = 0;
 	if (!is_sorted(&a, 0))
 	{
@@ -137,5 +116,5 @@ int	main(int argc, char **argv)
 	ft_lstiterf(&b, &free);
 	clock_t end = clock(); //REMOVE
 	time_spent += (double)(end - begin) / CLOCKS_PER_SEC;//REMOVE
-	//printf("The elapsed time is %f seconds", time_spent);
+	printf("The elapsed time is %f seconds", time_spent);
 }

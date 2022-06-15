@@ -28,6 +28,8 @@ typedef struct stack_node{
 typedef struct sort_moves{
 	int	a_moves;
 	int b_moves;
+	node	*target_a;
+	node	*target_b;
 }	moves;
 
 typedef struct stack{
@@ -39,13 +41,19 @@ typedef struct stack{
 typedef struct stacks{
 	stack 	*a;
 	stack 	*b;
+
 }	ps;
 
+int gmini(node **a, int size, int max_i);
+int gmi_in_s(node **a, int size);
+void	check_is_in_array(node **a, node **b, int *array);
+int ft_arraylen(int *array);
+void	set_starting_point(node **a, int size, int k, int **best_array);
 int		predictive_insert_sort(node **stack_a, node **stack_b, int max_i);
 int		is_circular_sorted(node **stack, int max_i);
 void	sortStack(node **a, node **b);
 void	sort_stack_insert_recursive(node **a, node **b);
-int		insert_sort(node **stack_a, node **stack_b, int max_i);
+int		insert_sort(node **a, node **b, int max_i);
 int		ft_lstalign(node **stack_a, char c);
 void	print_node(node *stack);
 void	push_all_a(node **a, node **b);
@@ -59,7 +67,7 @@ void	ft_lstiterf(node **stack, void(*f)());
 int		ft_lstsize(node **start);
 void	ft_lstnew(int num, node **head);
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
-char	**ft_split(char const *s, char c);
+char	**ft_split(char const *s, char c, int *null);
 long	ft_atol(char *nptr);
 void    ft_swap_one(node **stack, char c);
 void    swap_both(node **stack_a, node **stack_b);

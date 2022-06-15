@@ -44,10 +44,10 @@ void	ft_rotate(node **stack, char c)
 
 void    ft_rotate_both(node **stack_a, node **stack_b)
 {
-    ft_rotate(stack_a, 'r');
-    ft_rotate(stack_b, 'r');
 	if (!*stack_a || !*stack_b)
 		return;
+	ft_rotate(stack_a, 'r');
+	ft_rotate(stack_b, 'r');
     ft_printf("rr\n");
 }
 

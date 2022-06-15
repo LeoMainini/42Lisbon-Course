@@ -38,54 +38,106 @@ int is_circular_sorted(node **stack, int max_i)
 	return (0);
 }
 */
-void	decide_move(node **a, node **b, moves *move_set)
+
+int gmini(node **a, int size, int max_i)
+{
+	int		i;
+	int 	min_index;
+	node	*temp;
+
+	temp = *a;
+	min_index = max_i;
+	i = -1;
+	while (++i < size)
+	{
+		if (temp->index < min_index)
+			min_index = temp->index;
+		temp = temp->next;
+	}
+	return (min_index);
+}
+
+int gmi_in_s(node **a, int size)
+{
+	int		i;
+	int 	max_index;
+	node	*temp;
+
+	temp = *a;
+	max_index = 0;
+	i = -1;
+	while (++i <= size)
+	{
+		if (temp->index > max_index)
+			max_index = temp->index;
+		temp = temp->next;
+	}
+	return (max_index);
+}
+void	decide_move(node **a, node **b, moves *move_set, int max_i)
 {
 	int i;
 	int k;
-	//int bi;
-	//int ai;
+	int bi;
+	int ai;
 	int size;
 	int asize;
-	node *temp;
-	node *btemp;
+	node *t;
+	node *bt;
 
-	temp = *a;
-	btemp = *b;
+	t = *a;
+	bt = *b;
 	size = ft_lstsize(b);
 	asize = ft_lstsize(a);
+	move_set->a_moves = asize;
+	move_set->b_moves = size;
 	i = 0;
+	if (!max_i)
+		return ;
 	while (i < size)
 	{
 		k = 0;
-
+		//if (i++ < (size * 0.25) || i++ > (0.75 * size))
+		//	continue ;
 		while(k < asize)
 		{
-			//ai = k;
-			//bi = i;
-			if (temp->index == btemp->index + 1)
+			//if (!(k++ < (asize * 0.25) || k++ > (0.75 * asize)))
+			//	continue ;
+			//borks algorythm when it cant find a shorter path than the current pushed cell
+			//since it keeps rotating to find it
+			ai = k;
+			bi = i;
+			if (((t->number > bt->number && t->prev->number < bt->number) // in line
+				|| (t->number > bt->number
+					&& t->index == gmini(a, asize, max_i)) //
+				|| (t->number < bt->number && t->prev->number < bt->number
+					&& t->prev->index == gmi_in_s(a, asize))))
 			{
-				/*
-				if (i > (size - 1) / 2)
-					bi = -((size - 1) - i + 1);
-				if (k > (asize - 1) / 2)
-					ai = -((asize - 1) - k + 1);
+
+				if (i > (size) / 2)
+					bi = -((size) - i + 1);
+				if (k > (asize) / 2)
+					ai = -((asize) - k + 1);
 
 				if (ai + bi < move_set->a_moves + move_set->b_moves)
 				{
+					move_set->target_a = t;
+					move_set->target_b = bt;
 					move_set->a_moves = ai;
 					move_set->b_moves = bi;
-				}*/
+				}
+				/*
 				if (k + i < move_set->a_moves + move_set->b_moves)
 				{
 					move_set->a_moves = k;
 					move_set->b_moves = i;
-				}
+				}*/
 			}
 			k++;
-			temp = temp->next;
+			t = t->next;
 		}
 		i++;
-		btemp = btemp->next;
+		bt = bt->next;
 	}
 }
 
@@ -147,22 +199,6 @@ void	ft_bzero(void *s, size_t n)
 	}
 }
 
-void	*ft_memcpy(void *dest, const void *src, size_t n)
-{
-	char	**b_src;
-	char	**b_dest;
-	size_t	index;
-
-	if (dest == NULL && src == NULL)
-		return (dest);
-	b_dest = (char **)&dest;
-	b_src = (char **)&src;
-	index = -1;
-	while (++index < n)
-		(*b_dest)[index] = (*b_src)[index];
-	return (&((*b_dest)[0]));
-}
-
 void	set_starting_point(node **a, int size, int k, int **best_array)
 {
 	int		*array;
@@ -177,20 +213,21 @@ void	set_starting_point(node **a, int size, int k, int **best_array)
 	*best_array = ft_calloc(size + 1, sizeof(int));
 	while (k < size)
 	{
- 		array[0] = temp->index;
+ 		array[0] = temp->number;
 		j = 0;
 		i = 0;
 		while (i < size)
 		{
-			if (temp->index > array[j])
-				array[++j] = temp->index;
+			if (temp->number > array[j])
+				array[++j] = temp->number;
+
 			temp = temp->next;
 			i++;
 		}
 		//printf("array len = %d\t\tbest_array len = %d\n",ft_arraylen(array), ft_arraylen(*best_array));
 		if (ft_arraylen(array) > ft_arraylen(*best_array))
-			ft_memmove(*best_array, array, size * sizeof(int));
-		ft_bzero(array, size);
+			ft_memmove(*best_array, array, (size + 1) * sizeof(int));
+		ft_bzero(array, (size + 1) * sizeof(int));
 		temp = temp->next;
 		k++;
 	}
@@ -204,7 +241,7 @@ void	check_is_in_array(node **a, node **b, int *array)
 	i = -1;
 	while (array[++i] || array[i + 1])
 	{
-		if ((*a)->index == array[i])
+		if ((*a)->number == array[i]) // changed for insert is == in predictive
 		{
 			ft_rotate(a, 'a');
 			return ;
@@ -217,14 +254,10 @@ int    predictive_insert_sort(node **stack_a, node **stack_b, int max_i)
 {
 	int size;
 	static int	*sorted_array;
-	//int i;
 	moves move_set;
-	if (max_i < -1)
+
+	if (max_i <= -1)
 		return 1;
-	//i = 0;
-	//i = is_circular_sorted(stack_a, max_i);
-	//if (i)
-	//	return (ft_lstalign(stack_a, i, 'a'));
 	size = ft_lstsize(stack_a);
 	if (!sorted_array)
 	{
@@ -232,67 +265,32 @@ int    predictive_insert_sort(node **stack_a, node **stack_b, int max_i)
 		while (ft_lstsize(stack_a) != ft_arraylen(sorted_array))
 			check_is_in_array(stack_a , stack_b, sorted_array);
 	}
-	//if (ft_arraylen(sorted_array) == 0)
-	//	ft_lstalign(&stack_a, max_i, 'a');
 	if ((!*stack_b && *stack_a))
 		return (1);
-	//ft_printf("STACK A\n");
-	//ft_lstiterf(stack_a, &print_node);
-	//ft_printf("STACK B\n");
-	//ft_lstiterf(stack_b, &print_node);
 	move_set.b_moves = ft_lstsize(stack_b);
 	move_set.a_moves = ft_lstsize(stack_a);
-	decide_move(stack_a , stack_b, &move_set);
-	//ft_printf("A MOVES = %d\tB MOVES = %d\n", move_set.a_moves, move_set.b_moves);
+	decide_move(stack_a , stack_b, &move_set, max_i);
 	if (move_set.a_moves > 0 && move_set.b_moves > 0)
-		while (move_set.a_moves != 0 && move_set.b_moves != 0)
-		{
+		while (move_set.a_moves != 0 && move_set.b_moves != 0
+			&& *stack_a != move_set.target_a && *stack_b != move_set.target_b)
 			ft_rotate_both(stack_a , stack_b);
-			move_set.a_moves--;
-			move_set.b_moves--;
-		}
 	else if (move_set.a_moves < 0 && move_set.b_moves < 0)
-		while (move_set.a_moves != 0 && move_set.b_moves != 0)
-		{
+		while (move_set.a_moves != 0 && move_set.b_moves != 0
+			&& *stack_a != move_set.target_a && *stack_b != move_set.target_b)
 			ft_rev_rotate_both(stack_a , stack_b);
-			move_set.a_moves++;
-			move_set.b_moves++;
-		}
-	while (move_set.a_moves > 0)
-	{
+	while (move_set.a_moves > 0 && *stack_a != move_set.target_a)
 		ft_rotate(stack_a, 'a');
-		move_set.a_moves--;
-	}
-	while (move_set.a_moves < 0)
-	{
+	while (move_set.a_moves < 0 && *stack_a != move_set.target_a)
 		ft_rev_rotate(stack_a, 'a');
-		move_set.a_moves++;
-	}
-	while (move_set.b_moves > 0)
-	{
+	while (move_set.b_moves > 0 && *stack_b != move_set.target_b && *stack_b)
 		ft_rotate(stack_b, 'b');
-		move_set.b_moves--;
-	}
-	while (move_set.b_moves < 0)
-	{
+	while (move_set.b_moves < 0 && *stack_b != move_set.target_b && *stack_b)
 		ft_rev_rotate(stack_b, 'b');
-		move_set.b_moves++;
-	}
 	ft_push_a(stack_a, stack_b);
-	//ft_printf("STACK A\n");
-	//ft_lstiterf(stack_a, &print_node);
-	//ft_printf("STACK B\n");
-	//ft_lstiterf(stack_b, &print_node);
-
 	if (!*stack_b)
 	{
 		free(sorted_array);
 		ft_lstalign(stack_a, 'a');
-	//	ft_printf("STACK A\n");
-	//	ft_lstiterf(stack_a, &print_node);
-	//	ft_printf("STACK B\n");
-	//	ft_lstiterf(stack_b, &print_node);
-
 		return (1);
 	}
 	return (0);

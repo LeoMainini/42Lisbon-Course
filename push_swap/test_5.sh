@@ -6,7 +6,7 @@ let max=0
 let min=9999
 let maxin=0
 let minin=99999
-let j=100
+let j=500
 
 
 # system("leaks -- push_swap");

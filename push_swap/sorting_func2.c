@@ -78,7 +78,7 @@ int gmi_in_s(node **a, int size)
 int get_scaled_iterator(int counter, int size)
 {
 	if (counter > (size + 1) / 2)
-		return (-((size) - counter + 1));
+		return (-((size + 1) - counter + 1));
 	return (counter);
 }
 int get_distance(int i, int k, int size, int asize)
@@ -179,9 +179,8 @@ int ft_arraylen(int *array)
 	int	i;
 
 	i = 0;
-	while ((array[i] || array[i + 1]) && ft_printf("%d, ", array[i]))
+	while ((array[i] || array[i + 1]))
 		i++;
-	ft_printf("\n");
 	return (i);
 }
 

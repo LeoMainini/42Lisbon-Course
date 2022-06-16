@@ -102,19 +102,18 @@ int	main(int argc, char **argv)
 	if (max_i == -1)
 		return (0);
 	done_sorting = 0;
-	if (!is_sorted(&a, 0))
-	{
+	if (!is_sorted(&a, 0) && ft_lstsize(&a) < 10)
+		while (!done_sorting)
+			done_sorting = insert_sort(&a, &b, max_i);
+	else if (!is_sorted(&a, 0))
 		while (!done_sorting)
 			done_sorting = predictive_insert_sort(&a, &b, max_i);
-	//	ft_printf("DONE\n");
-		//push_all_a(&a, &b);
-	}
 	//ft_push_b(&a, &b);
-	ft_printf("STACK A\n");
-	ft_lstiterf(&a, &print_node);
+	//ft_printf("STACK A\n");
+	//ft_lstiterf(&a, &print_node);
 	ft_lstiterf(&a, &free);
 	ft_lstiterf(&b, &free);
 	clock_t end = clock(); //REMOVE
 	time_spent += (double)(end - begin) / CLOCKS_PER_SEC;//REMOVE
-	printf("The elapsed time is %f seconds", time_spent);
+	//printf("The elapsed time is %f seconds", time_spent);
 }

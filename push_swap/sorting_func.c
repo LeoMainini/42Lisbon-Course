@@ -97,7 +97,7 @@ int is_circular_sorted(node **stack, int max_i)
 		return (k);
 	return (0);
 }
-/*
+
 int    insert_sort(node **stack_a, node **stack_b, int max_i)
 {
 	int	i;
@@ -141,4 +141,3 @@ int    insert_sort(node **stack_a, node **stack_b, int max_i)
 	ft_push_b(stack_a, stack_b);
 	return (0);
 }
-*/

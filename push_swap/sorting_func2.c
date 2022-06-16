@@ -74,12 +74,35 @@ int gmi_in_s(node **a, int size)
 	}
 	return (max_index);
 }
+
+int get_scaled_iterator(int counter, int size)
+{
+	if (counter > (size + 1) / 2)
+		return (-((size) - counter + 1));
+	return (counter);
+}
+int get_distance(int i, int k, int size, int asize)
+{
+	int distance;
+	int ai;
+	int bi;
+
+	bi = get_scaled_iterator(i, size);
+	ai = get_scaled_iterator(k, asize);
+
+	distance = 0;
+	if (ai < 0)
+		ai = -1 * (ai);
+	if (bi < 0)
+		bi = -1 * (bi);
+	distance = ai + bi;
+	return (distance);
+}
+
 void	decide_move(node **a, node **b, moves *move_set, int max_i)
 {
 	int i;
 	int k;
-	int bi;
-	int ai;
 	int size;
 	int asize;
 	node *t;
@@ -105,8 +128,7 @@ void	decide_move(node **a, node **b, moves *move_set, int max_i)
 			//	continue ;
 			//borks algorythm when it cant find a shorter path than the current pushed cell
 			//since it keeps rotating to find it
-			ai = k;
-			bi = i;
+
 			if (((t->number > bt->number && t->prev->number < bt->number) // in line
 				|| (t->number > bt->number
 					&& t->index == gmini(a, asize, max_i)) //
@@ -114,17 +136,14 @@ void	decide_move(node **a, node **b, moves *move_set, int max_i)
 					&& t->prev->index == gmi_in_s(a, asize))))
 			{
 
-				if (i > (size) / 2)
-					bi = -((size) - i + 1);
-				if (k > (asize) / 2)
-					ai = -((asize) - k + 1);
-
-				if (ai + bi < move_set->a_moves + move_set->b_moves)
+				if (get_distance(i , k, size, asize) < move_set->a_moves + move_set->b_moves)
 				{
+
 					move_set->target_a = t;
 					move_set->target_b = bt;
-					move_set->a_moves = ai;
-					move_set->b_moves = bi;
+					move_set->b_moves = get_scaled_iterator(i, size);
+					move_set->a_moves = get_scaled_iterator(k, asize);
+					//ft_printf("ai = %d, bi = %d\n", move_set->a_moves, move_set->b_moves);
 				}
 				/*
 				if (k + i < move_set->a_moves + move_set->b_moves)
@@ -160,8 +179,9 @@ int ft_arraylen(int *array)
 	int	i;
 
 	i = 0;
-	while (array[i] || array[i + 1])
+	while ((array[i] || array[i + 1]) && ft_printf("%d, ", array[i]))
 		i++;
+	ft_printf("\n");
 	return (i);
 }
 

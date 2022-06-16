@@ -110,8 +110,8 @@ int	main(int argc, char **argv)
 		//push_all_a(&a, &b);
 	}
 	//ft_push_b(&a, &b);
-	//ft_printf("STACK A\n");
-	//ft_lstiterf(&a, &print_node);
+	ft_printf("STACK A\n");
+	ft_lstiterf(&a, &print_node);
 	ft_lstiterf(&a, &free);
 	ft_lstiterf(&b, &free);
 	clock_t end = clock(); //REMOVE

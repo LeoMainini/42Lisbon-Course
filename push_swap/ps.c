@@ -24,7 +24,8 @@
     //#TODO: push to b smallest index (index == 0) in stack a, after calculating✅
 		//#TODO: smallest rotate steps using counter in loop that looks for index, keep going until a is sorted
 		//#TODO: or reverse sorted, then push all of b to A✅
-//#TODO:OPTIMIZE
+//#TODO:OPTIMIZE 100s✅
+//#TODO:SPLIT 100+ INTO CHUNKS OF 100 THEN SORT RESULTING STAIR STACKS INTO FULL
 //#TODO: FIX DOUBLE FREE ON EMPTY ARGV INPUT
 
 void    check_free_output(char ***output, int k)
@@ -102,9 +103,12 @@ int	main(int argc, char **argv)
 	if (max_i == -1)
 		return (0);
 	done_sorting = 0;
-	if (!is_sorted(&a, 0) && ft_lstsize(&a) < 10)
+	if (!is_sorted(&a, 0) && ft_lstsize(&a) < 6)
+	{
 		while (!done_sorting)
 			done_sorting = insert_sort(&a, &b, max_i);
+		push_all_a(&a, &b);
+	}
 	else if (!is_sorted(&a, 0))
 		while (!done_sorting)
 			done_sorting = predictive_insert_sort(&a, &b, max_i);

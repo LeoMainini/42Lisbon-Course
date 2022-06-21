@@ -112,8 +112,8 @@ void	decide_move(node **a, node **b, moves *move_set, int max_i)
 	bt = *b;
 	size = ft_lstsize(b);
 	asize = ft_lstsize(a);
-	move_set->a_moves = asize;
-	move_set->b_moves = size;
+	move_set->a_moves = 100000000;
+	move_set->b_moves = 100000000;
 	i = 0;
 	if (!max_i)
 		return ;
@@ -136,7 +136,8 @@ void	decide_move(node **a, node **b, moves *move_set, int max_i)
 					&& t->prev->index == gmi_in_s(a, asize))))
 			{
 
-				if (get_distance(i , k, size, asize) < move_set->a_moves + move_set->b_moves)
+				if (get_distance(i , k, size, asize) < get_distance(
+					move_set->b_moves, move_set->a_moves, size, asize))
 				{
 
 					move_set->target_a = t;

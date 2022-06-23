@@ -276,8 +276,9 @@ int    predictive_insert_sort(node **stack_a, node **stack_b, int max_i)
 	static int	*sorted_array;
 	moves move_set;
 
-	if (max_i <= -1)
-		return 1;
+	if ((is_sorted(stack_a, 0) || is_circular_sorted(stack_a, max_i))
+		&& !*stack_b)
+		return (ft_lstalign(stack_a, 'a'));
 	size = ft_lstsize(stack_a);
 	if (!sorted_array)
 	{

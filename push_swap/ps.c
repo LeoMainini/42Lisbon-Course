@@ -25,7 +25,7 @@
 		//#TODO: smallest rotate steps using counter in loop that looks for index, keep going until a is sorted
 		//#TODO: or reverse sorted, then push all of b to A✅
 //#TODO:OPTIMIZE 100s✅
-//#TODO:SPLIT 100+ INTO CHUNKS OF 100 THEN SORT RESULTING STAIR STACKS INTO FULL
+//#TODO:OPTIMIZE ALL ✅
 //#TODO: FIX DOUBLE FREE ON EMPTY ARGV INPUT
 
 void    check_free_output(char ***output, int k)
@@ -78,7 +78,7 @@ int	get_and_check_stack(int argc, char **argv, node **a, int null)
         check_free_output(&output, null);
 	}
 	i = check_duplicates_and_index(*a);
-	if (i == 0)
+	if (i == -1)
 		return (error_out_free(a, &output, 0));
 	return (i);
 }
@@ -113,8 +113,8 @@ int	main(int argc, char **argv)
 		while (!done_sorting)
 			done_sorting = predictive_insert_sort(&a, &b, max_i);
 	//ft_push_b(&a, &b);
-	//ft_printf("STACK A\n");
-	//ft_lstiterf(&a, &print_node);
+	ft_printf("STACK A\n");
+	ft_lstiterf(&a, &print_node);
 	ft_lstiterf(&a, &free);
 	ft_lstiterf(&b, &free);
 	clock_t end = clock(); //REMOVE

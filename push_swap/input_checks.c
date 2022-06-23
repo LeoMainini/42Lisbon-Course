@@ -62,6 +62,35 @@ long	check_input(char *nums)
 	return (num);
 }
 
+
+int check_duplicate(node *stack)
+{
+	int size;
+	int i;
+	int k;
+	node *temp;
+	node *ktemp;
+
+	if (!stack)
+		return (1);
+	temp = stack;
+	size = ft_lstsize(&stack);
+	i = -1;
+	while (++i < size)
+	{
+		k = 0;
+		ktemp = temp->next;
+		while (++k < size)
+		{
+			if (ktemp->number == temp->number)
+				return (1);
+			ktemp = ktemp->next;
+		}
+		temp = temp->next;
+	}
+	return (0);
+}
+
 void ft_swap(int *a, int *b)
 {
 	int temp;
@@ -112,7 +141,7 @@ int	check_duplicates_and_index(node *stack)
 		return (0);
 	temp = sort_indexes(stack);
 	max_index = sort_indexes(stack->prev);
-	if (temp == -1 || max_index == -1)
+	if (temp == -1 || max_index == -1 || check_duplicate(stack))
 		return (-1);
 	if (temp > max_index)
 		max_index = temp;

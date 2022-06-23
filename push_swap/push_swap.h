@@ -77,6 +77,7 @@ void    ft_rev_rotate(node **stack, char c);
 void    ft_rev_rotate_both(node **stack_a, node **stack_b);
 void    ft_push_a(node **a, node **b);
 void    ft_push_b(node **a, node **b);
-
+void	ft_swap(int *a, int *b);
+int		sort_3(node **a, int max_i);
 
 #endif

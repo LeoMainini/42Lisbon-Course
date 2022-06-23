@@ -32,9 +32,9 @@ void    check_free_output(char ***output, int k)
 {
 	while (*output && **output && k > 0)
 		free((*output)[--k]);
-	//ft_printf("output in check = %p\n", *output);
     if (*output)
     	free(*output);
+	*output = NULL;
 }
 
 int	error_out_free(node **stack, char ***output, int k)
@@ -43,10 +43,7 @@ int	error_out_free(node **stack, char ***output, int k)
 	if (*stack)
 		ft_lstiterf(stack, &free);
 	if (*output)
-	{
 		check_free_output(output, k);
-		*output = NULL;
-	}
 	return (-1);
 }
 
@@ -63,8 +60,8 @@ int	get_and_check_stack(int argc, char **argv, node **a, int null)
 	{
 		output = ft_split(argv[i], ' ', &null);
 		//ft_printf("OUTPUT POINTER = %p\n", output);
-		if (!output)
-			return (error_out_free(a, &output, null));
+		if (!*output)
+			return (error_out_free(a,  &output, null));
 		k = -1;
 		while (output[++k])
 		{
@@ -103,7 +100,12 @@ int	main(int argc, char **argv)
 	if (max_i == -1)
 		return (0);
 	done_sorting = 0;
-	if (!is_sorted(&a, 0) && ft_lstsize(&a) < 6)
+	if (!is_sorted(&a, 0) && ft_lstsize(&a) < 4)
+	{
+		while (!done_sorting)
+			done_sorting = sort_3(&a, max_i);
+	}
+	else if (!is_sorted(&a, 0) && ft_lstsize(&a) < 6)
 	{
 		while (!done_sorting)
 			done_sorting = insert_sort(&a, &b, max_i);
@@ -113,8 +115,8 @@ int	main(int argc, char **argv)
 		while (!done_sorting)
 			done_sorting = predictive_insert_sort(&a, &b, max_i);
 	//ft_push_b(&a, &b);
-	ft_printf("STACK A\n");
-	ft_lstiterf(&a, &print_node);
+	//ft_printf("STACK A\n");
+	//ft_lstiterf(&a, &print_node);
 	ft_lstiterf(&a, &free);
 	ft_lstiterf(&b, &free);
 	clock_t end = clock(); //REMOVE

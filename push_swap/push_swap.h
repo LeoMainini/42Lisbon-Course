@@ -26,21 +26,17 @@ typedef struct stack_node{
 }	node;
 
 typedef struct sort_moves{
-	int	a_moves;
-	int b_moves;
+	int		a_moves;
+	int		b_moves;
 	node	*target_a;
 	node	*target_b;
 }	moves;
 
-typedef struct stack{
-	node	*start;
-	node	*end;
-	int		size;
-}	stack;
-
 typedef struct stacks{
-	stack 	*a;
-	stack 	*b;
+	node 	**a;
+	node 	**b;
+	node	*t;
+	node	*bt;
 
 }	ps;
 

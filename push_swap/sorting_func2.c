@@ -99,36 +99,89 @@ int get_distance(int i, int k, int size, int asize)
 	return (distance);
 }
 
-void	decide_move(node **a, node **b, moves *move_set, int max_i)
+void	compare_distance(int i, int k, moves *move_set, ps *s)
+{
+	int size;
+	int asize;
+
+	size = ft_lstsize(s->b);
+	asize = ft_lstsize(s->a);
+	if (get_distance(i , k, size, asize) < get_distance(
+			move_set->b_moves, move_set->a_moves, size, asize))
+	{
+		move_set->target_a = s->t;
+		move_set->target_b = s->bt;
+		move_set->b_moves = get_scaled_iterator(i, size);
+		move_set->a_moves = get_scaled_iterator(k, asize);
+	}
+}
+
+void	compute_best_move(ps *s, moves	*move_set, int max_i)
 {
 	int i;
 	int k;
 	int size;
 	int asize;
-	node *t;
-	node *bt;
 
-	t = *a;
-	bt = *b;
-	size = ft_lstsize(b);
-	asize = ft_lstsize(a);
-	move_set->a_moves = 100000000;
-	move_set->b_moves = 100000000;
+	size = ft_lstsize(s->b);
+	asize = ft_lstsize(s->a);
 	i = 0;
 	if (!max_i)
 		return ;
 	while (i < size)
 	{
 		k = 0;
-		//if (i++ < (size * 0.25) || i++ > (0.75 * size))
-		//	continue ;
 		while(k < asize)
 		{
-			//if (!(k++ < (asize * 0.25) || k++ > (0.75 * asize)))
-			//	continue ;
-			//borks algorythm when it cant find a shorter path than the current pushed cell
-			//since it keeps rotating to find it
+			if (((s->t->number > s->bt->number && s->t->prev->number
+			        < s->bt->number) || (s->t->number > s->bt->number
+					 && s->t->index == gmini(s->a, asize, max_i))
+					 || (s->t->number < s->bt->number && s->t->prev->number
+					 < s->bt->number
+					 && s->t->prev->index == gmi_in_s(s->a, asize))))
+			{
+				/*if (get_distance(i , k, size, asize) < get_distance(
+						move_set->b_moves, move_set->a_moves, size, asize))
+				{
+					move_set->target_a = s->t;
+					move_set->target_b = s->bt;
+					move_set->b_moves = get_scaled_iterator(i, size);
+					move_set->a_moves = get_scaled_iterator(k, asize);
+				}*/
+				compare_distance(i, k, move_set, s);
+			}
+			k++;
+			s->t = s->t->next;
+		}
+		i++;
+		s->bt = s->bt->next;
+	}
+}
 
+void	decide_move(node **a, node **b, moves *move_set, int max_i)
+{
+//	int i;
+//	int k;
+//	int size;
+//	int asize;
+	ps	stacks;
+
+	stacks.a = a;
+	stacks.b = b;
+	stacks.t = *a;
+	stacks.bt = *b;
+//	size = ft_lstsize(b);
+//	asize = ft_lstsize(a);
+	move_set->a_moves = ft_lstsize(a);
+	move_set->b_moves = ft_lstsize(b);
+	/*i = 0;
+	if (!max_i)
+		return ;
+	while (i < size)
+	{
+		k = 0;
+		while(k < asize)
+		{
 			if (((t->number > bt->number && t->prev->number < bt->number) // in line
 				|| (t->number > bt->number
 					&& t->index == gmini(a, asize, max_i)) //
@@ -144,21 +197,15 @@ void	decide_move(node **a, node **b, moves *move_set, int max_i)
 					move_set->target_b = bt;
 					move_set->b_moves = get_scaled_iterator(i, size);
 					move_set->a_moves = get_scaled_iterator(k, asize);
-					//ft_printf("ai = %d, bi = %d\n", move_set->a_moves, move_set->b_moves);
 				}
-				/*
-				if (k + i < move_set->a_moves + move_set->b_moves)
-				{
-					move_set->a_moves = k;
-					move_set->b_moves = i;
-				}*/
 			}
 			k++;
 			t = t->next;
 		}
 		i++;
 		bt = bt->next;
-	}
+	}*/
+	compute_best_move(&stacks, move_set, max_i);
 }
 
 void	*ft_calloc(size_t count, size_t size)
@@ -218,22 +265,16 @@ void	ft_bzero(void *s, size_t n)
 		index++;
 	}
 }
-
-void	set_starting_point(node **a, int size, int k, int **best_array)
+void	iterate_stack_for_sp(node *temp, int size, int k, int **best_array)
 {
 	int		*array;
-	node	*temp;
-	int		j;
 	int		i;
+	int 	j;
 
-	if (!*a)
-		return ;
-	temp = *a;
 	array = ft_calloc(size + 1, sizeof(int));
-	*best_array = ft_calloc(size + 1, sizeof(int));
 	while (k < size)
 	{
- 		array[0] = temp->number;
+		array[0] = temp->number;
 		j = 0;
 		i = 0;
 		while (i < size)
@@ -244,7 +285,6 @@ void	set_starting_point(node **a, int size, int k, int **best_array)
 			temp = temp->next;
 			i++;
 		}
-		//printf("array len = %d\t\tbest_array len = %d\n",ft_arraylen(array), ft_arraylen(*best_array));
 		if (ft_arraylen(array) > ft_arraylen(*best_array))
 			ft_memmove(*best_array, array, (size + 1) * sizeof(int));
 		ft_bzero(array, (size + 1) * sizeof(int));
@@ -252,6 +292,16 @@ void	set_starting_point(node **a, int size, int k, int **best_array)
 		k++;
 	}
 	free(array);
+}
+void	set_starting_point(node **a, int size, int k, int **best_array)
+{
+	node	*temp;
+
+	if (!*a)
+		return ;
+	temp = *a;
+	*best_array = ft_calloc(size + 1, sizeof(int));
+	iterate_stack_for_sp(temp, size, k, best_array);
 }
 
 void	check_is_in_array(node **a, node **b, int *array)
@@ -261,7 +311,7 @@ void	check_is_in_array(node **a, node **b, int *array)
 	i = -1;
 	while (array[++i] || array[i + 1])
 	{
-		if ((*a)->number == array[i]) // changed for insert is == in predictive
+		if ((*a)->number == array[i])
 		{
 			ft_rotate(a, 'a');
 			return ;
@@ -292,12 +342,10 @@ int    predictive_insert_sort(node **stack_a, node **stack_b, int max_i)
 	move_set.a_moves = ft_lstsize(stack_a);
 	decide_move(stack_a , stack_b, &move_set, max_i);
 	if (move_set.a_moves > 0 && move_set.b_moves > 0)
-		while (move_set.a_moves != 0 && move_set.b_moves != 0
-			&& *stack_a != move_set.target_a && *stack_b != move_set.target_b)
+		while (*stack_a != move_set.target_a && *stack_b != move_set.target_b)
 			ft_rotate_both(stack_a , stack_b);
 	else if (move_set.a_moves < 0 && move_set.b_moves < 0)
-		while (move_set.a_moves != 0 && move_set.b_moves != 0
-			&& *stack_a != move_set.target_a && *stack_b != move_set.target_b)
+		while (*stack_a != move_set.target_a && *stack_b != move_set.target_b)
 			ft_rev_rotate_both(stack_a , stack_b);
 	while (move_set.a_moves > 0 && *stack_a != move_set.target_a)
 		ft_rotate(stack_a, 'a');

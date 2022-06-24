@@ -33,8 +33,10 @@ void    check_free_output(char ***output, int k)
 	while (*output && **output && k > 0)
 		free((*output)[--k]);
     if (*output)
-    	free(*output);
-	*output = NULL;
+	{
+		free(*output);
+		*output = NULL;
+	}
 }
 
 int	error_out_free(node **stack, char ***output, int k)

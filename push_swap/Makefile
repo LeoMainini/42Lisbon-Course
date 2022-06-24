@@ -7,14 +7,21 @@ PF_OBJS	=	${PF_SRCS:.c=.o}
 SRCS	=	ps.c	ft_split.c	input_checks.c	list_funtions/ft_lstnew.c	\
 			list_funtions/ft_lstsize.c	list_funtions/ft_lstiterf.c			\
 			list_funtions/swap_func.c	list_funtions/rotate_func.c			\
-			list_funtions/push_func.c	sorting_func2.c		sorting_func.c	\
-			str_utils.c		sorting_3.c
+			list_funtions/push_func.c	sorting_5over.c		sorting_func.c	\
+			utils.c		sorting_3.c		move_computation.c	starting_calc.c	\
+			move_computation_utils.c
 
 OBJS	=	${SRCS:.c=.o}
 
 PF_NAME	=	ft_printf/libftprintf.a
 
 NAME	=	push_swap
+
+ifeq ($(shell uname),Linux)
+	ECHO	=	echo -e
+else
+	ECHO	=	echo
+endif
 
 CC		=	cc
 
@@ -27,7 +34,7 @@ CFLAGS	=	-Wall -Werror -Wextra -fsanitize=address -g -lm
 INC		=	 -Lft_printf -I . -lftprintf
 
 %.o: %.c
-	@echo -e "\033[32mCompiling $< in fancy colors"
+	@$(ECHO) "\033[32mCompiling $< in fancy colors"
 	@$(CC) -Wall -Wextra -Werror -Imlx -c $< -o $@
 
 $(NAME):	$(OBJS) $(PF_NAME)
@@ -40,7 +47,7 @@ all:		${NAME}
 
 clean:	
 			
-			@echo -e "\033[31mCleaning files in fancy colors"
+			@$(ECHO) "\033[31mCleaning files in fancy colors"
 			@${RM} ${OBJS} ${PF_OBJS}
 
 fclean:		clean

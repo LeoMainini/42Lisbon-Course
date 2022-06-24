@@ -44,11 +44,46 @@ long	ft_atol(char *nptr)
 	return (result * neg);
 }
 
-void ft_swap(int *a, int *b)
+void	ft_swap(int *a, int *b)
 {
-	int temp;
+	int	temp;
 
 	temp = *b;
 	*b = *a;
 	*a = temp;
+}
+
+void	*ft_memmove(void *dest, const void *src, size_t n)
+{
+	int	i;
+
+	if (dest == NULL && src == NULL)
+		return (0);
+	if (dest > src)
+	{
+		i = (int)n;
+		while (--i >= 0)
+			((char *)dest)[i] = ((char *)src)[i];
+	}
+	else
+	{
+		i = -1;
+		while (++i < (int)n)
+			((char *)dest)[i] = ((char *)src)[i];
+	}
+	return (dest);
+}
+
+void	ft_bzero(void *s, size_t n)
+{
+	size_t	index;
+	char	**str;
+
+	str = (char **)&s;
+	index = 0;
+	while (index < n)
+	{
+		(*str)[index] = '\0';
+		index++;
+	}
 }

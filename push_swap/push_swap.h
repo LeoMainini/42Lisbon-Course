@@ -41,7 +41,7 @@ typedef struct stacks {
 
 int		gmini(node **a, int size, int max_i);
 int		gmi_in_s(node **a, int size);
-void	check_is_in_array(node **a, node **b, int *array);
+//void	check_is_in_array(node **a, node **b, int *array);
 int		ft_arraylen(int *array);
 void	set_starting_point(node **a, int size, int k, int **best_array);
 int		predictive_insert_sort(node **stack_a, node **stack_b, int max_i);

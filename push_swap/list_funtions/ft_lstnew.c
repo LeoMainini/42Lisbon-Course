@@ -21,7 +21,6 @@ void	ft_lstnew(int num, node **head)
 		return ;
 	if (!*head)
 	{
-		//ft_printf("start inicialized\n");
 		*head = n;
 		n->index = 0;
 		n->prev = n;

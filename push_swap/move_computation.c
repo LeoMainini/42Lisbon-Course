@@ -14,12 +14,14 @@
 
 static int	is_valid_target(ps *s, int max_i, int asize)
 {
-	return (((s->t->number > s->bt->number && s->t->prev->number
+	if (((s->t->number > s->bt->number && s->t->prev->number
 				< s->bt->number) || (s->t->number > s->bt->number
 				&& s->t->index == gmini(s->a, asize, max_i))
 			|| (s->t->number < s->bt->number && s->t->prev->number
 				< s->bt->number
-				&& s->t->prev->index == gmi_in_s(s->a, asize))));
+				&& s->t->prev->index == gmi_in_s(s->a, asize))))
+		return (1);
+	return (0);
 }
 
 void	compute_best_move(ps *s, moves	*move_set, int max_i)
@@ -55,7 +57,7 @@ void	decide_move(node **a, node **b, moves *move_set, int max_i)
 	stacks.b = b;
 	stacks.t = *a;
 	stacks.bt = *b;
-	move_set->a_moves = ft_lstsize(a);
-	move_set->b_moves = ft_lstsize(b);
+	move_set->a_moves = 1000000;
+	move_set->b_moves = 1000000;
 	compute_best_move(&stacks, move_set, max_i);
 }

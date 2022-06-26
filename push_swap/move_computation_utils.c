@@ -79,7 +79,7 @@ void	compare_distance(int i, int k, moves *move_set, ps *s)
 
 	size = ft_lstsize(s->b);
 	asize = ft_lstsize(s->a);
-	if (get_distance(i, k, size, asize) < get_distance(
+	if (get_distance(i, k, size, asize) <= get_distance(
 			move_set->b_moves, move_set->a_moves, size, asize))
 	{
 		move_set->target_a = s->t;

@@ -54,7 +54,7 @@ char	**ft_split(char const *s, char c, int *null)
 {
 	char	**dst;
 	char	*str;
-	int 	i;
+	int		i;
 
 	dst = (char **)malloc(sizeof(char *) * char_counter(s, c) + 1);
 	if (!s || !dst)
@@ -75,15 +75,5 @@ char	**ft_split(char const *s, char c, int *null)
 	}
 	*null = i;
 	dst[i] = NULL;
-	/*if (i == 0)
-	{
-		ft_printf("pointer = %p , ", dst[i]);
-		ft_printf("string = %s\n", dst[i]);
-	}
-	while (i-- > 0)
-	{
-		ft_printf("pointer = %p , ", dst[i]);
-		ft_printf("string = %s\n", dst[i]);
-	}*/
 	return (dst);
 }

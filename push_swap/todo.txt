@@ -1,0 +1,12 @@
+//#TODO:Use split to parse multiple input parameters, atol to check range✅
+	//#TODO: Bubble sort through list to check for duplicates and index✅
+//#TODO:Throw split output into a✅
+//#TODO:Make stack organizing functions✅
+//#TODO:Fix leak in split✅
+//#TODO:Organize✅
+    //#TODO: push to b smallest index (index == 0) in stack a, after calculating✅
+		//#TODO: smallest rotate steps using counter in loop that looks for index, keep going until a is sorted
+		//#TODO: or reverse sorted, then push all of b to A✅
+//#TODO:OPTIMIZE 100s✅
+//#TODO:OPTIMIZE ALL ✅
+//#TODO: FIX DOUBLE FREE ON EMPTY ARGV INPUT

@@ -11,25 +11,22 @@
 /* ************************************************************************** */
 
 #include "../push_swap.h"
+
 int	ft_lstsize(node **start)
 {
-	int	size;
-	node *temp;
+	int		size;
+	node	*temp;
 
 	if (!*start)
 		return (0);
 	temp = (*start)->next;
 	size = 0;
-	while ( temp && temp != *start && temp != temp->next)
+	while (temp && temp != *start && temp != temp->next)
 	{
 		size++;
-		//ft_printf("num = %d\t\t|	index = %d\n", temp->prev->number, temp->prev->index);
 		temp = temp->next;
 	}
 	if (temp)
-	{
 		size++;
-		//ft_printf("num = %d\t\t|	index = %d\n", temp->prev->number, temp->prev->index);
-	}
 	return (size);
 }

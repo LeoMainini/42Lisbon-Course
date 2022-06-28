@@ -12,8 +12,6 @@
 
 #include "push_swap.h"
 
-
-
 long	check_input(char *nums)
 {
 	long	num;
@@ -32,14 +30,13 @@ long	check_input(char *nums)
 	return (num);
 }
 
-
-int check_duplicate(node *stack)
+int	check_duplicate(node *stack)
 {
-	int size;
-	int i;
-	int k;
-	node *temp;
-	node *ktemp;
+	int		size;
+	int		i;
+	int		k;
+	node	*temp;
+	node	*ktemp;
 
 	if (!stack)
 		return (1);
@@ -61,42 +58,45 @@ int check_duplicate(node *stack)
 	return (0);
 }
 
-int sort_indexes(node *stack)
+static int	check_index_order(node *temp, node *ktemp)
+{
+	return ((ktemp->number > temp->number && ktemp->index < temp->index)
+		|| (ktemp->number < temp->number && ktemp->index > temp->index));
+}
+
+int	sort_indexes(node *stack)
 {
 	int		i;
-	int 	k;
+	int		k;
 	node	*temp;
 	node	*ktemp;
 	int		max_index;
 
 	max_index = 0;
-	i = ft_lstsize(&stack);
-	k = ft_lstsize(&stack);
+	i = ft_lstsize(&stack) + 1;
+	k = ft_lstsize(&stack) + 1;
 	temp = stack;
-	while (k > 0)
+	while (--k > 0)
 	{
 		ktemp = temp->next;
-		while (i > 0)
+		while (--i > 0)
 		{
 			if (temp->index > max_index)
 				max_index = temp->index;
-			if ((ktemp->number > temp->number && ktemp->index < temp->index)
-				|| (ktemp->number < temp->number && ktemp->index > temp->index))
+			if (check_index_order(temp, ktemp))
 				ft_swap(&ktemp->index, &temp->index);
 			temp = temp->next;
-			i--;
 		}
-		i = ft_lstsize(&stack);
+		i = ft_lstsize(&stack) + 1;
 		temp = temp->next;
-		k--;
 	}
 	return (max_index);
 }
 
 int	check_duplicates_and_index(node *stack)
 {
-	int max_index;
-	int temp;
+	int	max_index;
+	int	temp;
 
 	if (!stack)
 		return (0);

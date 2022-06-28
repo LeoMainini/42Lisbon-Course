@@ -12,38 +12,9 @@
 
 #include "push_swap.h"
 
-void check_decrement_index(node *stack)
+int	get_size_sort_index(node *stack)
 {
-	int		found_zero;
-	node	*temp;
-
-	found_zero = 0;
-	temp = (stack)->next;
-	if (temp->prev->index == 0)
-		found_zero = 1;
-	while (temp != stack)
-	{
-
-		if (temp->index == 0)
-			found_zero = 1;
-		temp = temp->next;
-	}
-	if (!found_zero)
-	{
-		temp->index -= 1;
-		temp = temp->next;
-		while (temp != stack)
-		{
-			temp->index -= 1;
-			temp = temp->next;
-		}
-	}
-
-}
-
-int get_size_sort_index(node *stack)
-{
-	int size;
+	int	size;
 
 	if (!stack)
 		return (0);
@@ -51,12 +22,12 @@ int get_size_sort_index(node *stack)
 	return (size);
 }
 
-int is_sorted(node **stack, int reverse)
+int	is_sorted(node **stack, int reverse)
 {
-	node *temp;
+	node	*temp;
 
 	if (!*stack)
-		return 0;
+		return (0);
 	temp = (*stack);
 	while (!reverse && temp != (*stack)->prev)
 	{
@@ -73,10 +44,10 @@ int is_sorted(node **stack, int reverse)
 	return (1);
 }
 
-int is_circular_sorted(node **stack, int max_i)
+int	is_circular_sorted(node **stack, int max_i)
 {
 	int		i;
-	int 	k;
+	int		k;
 	node	*temp;
 
 	temp = *stack;
@@ -98,25 +69,13 @@ int is_circular_sorted(node **stack, int max_i)
 	return (0);
 }
 
-int    insert_sort(node **stack_a, node **stack_b, int max_i)
+static void	compute_exec_move(node **stack_a, int index)
 {
-	int	i;
-	int size;
-	int index;
-	node *temp;
+	int		i;
+	int		size;
+	node	*temp;
 
-	if ((*stack_b && !*stack_a) || is_sorted(stack_a, 0))
-		return (1);
-	//ft_printf("max i = %d\n", max_i);
-	i = is_circular_sorted(stack_a, max_i);
-	//ft_printf("i = %d\n", i);
-	if (i)
-		return (ft_lstalign(stack_a, 'a'));
-	if (!*stack_b)
-		index = 0;
-	else
-		index = (*stack_b)->index + 1;
-	sort_indexes(*stack_a);
+	size = get_size_sort_index(*stack_a);
 	i = 0;
 	temp = (*stack_a)->next;
 	while (temp != *stack_a)
@@ -128,7 +87,6 @@ int    insert_sort(node **stack_a, node **stack_b, int max_i)
 	}
 	if ((*stack_a)->index != index)
 	{
-		size = ft_lstsize(stack_a);
 		if ((i > (size - 1) / 2))
 			while ((*stack_a)->index != index && !is_sorted(stack_a, 0))
 				ft_rev_rotate(stack_a, 'a');
@@ -136,6 +94,23 @@ int    insert_sort(node **stack_a, node **stack_b, int max_i)
 			while ((*stack_a)->index != index && !is_sorted(stack_a, 0))
 				ft_rotate(stack_a, 'a');
 	}
+}
+
+int	insert_sort(node **stack_a, node **stack_b, int max_i)
+{
+	int	i;
+	int	index;
+
+	if ((*stack_b && !*stack_a) || is_sorted(stack_a, 0))
+		return (1);
+	i = is_circular_sorted(stack_a, max_i);
+	if (i)
+		return (ft_lstalign(stack_a, 'a'));
+	if (!*stack_b)
+		index = 0;
+	else
+		index = (*stack_b)->index + 1;
+	compute_exec_move(stack_a, index);
 	if ((*stack_b && !*stack_a) || is_sorted(stack_a, 0))
 		return (1);
 	ft_push_b(stack_a, stack_b);

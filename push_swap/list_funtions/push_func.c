@@ -12,7 +12,7 @@
 
 #include "../push_swap.h"
 
-void check_link(node **stack)
+void	check_link(node **stack)
 {
 	if (*stack == (*stack)->next)
 		*stack = 0;
@@ -20,9 +20,9 @@ void check_link(node **stack)
 		*stack = (*stack)->next;
 }
 
-void    ft_push_a(node **a, node **b)
+void	ft_push_a(node **a, node **b)
 {
-	node *temp;
+	node	*temp;
 
 	if (!*b)
 		return ;
@@ -47,31 +47,31 @@ void    ft_push_a(node **a, node **b)
 	ft_printf("pa\n");
 }
 
-void    ft_push_b(node **a, node **b)
+void	ft_push_b(node **a, node **b)
 {
-    node *temp;
+	node	*temp;
 
-    if (!*a)
-        return ;
-    temp = *a;
-    (*a)->next->prev = (*a)->prev;
-    (*a)->prev->next = (*a)->next;
+	if (!*a)
+		return ;
+	temp = *a;
+	(*a)->next->prev = (*a)->prev;
+	(*a)->prev->next = (*a)->next;
 	check_link(a);
-    if (!*b)
-    {
-        *b = temp;
-        temp->next = temp;
-        temp->prev = temp;
-    }
-    else
-    {
+	if (!*b)
+	{
+		*b = temp;
+		temp->next = temp;
+		temp->prev = temp;
+	}
+	else
+	{
 		(*b)->prev->next = temp;
 		temp->prev = (*b)->prev;
 		temp->next = (*b);
 		(*b)->prev = temp;
 		*b = temp;
 	}
-    ft_printf("pb\n");
+	ft_printf("pb\n");
 }
 
 void	push_all_a(node **a, node **b)

@@ -14,8 +14,8 @@
 
 int	ft_lstalign(node **stack_a, char c)
 {
-	int	size;
-	int i;
+	int		size;
+	int		i;
 	node	*temp;
 
 	temp = *stack_a;
@@ -42,25 +42,25 @@ void	ft_rotate(node **stack, char c)
 		ft_printf("r%c\n", c);
 }
 
-void    ft_rotate_both(node **stack_a, node **stack_b)
+void	ft_rotate_both(node **stack_a, node **stack_b)
 {
 	if (!*stack_a || !*stack_b)
-		return;
+		return ;
 	ft_rotate(stack_a, 'r');
 	ft_rotate(stack_b, 'r');
-    ft_printf("rr\n");
+	ft_printf("rr\n");
 }
 
-void    ft_rev_rotate(node **stack, char c)
+void	ft_rev_rotate(node **stack, char c)
 {
-    *stack = (*stack)->prev;
-    if (c != 'r')
-        ft_printf("rr%c\n", c);
+	*stack = (*stack)->prev;
+	if (c != 'r')
+		ft_printf("rr%c\n", c);
 }
 
-void    ft_rev_rotate_both(node **stack_a, node **stack_b)
+void	ft_rev_rotate_both(node **stack_a, node **stack_b)
 {
-    ft_rev_rotate(stack_a, 'r');
-    ft_rev_rotate(stack_b, 'r');
-    ft_printf("rrr\n");
+	ft_rev_rotate(stack_a, 'r');
+	ft_rev_rotate(stack_b, 'r');
+	ft_printf("rrr\n");
 }

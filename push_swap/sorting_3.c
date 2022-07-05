@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-int	sort_3(node **a, int max_i)
+int	sort_3(t_node **a, int max_i)
 {
 	if (is_sorted(a, 0) || is_circular_sorted(a, max_i))
 		return (ft_lstalign(a, 'a'));

@@ -12,15 +12,15 @@
 
 #include "../push_swap.h"
 
-void	print_node(node *stack)
+void	print_node(t_node *stack)
 {
 	ft_printf("NUMBER = %d, 	INDEX = %d\n", stack->number, stack->index);
 }
 
-void	ft_lstiterf(node **stack, void (*f)())
+void	ft_lstiterf(t_node **stack, void (*f)())
 {
-	node	*temp;
-	node	*ktemp;
+	t_node	*temp;
+	t_node	*ktemp;
 
 	if (!*stack)
 		return ;

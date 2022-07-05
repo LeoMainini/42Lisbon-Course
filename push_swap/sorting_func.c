@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-int	get_size_sort_index(node *stack)
+int	get_size_sort_index(t_node *stack)
 {
 	int	size;
 
@@ -22,9 +22,9 @@ int	get_size_sort_index(node *stack)
 	return (size);
 }
 
-int	is_sorted(node **stack, int reverse)
+int	is_sorted(t_node **stack, int reverse)
 {
-	node	*temp;
+	t_node	*temp;
 
 	if (!*stack)
 		return (0);
@@ -44,11 +44,11 @@ int	is_sorted(node **stack, int reverse)
 	return (1);
 }
 
-int	is_circular_sorted(node **stack, int max_i)
+int	is_circular_sorted(t_node **stack, int max_i)
 {
 	int		i;
 	int		k;
-	node	*temp;
+	t_node	*temp;
 
 	temp = *stack;
 	i = 0;
@@ -69,11 +69,11 @@ int	is_circular_sorted(node **stack, int max_i)
 	return (0);
 }
 
-static void	compute_exec_move(node **stack_a, int index)
+static void	compute_exec_move(t_node **stack_a, int index)
 {
 	int		i;
 	int		size;
-	node	*temp;
+	t_node	*temp;
 
 	size = get_size_sort_index(*stack_a);
 	i = 0;
@@ -96,7 +96,7 @@ static void	compute_exec_move(node **stack_a, int index)
 	}
 }
 
-int	insert_sort(node **stack_a, node **stack_b, int max_i)
+int	insert_sort(t_node **stack_a, t_node **stack_b, int max_i)
 {
 	int	i;
 	int	index;

@@ -12,11 +12,11 @@
 
 #include "../push_swap.h"
 
-void	ft_lstnew(int num, node **head)
+void	ft_lstnew(int num, t_node **head)
 {
-	node	*n;
+	t_node	*n;
 
-	n = (node *)malloc(sizeof(node));
+	n = (t_node *)malloc(sizeof(t_node));
 	if (!n)
 		return ;
 	if (!*head)

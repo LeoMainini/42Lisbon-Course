@@ -36,7 +36,7 @@ int	ft_arraylen(int *array)
 	return (i);
 }
 
-void	iterate_stack_for_sp(node *temp, int size, int k, int **best_array)
+void	iterate_stack_for_sp(t_node *temp, int size, int k, int **best_array)
 {
 	int	*array;
 	int	i;
@@ -64,9 +64,9 @@ void	iterate_stack_for_sp(node *temp, int size, int k, int **best_array)
 	free(array);
 }
 
-void	set_starting_point(node **a, int size, int k, int **best_array)
+void	set_starting_point(t_node **a, int size, int k, int **best_array)
 {
-	node	*temp;
+	t_node	*temp;
 
 	if (!*a)
 		return ;

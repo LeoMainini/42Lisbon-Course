@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-static int	is_valid_target(ps *s, int max_i, int asize)
+static int	is_valid_target(t_ps *s, int max_i, int asize)
 {
 	if (((s->t->number > s->bt->number && s->t->prev->number
 				< s->bt->number) || (s->t->number > s->bt->number
@@ -24,7 +24,7 @@ static int	is_valid_target(ps *s, int max_i, int asize)
 	return (0);
 }
 
-void	compute_best_move(ps *s, moves	*move_set, int max_i)
+void	compute_best_move(t_ps *s, t_moves	*move_set, int max_i)
 {
 	int	i;
 	int	k;
@@ -49,9 +49,9 @@ void	compute_best_move(ps *s, moves	*move_set, int max_i)
 	}
 }
 
-void	decide_move(node **a, node **b, moves *move_set, int max_i)
+void	decide_move(t_node **a, t_node **b, t_moves *move_set, int max_i)
 {
-	ps	stacks;
+	t_ps	stacks;
 
 	stacks.a = a;
 	stacks.b = b;

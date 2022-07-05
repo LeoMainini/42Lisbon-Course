@@ -30,13 +30,13 @@ long	check_input(char *nums)
 	return (num);
 }
 
-int	check_duplicate(node *stack)
+int	check_duplicate(t_node *stack)
 {
 	int		size;
 	int		i;
 	int		k;
-	node	*temp;
-	node	*ktemp;
+	t_node	*temp;
+	t_node	*ktemp;
 
 	if (!stack)
 		return (1);
@@ -58,18 +58,18 @@ int	check_duplicate(node *stack)
 	return (0);
 }
 
-static int	check_index_order(node *temp, node *ktemp)
+static int	check_index_order(t_node *temp, t_node *ktemp)
 {
 	return ((ktemp->number > temp->number && ktemp->index < temp->index)
 		|| (ktemp->number < temp->number && ktemp->index > temp->index));
 }
 
-int	sort_indexes(node *stack)
+int	sort_indexes(t_node *stack)
 {
 	int		i;
 	int		k;
-	node	*temp;
-	node	*ktemp;
+	t_node	*temp;
+	t_node	*ktemp;
 	int		max_index;
 
 	max_index = 0;
@@ -93,7 +93,7 @@ int	sort_indexes(node *stack)
 	return (max_index);
 }
 
-int	check_duplicates_and_index(node *stack)
+int	check_duplicates_and_index(t_node *stack)
 {
 	int	max_index;
 	int	temp;

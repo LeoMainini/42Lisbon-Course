@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-static void	check_is_in_array(node **a, node **b, int *array)
+static void	check_is_in_array(t_node **a, t_node **b, int *array)
 {
 	int	i;
 
@@ -28,7 +28,7 @@ static void	check_is_in_array(node **a, node **b, int *array)
 	ft_push_b(a, b);
 }
 
-static void	init_list(int **sorted_array, node **stack_a, node **stack_b)
+static void	init_list(int **sorted_array, t_node **stack_a, t_node **stack_b)
 {
 	int	size;
 
@@ -38,7 +38,7 @@ static void	init_list(int **sorted_array, node **stack_a, node **stack_b)
 		check_is_in_array(stack_a, stack_b, *sorted_array);
 }
 
-static void	exec_move(moves *move_set, node **stack_a, node **stack_b)
+static void	exec_move(t_moves *move_set, t_node **stack_a, t_node **stack_b)
 {
 	if (move_set->a_moves > 0 && move_set->b_moves > 0)
 		while (*stack_a != move_set->target_a && *stack_b != move_set->target_b)
@@ -57,10 +57,10 @@ static void	exec_move(moves *move_set, node **stack_a, node **stack_b)
 	ft_push_a(stack_a, stack_b);
 }
 
-int	predictive_insert_sort(node **stack_a, node **stack_b, int max_i)
+int	predictive_insert_sort(t_node **stack_a, t_node **stack_b, int max_i)
 {
 	static int	*sorted_array;
-	moves		move_set;
+	t_moves		move_set;
 
 	if ((is_sorted(stack_a, 0)
 			|| is_circular_sorted(stack_a, max_i)) && !*stack_b)

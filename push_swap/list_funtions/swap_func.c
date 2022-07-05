@@ -12,10 +12,10 @@
 
 #include "../push_swap.h"
 
-void	ft_swap_one(node **stack, char c)
+void	ft_swap_one(t_node **stack, char c)
 {
-	node	*temp;
-	node	*ktemp;
+	t_node	*temp;
+	t_node	*ktemp;
 
 	if (!(*stack) || (*stack)->next == (*stack))
 		return ;
@@ -32,7 +32,7 @@ void	ft_swap_one(node **stack, char c)
 		ft_printf("s%c\n", c);
 }
 
-void	swap_both(node **stack_a, node **stack_b)
+void	swap_both(t_node **stack_a, t_node **stack_b)
 {
 	ft_swap_one(stack_a, 's');
 	ft_swap_one(stack_b, 's');

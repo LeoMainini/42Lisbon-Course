@@ -12,10 +12,10 @@
 
 #include "../push_swap.h"
 
-int	ft_lstsize(node **start)
+int	ft_lstsize(t_node **start)
 {
 	int		size;
-	node	*temp;
+	t_node	*temp;
 
 	if (!*start)
 		return (0);

@@ -12,11 +12,11 @@
 
 #include "push_swap.h"
 
-int	gmini(node **a, int size, int max_i)
+int	gmini(t_node **a, int size, int max_i)
 {
 	int		i;
 	int		min_index;
-	node	*temp;
+	t_node	*temp;
 
 	temp = *a;
 	min_index = max_i;
@@ -30,11 +30,11 @@ int	gmini(node **a, int size, int max_i)
 	return (min_index);
 }
 
-int	gmi_in_s(node **a, int size)
+int	gmi_in_s(t_node **a, int size)
 {
 	int		i;
 	int		max_index;
-	node	*temp;
+	t_node	*temp;
 
 	temp = *a;
 	max_index = 0;
@@ -72,7 +72,7 @@ int	get_distance(int i, int k, int size, int asize)
 	return (distance);
 }
 
-void	compare_distance(int i, int k, moves *move_set, ps *s)
+void	compare_distance(int i, int k, t_moves *move_set, t_ps *s)
 {
 	int	size;
 	int	asize;

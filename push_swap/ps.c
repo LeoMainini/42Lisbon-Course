@@ -24,7 +24,7 @@ void	check_free_output(char ***output, int k)
 	}
 }
 
-int	error_out_free(node **stack, char ***output, int k)
+int	error_out_free(t_node **stack, char ***output, int k)
 {
 	ft_printf("ERROR\n");
 	if (*stack)
@@ -34,7 +34,7 @@ int	error_out_free(node **stack, char ***output, int k)
 	return (-1);
 }
 
-int	get_and_check_stack(int argc, char **argv, node **a, int null)
+int	get_and_check_stack(int argc, char **argv, t_node **a, int null)
 {
 	int		i;
 	int		k;
@@ -63,7 +63,7 @@ int	get_and_check_stack(int argc, char **argv, node **a, int null)
 	return (check_duplicates_and_index(*a));
 }
 
-static void	check_sort_stack(node **a, node **b, int max_i)
+static void	check_sort_stack(t_node **a, t_node **b, int max_i)
 {
 	int	done_sorting;
 
@@ -86,8 +86,8 @@ static void	check_sort_stack(node **a, node **b, int max_i)
 
 int	main(int argc, char **argv)
 {
-	node	*a;
-	node	*b;
+	t_node	*a;
+	t_node	*b;
 	int		max_i;
 	int		null;
 

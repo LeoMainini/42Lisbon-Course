@@ -84,6 +84,7 @@ static void	check_sort_stack(t_node **a, t_node **b, int max_i)
 			done_sorting = predictive_insert_sort(a, b, max_i);
 }
 
+//to check output ft_lstiterf(&a, &print_node); after check_sort_stack
 int	main(int argc, char **argv)
 {
 	t_node	*a;
@@ -99,6 +100,7 @@ int	main(int argc, char **argv)
 	max_i = get_and_check_stack(argc, argv, &a, null);
 	if (max_i == -1)
 		return (0);
+	ft_lstiterf(&a, &print_node);
 	check_sort_stack(&a, &b, max_i);
 	ft_lstiterf(&a, &free);
 	ft_lstiterf(&b, &free);

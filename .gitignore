@@ -17,3 +17,8 @@ get_next_line/libft/*
 get_next_line/trip
 */.idea
 */.idea/*
+*cmake*
+/*/libft
+/*/ft_printf
+fractol/Makefile_MAC
+push_swap/push_swap

@@ -74,7 +74,7 @@ char	*get_output(int fd)
 	return (output);
 }
 
-int fork_link_execute(int fds[2], char *path, char **cmd_argv)
+int fork_lpipes_execute(int fds[2], char *path, char **cmd_argv)
 {
 	pid_t	pid;
 	int 	status;
@@ -91,53 +91,124 @@ int fork_link_execute(int fds[2], char *path, char **cmd_argv)
 			exit(1);
 		close(fds[1]);
 		close(fds[0]);
-		execve(path, cmd_argv, NULL);
-		exit(0);
+		if (execve(path, cmd_argv, NULL) == -1)
+			perror("Execution error");
+		exit(1);
 	}
 	else
 	{
-		close(fds[1]);
 		waitpid(pid, &status, 0);
+		close(fds[1]);
 	}
 	return (0);
 }
 
+
+void free_and_exit(t_vars *data, int status)
+{
+	int i;
+	int k;
+
+	i = -1;
+	while (data->cmds[++i])
+	{
+		k = -1;
+		while (data->cmds[i][++k])
+			free(data->cmds[i][k]);
+	}
+	exit (status);
+}
+
+int	check_cmd_error(char ***cmds, int i, int argc)
+{
+	int k;
+
+	if (!cmds[i - 2][0])
+	{
+		i = 1;
+		while (++i < argc - 1)
+		{
+			k = -1;
+			while (cmds[i - 2][++k])
+				free(cmds[i - 2][k]);
+			free(cmds[i - 2]);
+		}
+		free(cmds);
+		return (1);
+	}
+	return (0);
+}
+
+char ***get_commands(int argc, char **argv)
+{
+	char	***cmds;
+	int		i;
+
+	i = 2;
+	while (i < argc - 1)
+		++i;
+	cmds = (char ***)ft_calloc(i + 1, sizeof(char *));
+	if (!cmds)
+		return (0);
+	i = 1;
+	while (++i < argc - 1)
+	{
+		cmds[i - 2] = ft_split(argv[i], ' ');
+		if (check_cmd_error(cmds, i, argc))
+			return (0);
+	}
+	cmds[i - 2] = 0;
+	return (cmds);
+}
+
+int init_struct(t_vars *data, int argc, char **argv)
+{
+	data->cmds = 0;
+	if (argc < 5 && ft_printf("ERROR:\tMissing arguments\n"))
+		return(0);
+	data->in_fd = open(argv[1], O_RDONLY);
+	if (data->in_fd < 0 && ft_printf("ERROR:\tIncorrect input file path\n"))
+		return(0);
+	data->cmds = get_commands(argc, argv);
+	if (!data->cmds && ft_printf("ERROR:\tArgument parsing error\n"))
+		return (0);
+	data->out_fd = open(argv[argc - 1], O_RDWR|O_CREAT|O_TRUNC, 0666);
+	if (data->out_fd < 0 && ft_printf("ERROR:\tOutput file error\n"))
+		return(0);
+	return (1);
+}
+
 int	main(int argc, char **argv)
 {
-	int		infile;
-	int		outfile;
-	char	**cmd_argv;
 	char	*path;
-	int		fds[2];
+	int		out_fds[2];
+	int		i;
 	char *output;
+	t_vars	data;
 
 	output = 0;
-	if (argc < 5 && ft_printf("ERROR:\tMissing arguments\n"))
+	if (!init_struct(&data, argc, argv))
 		exit(1);
-	infile = open(argv[1], O_RDONLY);
-	if (infile < 0 && ft_printf("ERROR:\tIncorrect input file path\n"))
-		exit(1);
-	cmd_argv = ft_split(argv[2], ' ');
-	cmd_argv = append_item(cmd_argv, argv[1]);
-	path = ft_strjoin("/usr/bin/", cmd_argv[0]);
-	ft_printf("1\n");
-	fork_link_execute(fds, path, cmd_argv);
-	infile = -1;
-	ft_printf("3\n");
-	while (cmd_argv[++infile])
-		free(cmd_argv[infile]);
-	free(path);
-	free(cmd_argv);
-	outfile = open(argv[4], O_RDWR|O_CREAT|O_TRUNC, 0666);
-	output = get_output(fds[0]);
-	close(fds[0]);
+	i = -1;
+	while (data.cmds[++i])
+	{
+		path = ft_strjoin("/usr/bin/", data.cmds[i][0]);
+		if (!i)
+			fork_lpipes_execute(out_fds, path, data.cmds[i]);
+		//else
+			//figure out how to comunicate both ways with pipes
+		free(path);
+	}
+	output = get_output(out_fds[0]);
+	close(out_fds[0]);
 	if (output && *output)
 	{
 		ft_printf("output = %s, size = %d\n", output, ft_strlen(output));
-		write(outfile, output, ft_strlen(output));
+		write(data.out_fd, output, ft_strlen(output));
 	}
-	close(outfile);
-	close(infile);
 	free(output);
+	close(data.out_fd);
+	close(data.in_fd);
+	free_and_exit(&data, 0);
 }
 

@@ -1,1 +1,13 @@
-222
+Makefile
+cmake-build-debug
+ft_printf
+libft
+list.txt
+pipex
+pipex.c
+pipex.h
+pipex.o
+sdfsdf
+test.out
+test.txt
+testout.txt

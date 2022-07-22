@@ -21,10 +21,10 @@
 # include "libft/libft.h"
 
 typedef struct	s_vars {
-	char	**cmds;
+	char	***cmds;
 	int 	fds[2];
-	int		infile;
-	int 	outfile;
+	int		in_fd;
+	int 	out_fd;
 }			t_vars;
 
 #endif

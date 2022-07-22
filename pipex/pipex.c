@@ -57,6 +57,7 @@ char	*get_output(int fd)
 	char	*output;
 
 	output = 0;
+	ft_bzero(buf, 4096);
 	read_bytes = read(fd, buf, sizeof(buf) - 1);
 	if (read_bytes > 0)
 		output = ft_strfree_join(&output, buf);
@@ -193,10 +194,10 @@ int	main(int argc, char **argv)
 	while (data.cmds[++i])
 	{
 		path = ft_strjoin("/usr/bin/", data.cmds[i][0]);
-		if (!i)
+		if (!i){
+			data.cmds[i] = append_item(data.cmds[i], argv[1]);
 			fork_lpipes_execute(out_fds, path, data.cmds[i]);
-		//else
-			//figure out how to comunicate both ways with pipes
+		}
 		free(path);
 	}
 	output = get_output(out_fds[0]);

@@ -107,7 +107,8 @@ void	exec_parent(int in_fds[2], int fds[2], char *prev_output, int i, int pid)
 	if (i)
 	{
 		ft_printf("prev_output in P Process %s\n", prev_output);
-		write(in_fds[1], prev_output, ft_strlen(prev_output));
+		if (prev_output)
+			write(in_fds[1], prev_output, ft_strlen(prev_output));
 	}
 	waitpid(pid, &status, 0);
 	close(in_fds[1]);
@@ -126,8 +127,6 @@ int fork_lpipes_execute(int fds[2], char *path, char **cmd_argv, int i)
 		ft_printf("prev output = %s\n", prev_output);
 	}
 	if (pipe(in_fds) == -1 && ft_printf("Pipe Error\n")) // P -> C
-		return (1);
-	if (pipe(fds) == -1 && ft_printf("Pipe Error\n")) // C -> P
 		return (1);
 	pid = fork();
 	if (pid == -1 && ft_printf("Fork Error\n"))
@@ -211,13 +210,15 @@ int init_struct(t_vars *data, int argc, char **argv)
 	data->out_fd = open(argv[argc - 1], O_RDWR|O_CREAT|O_TRUNC, 0666);
 	if (data->out_fd < 0 && ft_printf("ERROR:\tOutput file error\n"))
 		return(0);
+	if (pipe(data->fds) == -1 && ft_printf("Pipe Error\n")) // C -> P
+		return (0);
 	return (1);
 }
 
 int	main(int argc, char **argv)
 {
 	char	*path;
-	int		out_fds[2];
+	//int		out_fds[2];
 	int		i;
 	char *output;
 	t_vars	data;
@@ -231,13 +232,12 @@ int	main(int argc, char **argv)
 		path = ft_strjoin("/usr/bin/", data.cmds[i][0]);
 		if (!i){
 			data.cmds[i] = append_item(data.cmds[i], argv[1]);
-			//fork_lpipes_execute(out_fds, path, data.cmds[i], i);
+			fork_lpipes_execute(data.fds, path, data.cmds[i], i);
 		}
-		fork_lpipes_execute(out_fds, path, data.cmds[i], i);
 		free(path);
 	}
-	output = get_output(out_fds[0]);
-	close(out_fds[0]);
+	output = get_output(data.fds[0]);
+	close(data.fds[0]);
 	if (output && *output)
 	{
 		ft_printf("output = %s, size = %d\n", output, ft_strlen(output));

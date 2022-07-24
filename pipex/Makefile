@@ -3,9 +3,9 @@ SRCS	=	pipex.c
 
 OBJS	=	${SRCS:.c=.o}
 
-PF_NAME	=	ft_printf
+PF_NAME	=	ft_printf/libftprintf.a
 
-LFT_NAME = libft
+LFT_NAME = libft/libft.a
 
 NAME	=	pipex
 
@@ -27,11 +27,17 @@ INC		=	 -Lft_printf -Llibft -I . -lftprintf -lft
 
 %.o: %.c
 	@$(ECHO) "\033[32mCompiling $< in fancy colors"
-	@$(CC) -Wall -Wextra -Werror -Imlx -c $< -o $@
+	@$(CC) -Wall -Wextra -Werror -c $< -o $@
 
 $(NAME):	$(OBJS) $(PF_NAME) $(LFT_NAME)
-			@make -C $(PF_NAME) && make -C $(LFT_NAME)
+			#@make -C $(PF_NAME) && make -C $(LFT_NAME)
 			$(CC) $(CFLAGS) $(OBJS) $(INC) -o $(NAME)
+
+$(PF_NAME):
+			@make -C ft_printf
+
+$(LFT_NAME):
+			@make -C libft
 
 all:		${NAME}
 
@@ -39,11 +45,11 @@ clean:
 			
 			@$(ECHO) "\033[31mCleaning files in fancy colors"
 			@${RM} ${OBJS}
-			@make -C $(PF_NAME) clean && make -C $(LFT_NAME) clean
+			@make -C ft_printf clean && make -C libft clean
 
 fclean:		clean
 			@${RM} ${NAME}
-			@make -C $(PF_NAME) fclean && make -C $(LFT_NAME) fclean
+			@make -C ft_printf fclean && make -C libft fclean
 
 re:			fclean	all
 

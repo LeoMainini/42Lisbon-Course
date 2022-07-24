@@ -23,8 +23,10 @@
 typedef struct	s_vars {
 	char	***cmds;
 	int 	fds[2];
+	int 	xfds[2];
 	int		in_fd;
 	int 	out_fd;
+	char	*path;
 }			t_vars;
 
 #endif

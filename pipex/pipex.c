@@ -110,12 +110,11 @@ void	exec_child(t_vars *data, char **cmd_argv, int i)
 void	exec_parent(t_vars *data, char *prev_out, int i, int pid)
 {
 	int		status;
-
 	status = 0;
 	if (i)
 	{
 		close(data->xfds[0]);
-		ft_printf("data in parent = %s\n", prev_out);
+		//ft_printf("data in parent = %s\n", prev_out);
 		if (prev_out)
 			write(data->xfds[1], prev_out, ft_strlen(prev_out));
 		free(prev_out);
@@ -133,9 +132,10 @@ int fork_lpipes_execute(t_vars *data, int i)
 	if (i)
 	{
 		prev_output = get_output(data->fds[0]);
-		ft_printf("prev output = %s\n", prev_output);
+		//ft_printf("prev output = %s\n", prev_output);
+		pipe(data->xfds);
+		pipe(data->fds);
 	}
-
 	pid = fork();
 	if (pid == -1 && ft_printf("Fork Error\n"))
 		return (1);
@@ -249,7 +249,7 @@ int	main(int argc, char **argv)
 	close(data.fds[0]);
 	if (output && *output)
 	{
-		ft_printf("output = %s, size = %d\n", output, ft_strlen(output));
+		//ft_printf("output = %s, size = %d\n", output, ft_strlen(output));
 		write(data.out_fd, output, ft_strlen(output));
 	}
 	free(output);

@@ -21,17 +21,17 @@ static	void	check_type(char c, va_list value, int	*n)
 		pf_putstr_fd((char *)va_arg(value, int *), 1, n);
 	else if (c == 'p')
 		pf_printmemory(va_arg(value, unsigned long), 1,
-					   "0123456789abcdef", n);
+			"0123456789abcdef", n);
 	else if (c == 'd' || c == 'i')
 		pf_putnbr_fd((int)va_arg(value, int), 1, n);
 	else if (c == 'u')
 		pf_putbase10_plus(va_arg(value, unsigned int), 1, "0123456789", n);
 	else if (c == 'x')
 		pf_putbase10_plus(va_arg(value, unsigned int), 1,
-						  "0123456789abcdef", n);
+			"0123456789abcdef", n);
 	else if (c == 'X')
 		pf_putbase10_plus(va_arg(value, unsigned int), 1,
-						  "0123456789ABCDEF", n);
+			"0123456789ABCDEF", n);
 	else if (c == '%')
 		pf_putchar_fd('%', 1, n);
 }

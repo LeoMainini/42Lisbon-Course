@@ -20,13 +20,14 @@
 # include "ft_printf/ft_printf.h"
 # include "libft/libft.h"
 
-typedef struct	s_vars {
+typedef struct s_vars {
 	char	***cmds;
-	int 	fds[2];
-	int 	xfds[2];
+	int		fds[2];
+	int		xfds[2];
 	int		in_fd;
-	int 	out_fd;
+	int		out_fd;
 	char	*path;
+	int		arg_count;
 }			t_vars;
 
 #endif

@@ -19,7 +19,7 @@ size_t	ft_strlen(const char *s)
 	int	size;
 
 	if (!s)
-		return  (0);
+		return (0);
 	ft_printf("string pointer = %p\n", s);
 	size = 0;
 	while (s[size] != '\0')

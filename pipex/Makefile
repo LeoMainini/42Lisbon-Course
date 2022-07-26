@@ -30,7 +30,6 @@ INC		=	 -Lft_printf -Llibft -I . -lftprintf -lft
 	@$(CC) -Wall -Wextra -Werror -c $< -o $@
 
 $(NAME):	$(OBJS) $(PF_NAME) $(LFT_NAME)
-			#@make -C $(PF_NAME) && make -C $(LFT_NAME)
 			$(CC) $(CFLAGS) $(OBJS) $(INC) -o $(NAME)
 
 $(PF_NAME):

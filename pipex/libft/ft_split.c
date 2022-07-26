@@ -12,7 +12,6 @@
 
 #include "libft.h"
 
-
 static size_t	char_counter(char const *s, char c)
 {
 	size_t	count;

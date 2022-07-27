@@ -62,6 +62,9 @@ void	free_and_exit(t_vars *data, int status)
 		while (data->cmds[i][++k])
 			free(data->cmds[i][k]);
 	}
+	close(data->fds[0]);
+	close(data->in_fd);
+	close(data->out_fd);
 	exit (status);
 }
 
@@ -92,8 +95,11 @@ char	*get_output(int fd)
 
 void	exec_child(t_vars *data, char **cmd_argv, int i)
 {
-	if (i && (dup2(data->xfds[0], STDIN_FILENO) == -1
-			|| dup2(data->xfds[1], STDOUT_FILENO) == -1))
+	if ((i && dup2(data->xfds[0], STDIN_FILENO) == -1)
+		|| (i && i < data->arg_count - 4
+			&& dup2(data->xfds[1], STDOUT_FILENO) == -1)
+		|| (i && i == data->arg_count - 4
+			&& dup2(data->out_fd, STDOUT_FILENO) == -1))
 	{
 		perror("dup2");
 		free_and_exit(data, 1);
@@ -283,6 +289,5 @@ int	main(int argc, char **argv, char **envp)
 		fork_lpipes_execute(&data, i);
 		free(data.path);
 	}
-	write_out(&data);
 	free_and_exit(&data, 0);
 }

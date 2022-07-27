@@ -1,5 +1,6 @@
 
-SRCS	=	pipex.c
+SRCS	=	pipex.c		utils.c		process_utils.c		init_utils.c	\
+			argument_processing.c
 
 OBJS	=	${SRCS:.c=.o}
 

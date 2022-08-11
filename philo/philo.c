@@ -11,9 +11,9 @@
 /* ************************************************************************** */
 
 #include "philo.h"
-//#TODO: Input mutex addrs in philo struct
-//#TODO: Create check print and change philo state function to lock arround
+//#TODO: Input mutex addrs in philo struct ✅
 //#TODO: Calculate and print time of philo actions
+//#TODO: Create check print and change philo state function to lock arround
 
 
 int	main(int argc, char **argv)

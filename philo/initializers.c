@@ -30,8 +30,9 @@ t_philo **init_philo_list(t_data *data)
 	{
 		philos[i] = (t_philo *)malloc(sizeof(t_philo));
 		philos[i]->n = i + 1;
-		philos[i]->state = 0;
-		philos[i]->forks_av = 2;
+		philos[i]->state = -1;
+		philos[i]->eat_n = 0;
+		philos[i]->forks_in_hand = 0;
 		philos[i]->data = data;
 	}
 	return (philos);
@@ -45,11 +46,13 @@ t_philo	**init_state(int argc, char **argv, t_data *data)
 		data->ttd = ft_atoi(argv[2]);
 		data->tte = ft_atoi(argv[3]);
 		data->tts = ft_atoi(argv[4]);
-		data->i = 0;
+		data->complete = 0;
 		if (argc > 5)
 			data->eatn = ft_atoi(argv[5]);
 		else
-			data->eatn = 1;
+			data->eatn = -1;
+		gettimeofday(&data->start_time, NULL);
+		printf("current time = %ld\n", data->start_time.tv_usec);
 		print_data(data);
 		return (init_philo_list(data));
 	}

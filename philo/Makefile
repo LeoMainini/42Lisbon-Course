@@ -18,7 +18,7 @@ RM		=	rm -f
 
 AR		=	ar rc
 
-CFLAGS	=	-Wall -Werror -Wextra -fsanitize=address -g
+CFLAGS	=	-Wall -Werror -Wextra -fsanitize=address -g -fno-stack-protector
 
 INC		=	-pthread
 

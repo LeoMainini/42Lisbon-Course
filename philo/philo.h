@@ -16,26 +16,30 @@
 # include <stdlib.h>
 # include <pthread.h>
 # include <unistd.h>
+# include <sys/time.h>
 
 typedef struct s_data {
 	int		n_philos;
 	int		ttd;
 	int		tte;
 	int		tts;
+	int 	complete;
 	int		eatn;
-	int 	i;
+	struct timeval start_time;
+	pthread_mutex_t	*mutex;
 }	t_data;
 
 //state 0 = thinking;
-//state 1 = pick fork
-//state 2 = eating
-//state 3 = sleeping
-//state 4 = died
+//state 1 = eating
+//state 2 = sleeping
+//state 3 = died
 typedef struct s_philo {
-	int n;
-	int state;
-	int forks_av;
-	t_data *data;
+	int				n;
+	int 			eat_n;
+	int				state;
+	int				forks_in_hand;
+	t_data			*data;
+	struct timeval	eat_time;
 }	t_philo;
 
 char    **ft_split(char const *s, char c);
@@ -44,5 +48,9 @@ int	check_args(int argc, char **argv);
 t_philo **init_philo_list(t_data *data);
 t_philo	**init_state(int argc, char **argv, t_data *data);
 void initiate_simulation(t_philo **philos);
+void	set_start_time(t_philo **philos);
+long get_timed(struct timeval start);
+void	init_mutex(t_philo **philos, pthread_mutex_t *mutex);
+void	print_state_change(t_philo *philo, int option);
 
 #endif

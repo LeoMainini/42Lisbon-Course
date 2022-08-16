@@ -43,11 +43,11 @@ int is_dead(t_philo *philo)
 	return (1);
 }
 
-int	lock_right(t_philo *philo, int prev_n, int next_n)
+void	lock_right(t_philo *philo, int prev_n, int next_n)
 {
 	pthread_mutex_lock(&philo->data->mutex[next_n]);
-	if (is_dead(philo))
-		return (0);
+	//if (is_dead(philo))
+		//return (0);
 	print_state_change(philo, 1);
 	philo->data->mutex_index[next_n] = 1;
 	print_state_change(philo, 2);
@@ -58,17 +58,16 @@ int	lock_right(t_philo *philo, int prev_n, int next_n)
 	philo->data->mutex_index[next_n] = 0;
 	pthread_mutex_unlock(&philo->data->mutex[prev_n]);
 	pthread_mutex_unlock(&philo->data->mutex[next_n]);
-	if (is_dead(philo))
-		return (0);
-	return (1);
+	//if (is_dead(philo))
+	//	return (0);
 }
 int lock_left(t_philo *philo, int prev_n, int next_n)
 {
 	pthread_mutex_lock(&philo->data->mutex[prev_n]);
 	philo->data->mutex_index[prev_n] = 1;
 	print_state_change(philo, 1);
-	if (is_dead(philo))
-		return (0);
+	//if (is_dead(philo))
+	//	return (0);
 	if (next_n == prev_n)
 		while (1)
 			if (is_dead(philo))
@@ -86,8 +85,7 @@ int	lock_forks_set_state(t_philo *philo)
 	{
 		if (!lock_left(philo, prev_n, next_n))
 			return (0);
-		if (!lock_right(philo, prev_n, next_n))
-			return (0);
+		lock_right(philo, prev_n, next_n);
 	}
 	return (1);
 }

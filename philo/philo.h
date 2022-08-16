@@ -19,14 +19,17 @@
 # include <sys/time.h>
 
 typedef struct s_data {
-	int		n_philos;
-	int		ttd;
-	int		tte;
-	int		tts;
-	int 	complete;
-	int		eatn;
-	struct timeval start_time;
+	int				n_philos;
+	int				ttd;
+	int				tte;
+	int				tts;
+	int 			complete;
+	int				eatn;
+	struct timeval	start_time;
 	pthread_mutex_t	*mutex;
+	int 			*mutex_index;
+	pthread_mutex_t	*death_mutex;
+	pthread_mutex_t	*print_mutex;
 }	t_data;
 
 //state 0 = thinking;
@@ -50,7 +53,10 @@ t_philo	**init_state(int argc, char **argv, t_data *data);
 void initiate_simulation(t_philo **philos);
 void	set_start_time(t_philo **philos);
 long get_timed(struct timeval start);
-void	init_mutex(t_philo **philos, pthread_mutex_t *mutex);
+void	init_mutex(t_philo **philos);
 void	print_state_change(t_philo *philo, int option);
+int	ft_try_lock(t_philo *philo);
+void set_indexes(t_philo *philo, int *prev, int *next);
+void	unlock_forks(t_philo *philo);
 
 #endif

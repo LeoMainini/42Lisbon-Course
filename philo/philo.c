@@ -12,9 +12,10 @@
 
 #include "philo.h"
 //#TODO: Input mutex addrs in philo struct ✅
-//#TODO: Calculate and print time of philo actions
-//#TODO: Create check print and change philo state function to lock arround
-
+//#TODO: Calculate and print time of philo actions ✅
+//#TODO: Create check print and change philo state function to lock arround ✅
+//#TODO: Fix inconsistent and randon hanging on no die situations ->
+	//Make custom try_lock with timed thread returns condition variable
 
 int	main(int argc, char **argv)
 {

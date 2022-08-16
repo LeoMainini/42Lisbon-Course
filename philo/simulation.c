@@ -18,78 +18,110 @@ void set_indexes(t_philo *philo, int *prev, int *next)
 	if (philo->n == philo->data->n_philos)
 	{
 		*next = 0;
-		*prev = philo->n - 2;
+		*prev = philo->n - 1;
 	}
 	else if (philo->n == 1)
 	{
-		*prev = philo->data->n_philos - 1;
+		*prev = 0;
 		*next = philo->n;
 	}
 	else
 	{
-		*prev = philo->n - 2;
+		*prev = philo->n - 1;
 		*next = philo->n;
 	}
 }
 
-void	lock_forks_set_state(t_philo *philo)
+int is_dead(t_philo *philo)
+{
+	if (get_timed(philo->eat_time) < philo->data->ttd)
+		return (0);
+	pthread_mutex_lock(philo->data->death_mutex);
+	print_state_change(philo, 4);
+	philo->data->complete = 1;
+	pthread_mutex_unlock(philo->data->death_mutex);
+	return (1);
+}
+
+int	lock_right(t_philo *philo, int prev_n, int next_n)
+{
+	pthread_mutex_lock(&philo->data->mutex[next_n]);
+	if (is_dead(philo))
+		return (0);
+	print_state_change(philo, 1);
+	philo->data->mutex_index[next_n] = 1;
+	print_state_change(philo, 2);
+	gettimeofday(&philo->eat_time, NULL);
+	usleep(philo->data->tte * 1000);
+	philo->eat_n += 1;
+	philo->data->mutex_index[prev_n] = 0;
+	philo->data->mutex_index[next_n] = 0;
+	pthread_mutex_unlock(&philo->data->mutex[prev_n]);
+	pthread_mutex_unlock(&philo->data->mutex[next_n]);
+	if (is_dead(philo))
+		return (0);
+	return (1);
+}
+int lock_left(t_philo *philo, int prev_n, int next_n)
+{
+	pthread_mutex_lock(&philo->data->mutex[prev_n]);
+	philo->data->mutex_index[prev_n] = 1;
+	print_state_change(philo, 1);
+	if (is_dead(philo))
+		return (0);
+	if (next_n == prev_n)
+		while (1)
+			if (is_dead(philo))
+				return (0);
+	return (1);
+}
+
+int	lock_forks_set_state(t_philo *philo)
 {
 	int prev_n;
 	int next_n;
 
 	set_indexes(philo,&prev_n,&next_n);
-	if (philo->forks_in_hand == 0)
+	if (!philo->data->complete)
 	{
-		pthread_mutex_lock(&philo->data->mutex[next_n]);
-		pthread_mutex_lock(&philo->data->mutex[prev_n]);
-		print_state_change(philo, 1);
-		philo->forks_in_hand++;
-
+		if (!lock_left(philo, prev_n, next_n))
+			return (0);
+		if (!lock_right(philo, prev_n, next_n))
+			return (0);
 	}
-	else
-	{
-		print_state_change(philo, 1);
-		print_state_change(philo, 2);
-		gettimeofday(&philo->eat_time, NULL);
-		usleep(philo->data->tte * 1000);
-		philo->eat_n += 1;
-		philo->forks_in_hand = 0;
-		philo->state += 1;
-		pthread_mutex_unlock(&philo->data->mutex[prev_n]);
-		pthread_mutex_unlock(&philo->data->mutex[next_n]);
-	}
+	return (1);
 }
 
 void	unlock_forks(t_philo *philo)
 {
-	int prev_n;
-	int next_n;
+	int i;
 
-	set_indexes(philo,&prev_n,&next_n);
-	pthread_mutex_unlock(&philo->data->mutex[prev_n]);
-	pthread_mutex_unlock(&philo->data->mutex[next_n]);
-	pthread_mutex_unlock(&philo->data->mutex[philo->n - 1]);
+	i = -1;
+	while (++i < philo->data->n_philos)
+	{
+		if (philo->data->mutex_index[i] == 1)
+		{
+			pthread_mutex_unlock(&philo->data->mutex[i]);
+			philo->data->mutex_index[i] = 0;
+		}
+	}
 }
 
 void decide_state_change(t_philo *philo)
 {
-		if (philo->state == -1 || philo->state == 2)
-		{
-			print_state_change(philo, 0);
-			philo->state = 0;
-		}
-		else if (philo->state == 0)
-		{
-			pthread_mutex_lock(&philo->data->mutex[philo->n - 1]);
-			lock_forks_set_state(philo);
-			pthread_mutex_unlock(&philo->data->mutex[philo->n - 1]);
-		}
-		else if (philo->state == 1)
-		{
-			print_state_change(philo, 3);
-			usleep(philo->data->tts * 1000);
-			philo->state += 1;
-		}
+	if (is_dead(philo))
+		return ;
+	print_state_change(philo, 0);
+	if (is_dead(philo))
+		return ;
+	if (!lock_forks_set_state(philo))
+		return ;
+	print_state_change(philo, 3);
+	if (is_dead(philo))
+		return ;
+	usleep(philo->data->tts * 1000);
+	if (is_dead(philo))
+		return ;
 }
 
 void *sim_routine(void *ph)
@@ -102,32 +134,25 @@ void *sim_routine(void *ph)
 	if (philo->n % 2 == 0)
 		usleep(500);
 	philo->eat_time = philo->data->start_time;
-	while (!philo->data->complete)
+	while (1)
 	{
-		if (get_timed(philo->eat_time) > philo->data->ttd)
-		{
-			philo->data->complete = 1;
-			unlock_forks(philo);
-			print_state_change(philo, 4);
-			return ((void *)&philo->state);
-		}
+		if (is_dead(philo))
+			break ;
 		decide_state_change(philo);
 	}
+	unlock_forks(philo);
 	return ((void *)&philo->state);
 }
 
 void initiate_simulation(t_philo **philos)
 {
 	pthread_t		philo_threads[philos[0]->data->n_philos];
-	pthread_mutex_t	*mutex;
 	int 			*returns[philos[0]->data->n_philos];
 	int 			*input_i;
 	int 			i;
 
 	set_start_time(philos);
-	mutex = (pthread_mutex_t *)malloc(philos[0]->data->n_philos
-			* sizeof(pthread_mutex_t));
-	init_mutex(philos, mutex);
+	init_mutex(philos);
 	i = -1;
 	while (++i < philos[0]->data->n_philos)
 	{
@@ -137,6 +162,8 @@ void initiate_simulation(t_philo **philos)
 	i = -1;
 	while (++i < philos[0]->data->n_philos)
 		pthread_join(philo_threads[i], (void **)&returns[i]);
-	free(mutex);
-	//pthread_mutex_destroy(philos[0]->mutex);
+	free(philos[0]->data->mutex);
+	free(philos[0]->data->mutex_index);
+	free(philos[0]->data->death_mutex);
+	free(philos[0]->data->print_mutex);
 }

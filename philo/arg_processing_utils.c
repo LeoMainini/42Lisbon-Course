@@ -12,9 +12,9 @@
 
 #include "philo.h"
 
-size_t  ft_strlen(const char *s)
+size_t	ft_strlen(const char *s)
 {
-	int     size;
+	int	size;
 
 	if (!s)
 		return (0);
@@ -24,9 +24,9 @@ size_t  ft_strlen(const char *s)
 	return (size);
 }
 
-size_t  ft_strlcpy(char *dst, const char *src, size_t dstsize)
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 {
-	size_t  i;
+	size_t	i;
 
 	if (dstsize > 0)
 	{
@@ -41,9 +41,9 @@ size_t  ft_strlcpy(char *dst, const char *src, size_t dstsize)
 	return (ft_strlen(src));
 }
 
-static size_t   char_counter(char const *s, char c)
+static size_t	char_counter(char const *s, char c)
 {
-	size_t  count;
+	size_t	count;
 
 	if (!s)
 		return (0);
@@ -62,11 +62,11 @@ static size_t   char_counter(char const *s, char c)
 	return (count);
 }
 
-char    **ft_split(char const *s, char c)
+char	**ft_split(char const *s, char c)
 {
-	char    **dst;
-	char    *str;
-	int             i;
+	char	**dst;
+	char	*str;
+	int		i;
 
 	dst = (char **)malloc(sizeof(char *) * char_counter(s, c) + 1);
 	if (!s || !dst)
@@ -89,8 +89,7 @@ char    **ft_split(char const *s, char c)
 	return (dst);
 }
 
-
-int     ft_atoi(const char *nptr)
+int	ft_atoi(const char *nptr)
 {
 	int		i;
 	int		neg;

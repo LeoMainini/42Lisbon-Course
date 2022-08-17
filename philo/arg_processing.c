@@ -12,12 +12,12 @@
 
 #include "philo.h"
 
-static int return_free_3d(char ***temp, int k, int status)
+static int	return_free_3d(char ***temp, int k, int status)
 {
-	int i;
+	int	i;
 
 	i = -1;
-	while((*temp)[++i + k])
+	while ((*temp)[++i + k])
 		if ((*temp)[i + k])
 			free(((*temp)[i + k]));
 	if (*temp)
@@ -27,9 +27,9 @@ static int return_free_3d(char ***temp, int k, int status)
 
 int	check_args(int argc, char **argv)
 {
-	int	i;
-	int k;
-	char **temp;
+	int		i;
+	int		k;
+	char	**temp;
 
 	i = 0;
 	temp = 0;
@@ -39,13 +39,14 @@ int	check_args(int argc, char **argv)
 			free(temp);
 		temp = ft_split(argv[i], ' ');
 		k = -1;
-		while	(temp[++k])
+		while (temp[++k])
 		{
 			if ((k) > 0 && printf("Too many inputs per argument.\n"))
 				return (return_free_3d(&temp, k, 0));
 			free(temp[k]);
 		}
-		if (ft_atoi(argv[i]) < 1 && printf("Philos or time cant be 0 or neg\n"))
+		if ((i > 1 && ft_atoi(argv[i]) < 0 && printf("Error\n"))
+			|| (i == 1 && ft_atoi(argv[i]) < 1 && printf("Error\n")))
 			return (return_free_3d(&temp, k, 0));
 	}
 	return (return_free_3d(&temp, 1, 1));

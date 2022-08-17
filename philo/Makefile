@@ -1,6 +1,7 @@
 
 SRCS	=	philo.c			arg_processing.c	arg_processing_utils.c		\
-			initializers.c	simulation.c		sum_utils.c					\
+			initializers.c	simulation.c		sim_utils.c					\
+			routine_utils.c		\
 
 OBJS	=	${SRCS:.c=.o}
 
@@ -18,7 +19,7 @@ RM		=	rm -f
 
 AR		=	ar rc
 
-CFLAGS	=	-Wall -Werror -Wextra -g -fno-stack-protector -fsanitize=address
+CFLAGS	=	-Wall -Werror -Wextra -g -fsanitize=address
 
 INC		=	-pthread
 

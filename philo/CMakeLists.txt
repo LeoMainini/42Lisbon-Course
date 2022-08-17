@@ -11,7 +11,9 @@ add_executable(philo
         philo.c
         philo.h
         simulation.c
-        sum_utils.c
+        sim_utils.c
         arg_processing.c
         arg_processing_utils.c
-        initializers.c)
+        initializers.c
+        unused_funcs.c
+        )

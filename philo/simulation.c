@@ -82,7 +82,9 @@ void	*sim_routine(void *ph)
 		if ((p->en <= p->dt->en || p->dt->en == -1) && !dn)
 			decide_state_change(p);
 	}
+	pthread_mutex_lock(p->dt->clear_mutex);
 	unlock_all_forks(p);
+	pthread_mutex_unlock(p->dt->clear_mutex);
 	p->dt->dead_threads++;
 	pthread_exit((void *)&p->n);
 }

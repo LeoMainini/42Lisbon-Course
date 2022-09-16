@@ -19,7 +19,7 @@ RM		=	rm -f
 
 AR		=	ar rc
 
-CFLAGS	=	-Wall -Werror -Wextra -g -fsanitize=address
+CFLAGS	=	-Wall -Werror -Wextra -g -fsanitize=thread
 
 INC		=	-pthread
 

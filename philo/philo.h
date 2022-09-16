@@ -32,6 +32,7 @@ typedef struct s_data {
 	pthread_mutex_t	*mutex;
 	pthread_mutex_t	*death_mutex;
 	pthread_mutex_t	*print_mutex;
+	pthread_mutex_t	*clear_mutex;
 }	t_data;
 
 typedef struct s_philo {

@@ -65,8 +65,11 @@ void	init_sim_state(t_philo **philos, pthread_t **philo_threads, int **rets)
 				pthread_mutex_t));
 	philos[0]->dt->print_mutex = (pthread_mutex_t *)malloc(sizeof(
 				pthread_mutex_t));
+	philos[0]->dt->clear_mutex = (pthread_mutex_t *)malloc(sizeof(
+				pthread_mutex_t));
 	pthread_mutex_init(philos[0]->dt->death_mutex, NULL);
 	pthread_mutex_init(philos[0]->dt->print_mutex, NULL);
+	pthread_mutex_init(philos[0]->dt->clear_mutex, NULL);
 	i = -1;
 	while (++i < philos[0]->dt->n_p)
 	{

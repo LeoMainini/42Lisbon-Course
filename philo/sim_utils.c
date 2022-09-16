@@ -68,10 +68,12 @@ void	cleanup_exit(t_philo **philos, pthread_t *philo_threads, int *returns)
 			pthread_mutex_destroy(&philos[0]->dt->mutex[i]);
 	pthread_mutex_destroy(philos[0]->dt->death_mutex);
 	pthread_mutex_destroy(philos[0]->dt->print_mutex);
+	pthread_mutex_destroy(philos[0]->dt->clear_mutex);
 	free(returns);
 	free(philo_threads);
 	free(philos[0]->dt->mutex);
 	free(philos[0]->dt->mutex_index);
 	free(philos[0]->dt->death_mutex);
 	free(philos[0]->dt->print_mutex);
+	free(philos[0]->dt->clear_mutex);
 }

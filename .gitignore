@@ -17,6 +17,5 @@ get_next_line/libft/*
 get_next_line/trip
 */.idea
 */.idea/*
-*cmake*
 fractol/Makefile_MAC
 push_swap/push_swap

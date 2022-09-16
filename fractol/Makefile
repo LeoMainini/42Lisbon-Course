@@ -18,16 +18,16 @@ RM		=	rm -f
 
 AR		=	ar rc
 
-CFLAGS	=	-Wall -Werror -Wextra -fsanitize=address -g -lm
+CFLAGS	=	-Wall -Werror -Wextra -fsanitize=leak -g
 
-INC		=	-Lmlx -lmlx -Lft_printf -I . -lftprintf
+INC		=	-Lft_printf -I . -lftprintf
 
 %.o: %.c
 	@echo "\033[32mCompiling $< in fancy colors"
-	@$(CC) -Wall -Wextra -Werror -Imlx -c $< -o $@
+	$(CC) $(CFLAGS) -I/usr/include -Imlx_linux -O3 -c $< -o $@
 
 $(NAME):	$(OBJS) $(PF_NAME)
-			$(CC) $(CFLAGS) $(OBJS) $(INC) -framework OpenGL -framework AppKit -o $(NAME)
+			$(CC) $(CFLAGS) $(OBJS) $(INC) -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
 
 $(PF_NAME):	${PF_OBJS}
 			${AR} $(PF_NAME) $(PF_OBJS)

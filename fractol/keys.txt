@@ -1,0 +1,10 @@
+Key: enter	|	Keycode: 65293
+Key: up		|	Keycode: 65362
+Key: down	|	Keycode: 65364
+Key: left	|	Keycode: 65361
+Key: right	|	Keycode: 65363
+Key: escape	|	Keycode: 65307
+Key: +		|	Keycode: 65451
+Key: -		|	Keycode: 65453
+Key: PGUP	|	Keycode: 65365
+Key: PGDOWN	|	Keycode: 65366

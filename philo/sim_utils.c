@@ -65,10 +65,7 @@ void	cleanup_exit(t_philo **philos, pthread_t *philo_threads, int *returns)
 	i = -1;
 	if (philos[0]->dt->dead_threads == philos[0]->dt->n_p)
 		while (++i < philos[0]->dt->n_p)
-		{
-			pthread_mutex_destroy(philos[0]->dt->mutex[i]);
-			free(philos[0]->dt->mutex[i]);
-		}
+			pthread_mutex_destroy(&philos[0]->dt->mutex[i]);
 	pthread_mutex_destroy(philos[0]->dt->death_mutex);
 	pthread_mutex_destroy(philos[0]->dt->print_mutex);
 	pthread_mutex_destroy(philos[0]->dt->clear_mutex);

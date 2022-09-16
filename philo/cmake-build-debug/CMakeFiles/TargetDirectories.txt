@@ -1,3 +1,3 @@
-/sgoinfre/leferrei/Projects/Course/philo/cmake-build-debug/CMakeFiles/philo.dir
-/sgoinfre/leferrei/Projects/Course/philo/cmake-build-debug/CMakeFiles/edit_cache.dir
-/sgoinfre/leferrei/Projects/Course/philo/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/leomainini/Documents/42/42-Course/philo/cmake-build-debug/CMakeFiles/philo.dir
+/home/leomainini/Documents/42/42-Course/philo/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/leomainini/Documents/42/42-Course/philo/cmake-build-debug/CMakeFiles/rebuild_cache.dir

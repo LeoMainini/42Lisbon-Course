@@ -13,7 +13,7 @@
 #ifndef FRACTOL_H
 # define FRACTOL_H
 
-# include "mlx/mlx.h"
+# include "mlx_linux/mlx.h"
 # include "ft_printf/ft_printf.h"
 # include <unistd.h>
 # include <stdlib.h>
@@ -47,8 +47,25 @@ typedef struct s_vars {
 	int			(*fractol_eq)(int, int, t_atts *);
 }	t_vars;
 
+enum {
+	ON_KEYDOWN = 2,
+	ON_DESTROY = 17
+};
+
+enum {
+	UP_ARROW = 65362,
+	DN_ARROW = 65364,
+	L_ARROW = 65361,
+	R_ARROW = 65363,
+	ESC = 65307,
+	PLUS = 65451,
+	MINUS = 65453,
+	PGUP = 65365,
+	PGDN = 65366
+};
+
 # ifndef SIZE
-#  define SIZE 800
+#  define SIZE 1080
 # endif
 
 void	ft_b_zero(void *ptr, int size);

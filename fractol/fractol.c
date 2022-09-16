@@ -6,7 +6,7 @@
 /*   By: leferrei <leferrei@student.42lisboa>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 15:13:07 by leferrei          #+#    #+#             */
-/*   Updated: 2022/05/17 18:12:42 by leferrei         ###   ########.fr       */
+/*   Updated: 2022/09/15 17:02:58 by leferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ int	fractol(t_vars vars)
 	vars.img.img = mlx_new_image(vars.mlx, SIZE, SIZE);
 	vars.img.addr = mlx_get_data_addr(vars.img.img, &vars.img.bits_per_pixel,
 			&vars.img.line_length, &vars.img.endian);
-	mlx_hook(vars.win, 2, 0, &kb_interaction, &vars);
-	mlx_hook(vars.win, 17, 0, close_view, &vars);
+	mlx_hook(vars.win, ON_KEYDOWN, (1L << 0), &kb_interaction, &vars);
+	mlx_hook(vars.win, ON_DESTROY, 0, &close_view, &vars);
 	mlx_mouse_hook(vars.win, &mouse_zoom, &vars);
 	mlx_loop_hook(vars.mlx, &render_frame, &vars);
 	mlx_loop(vars.mlx);

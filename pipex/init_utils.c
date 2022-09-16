@@ -53,7 +53,7 @@ char	*find_shell_path(char **envp)
 	while (all_paths[++i])
 	{
 		temp = ft_strfree_join(&all_paths[i], "/ls");
-		if (!access(temp, F_OK | X_OK))
+		if (!access(temp, F_OK | X_OK) && !output)
 			output = ft_strdup(temp);
 		free(temp);
 	}

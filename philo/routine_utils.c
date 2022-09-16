@@ -47,21 +47,31 @@ void	unlock_all_forks(t_philo *philo)
 {
 	int	i;
 
+	pthread_mutex_lock(philo->dt->clear_mutex);
 	i = -1;
 	while (++i < philo->dt->n_p)
 	{
 		if (philo->dt->mutex_index[i] == 1)
 		{
-			pthread_mutex_unlock(&philo->dt->mutex[i]);
+			pthread_mutex_unlock(philo->dt->mutex[i]);
 			philo->dt->mutex_index[i] = 0;
 		}
 	}
+	pthread_mutex_unlock(philo->dt->clear_mutex);
 }
 
 int	unlock_forks_return_status(t_philo *philo, int prev, int next, int status)
 {
-	pthread_mutex_unlock(&philo->dt->mutex[prev]);
-	pthread_mutex_unlock(&philo->dt->mutex[next]);
+	if (philo->n != philo->dt->n_p)
+	{
+		pthread_mutex_unlock(philo->dt->mutex[next]);
+		pthread_mutex_unlock(philo->dt->mutex[prev]);
+	}
+	else
+	{
+		pthread_mutex_unlock(philo->dt->mutex[prev]);
+		pthread_mutex_unlock(philo->dt->mutex[next]);
+	}
 	philo->dt->mutex_index[next] = 0;
 	philo->dt->mutex_index[prev] = 0;
 	return (status);

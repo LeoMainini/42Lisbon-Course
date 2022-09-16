@@ -29,7 +29,7 @@ typedef struct s_data {
 	int				dead_threads;
 	struct timeval	start_time;
 	int				*mutex_index;
-	pthread_mutex_t	*mutex;
+	pthread_mutex_t	**mutex;
 	pthread_mutex_t	*death_mutex;
 	pthread_mutex_t	*print_mutex;
 	pthread_mutex_t	*clear_mutex;

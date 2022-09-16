@@ -19,7 +19,7 @@ RM		=	rm -f
 
 AR		=	ar rc
 
-CFLAGS	=	-Wall -Werror -Wextra -g -fsanitize=thread
+CFLAGS	=	-Wall -Werror -Wextra -g #-fsanitize=address
 
 INC		=	-pthread
 
@@ -30,7 +30,7 @@ INC		=	-pthread
 $(NAME):	$(OBJS)
 			$(CC) $(CFLAGS) $(OBJS) $(INC) -o $(NAME)
 
-all:		${NAME}
+all:		$(NAME)
 
 clean:	
 			

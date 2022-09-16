@@ -57,8 +57,8 @@ void	init_sim_state(t_philo **philos, pthread_t **philo_threads, int **rets)
 	*philo_threads = (pthread_t *)malloc(philos[0]->dt->n_p
 			* sizeof(pthread_t));
 	*rets = (int *)malloc(philos[0]->dt->n_p * sizeof(int));
-	philos[0]->dt->mutex = (pthread_mutex_t *)malloc(philos[0]->dt->n_p
-			* sizeof(pthread_mutex_t));
+	philos[0]->dt->mutex = (pthread_mutex_t **)malloc(sizeof(pthread_mutex_t *));
+
 	philos[0]->dt->mutex_index = (int *)malloc((philos[0]->dt->n_p + 1)
 			* sizeof(int));
 	philos[0]->dt->death_mutex = (pthread_mutex_t *)malloc(sizeof(
@@ -73,7 +73,8 @@ void	init_sim_state(t_philo **philos, pthread_t **philo_threads, int **rets)
 	i = -1;
 	while (++i < philos[0]->dt->n_p)
 	{
-		pthread_mutex_init(&philos[0]->dt->mutex[i], NULL);
+		philos[0]->dt->mutex[i] = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
+		pthread_mutex_init(philos[0]->dt->mutex[i], NULL);
 		philos[0]->dt->mutex_index[i] = 0;
 	}
 }

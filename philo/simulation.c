@@ -14,14 +14,14 @@
 
 int	check_forks_lock(t_philo *philo, int prev_n, int next_n)
 {
-	pthread_mutex_lock(&philo->dt->mutex[prev_n]);
+	pthread_mutex_lock(philo->dt->mutex[prev_n]);
 	philo->dt->mutex_index[prev_n] = 1;
 	print_state_change(philo, 1);
 	if (next_n == prev_n)
 		while (1)
 			if (is_dead(philo))
 				return (0);
-	pthread_mutex_lock(&philo->dt->mutex[next_n]);
+	pthread_mutex_lock(philo->dt->mutex[next_n]);
 	philo->dt->mutex_index[next_n] = 1;
 	print_state_change(philo, 1);
 	return (1);
@@ -82,9 +82,7 @@ void	*sim_routine(void *ph)
 		if ((p->en <= p->dt->en || p->dt->en == -1) && !dn)
 			decide_state_change(p);
 	}
-	pthread_mutex_lock(p->dt->clear_mutex);
 	unlock_all_forks(p);
-	pthread_mutex_unlock(p->dt->clear_mutex);
 	p->dt->dead_threads++;
 	pthread_exit((void *)&p->n);
 }

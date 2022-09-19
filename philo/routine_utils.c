@@ -40,6 +40,9 @@ int	is_dead(t_philo *philo)
 	print_state_change(philo, 4);
 	philo->dt->complete = 1;
 	pthread_mutex_unlock(philo->dt->death_mutex);
+	pthread_mutex_lock(philo->dt->clear_mutex);
+	unlock_all_forks(philo);
+	pthread_mutex_unlock(philo->dt->clear_mutex);
 	return (1);
 }
 

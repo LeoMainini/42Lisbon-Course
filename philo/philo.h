@@ -59,5 +59,6 @@ int		is_dead(t_philo *philo);
 int		unlock_forks_return_status(t_philo *philo, int prev,
 			int next, int status);
 void	eat_sleep_increment(t_philo *philo);
+void	death_checker(t_philo **philos);
 
 #endif

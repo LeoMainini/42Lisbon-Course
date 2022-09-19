@@ -16,4 +16,5 @@ add_executable(philo
         arg_processing_utils.c
         initializers.c
         unused_funcs.c
+        routine_utils.c
         )

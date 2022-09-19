@@ -55,7 +55,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/home/leomainini/Documents/42/42-Course/philo/cmake-build-debug"
+			"value" : "/sgoinfre/leferrei/Projects/Course/philo/cmake-build-debug"
 		},
 		{
 			"name" : "CMAKE_CACHE_MAJOR_VERSION",
@@ -79,7 +79,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "22"
+			"value" : "23"
 		},
 		{
 			"name" : "CMAKE_CACHE_PATCH_VERSION",
@@ -91,7 +91,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "3"
+			"value" : "2"
 		},
 		{
 			"name" : "CMAKE_COMMAND",
@@ -463,7 +463,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/home/leomainini/Documents/42/42-Course/philo"
+			"value" : "/sgoinfre/leferrei/Projects/Course/philo"
 		},
 		{
 			"name" : "CMAKE_INSTALL_PREFIX",
@@ -747,7 +747,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/app/extra/clion/bin/cmake/linux/share/cmake-3.22"
+			"value" : "/app/extra/clion/bin/cmake/linux/share/cmake-3.23"
 		},
 		{
 			"name" : "CMAKE_SHARED_LINKER_FLAGS",
@@ -995,7 +995,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/home/leomainini/Documents/42/42-Course/philo/cmake-build-debug"
+			"value" : "/sgoinfre/leferrei/Projects/Course/philo/cmake-build-debug"
 		},
 		{
 			"name" : "philo_IS_TOP_LEVEL",
@@ -1019,7 +1019,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/home/leomainini/Documents/42/42-Course/philo"
+			"value" : "/sgoinfre/leferrei/Projects/Course/philo"
 		}
 	],
 	"kind" : "cache",

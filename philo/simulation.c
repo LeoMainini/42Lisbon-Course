@@ -24,6 +24,8 @@ int	check_forks_lock(t_philo *philo, int prev_n, int next_n)
 	pthread_mutex_lock(&philo->dt->mutex[next_n]);
 	philo->dt->mutex_index[next_n] = 1;
 	print_state_change(philo, 1);
+	if (is_dead(philo))
+		return (0);
 	return (1);
 }
 
@@ -46,17 +48,26 @@ int	lock_forks_eat(t_philo *philo)
 	return (unlock_forks_return_status(philo, prev_n, next_n, 1));
 }
 
-void	decide_state_change(t_philo *philo)
+void	decide_state_change(t_philo *ph, int *dn)
 {
-	print_state_change(philo, 0);
-	if (is_dead(philo))
+	if (*dn)
 		return ;
-	if (!lock_forks_eat(philo))
+	if (!lock_forks_eat(ph))
 		return ;
-	print_state_change(philo, 3);
-	if (is_dead(philo))
+	if (is_dead(ph))
 		return ;
-	usleep(philo->dt->tts * 1000);
+	print_state_change(ph, 0);
+	if (is_dead(ph))
+		return ;
+	print_state_change(ph, 3);
+	if (is_dead(ph))
+		return ;
+	if (((ph->dt->en == 0) || (ph->en > ph->dt->en && ph->dt->en > -1)))
+	{
+		*dn = 1;
+		ph->dt->dead_threads++;
+	}
+	usleep(ph->dt->tts * 1000);
 }
 
 void	*sim_routine(void *ph)
@@ -71,21 +82,12 @@ void	*sim_routine(void *ph)
 		usleep(250);
 	while (1)
 	{
-		if (((p->dt->en == 0) || (p->en > p->dt->en && p->dt->en > -1)) && !dn)
-		{
-			print_state_change(p, 0);
-			dn++;
-		}
 		if (is_dead(p) || p->dt->n_p == p->dt->not_eating
 			|| p->dt->complete)
 			break ;
 		if ((p->en <= p->dt->en || p->dt->en == -1) && !dn)
-			decide_state_change(p);
+			decide_state_change(p, &dn);
 	}
-	pthread_mutex_lock(p->dt->clear_mutex);
-	unlock_all_forks(p);
-	pthread_mutex_unlock(p->dt->clear_mutex);
-	p->dt->dead_threads++;
 	pthread_exit((void *)&p->n);
 }
 
@@ -104,6 +106,7 @@ void	initiate_simulation(t_philo **philos)
 		input_i = &i;
 		pthread_create(philo_threads + i, NULL, &sim_routine, philos[*input_i]);
 	}
+	death_checker(philos);
 	i = -1;
 	while (++i < philos[0]->dt->n_p)
 		pthread_join(philo_threads[i], (void **)&returns[i]);

@@ -1,4 +1,4 @@
-# Install script for directory: /home/leomainini/Documents/42/42-Course/philo
+# Install script for directory: /sgoinfre/leferrei/Projects/Course/philo
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -50,5 +50,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/leomainini/Documents/42/42-Course/philo/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/sgoinfre/leferrei/Projects/Course/philo/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

@@ -20,7 +20,10 @@ void	set_start_time(t_philo **philos)
 	gettimeofday(&start_time, NULL);
 	i = -1;
 	while (++i < philos[0]->dt->n_p)
+	{
 		philos[i]->dt->start_time = start_time;
+		philos[i]->eat_time = start_time;
+	}
 }
 
 long	get_timed(struct timeval start)
@@ -76,4 +79,22 @@ void	cleanup_exit(t_philo **philos, pthread_t *philo_threads, int *returns)
 	free(philos[0]->dt->death_mutex);
 	free(philos[0]->dt->print_mutex);
 	free(philos[0]->dt->clear_mutex);
+}
+
+void	death_checker(t_philo **philos)
+{
+	int		i;
+	int		j;
+	t_philo	*p;
+
+	p = philos[0];
+	i = -1;
+	j = 0;
+	while (j == 0 && p->dt->dead_threads != p->dt->n_p && !p->dt->complete)
+	{
+		while (++i < p->dt->n_p && p->dt->dead_threads != p->dt->n_p - 1
+			&& !p->dt->complete)
+			j = is_dead(philos[i]);
+		i = -1;
+	}
 }

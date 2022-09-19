@@ -8,7 +8,7 @@ OBJS	=	${SRCS:.c=.o}
 NAME	=	philo
 
 ifeq ($(shell uname),Linux)
-	ECHO	=	echo -e
+	ECHO	=	echo
 else
 	ECHO	=	echo
 endif
@@ -19,7 +19,7 @@ RM		=	rm -f
 
 AR		=	ar rc
 
-CFLAGS	=	-Wall -Werror -Wextra# -g -fsanitize=thread
+CFLAGS	=	-Wall -Werror -Wextra# -g -fsanitize=address
 
 INC		=	-pthread
 

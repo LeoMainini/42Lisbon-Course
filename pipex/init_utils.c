@@ -32,8 +32,8 @@ int	init_struct(t_vars *data, int argc, char **argv)
 		return (0);
 	if (pipe(data->fds) == -1 && ft_printf("Pipe Error\n"))
 		return (0);
-	if (pipe(data->xfds) == -1 && ft_printf("Pipe Error\n"))
-		return (0);
+	//if (pipe(data->xfds) == -1 && ft_printf("Pipe Error\n"))
+		//return (0);
 	return (1);
 }
 

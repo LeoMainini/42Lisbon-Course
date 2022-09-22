@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "pipex.h"
+#include <sys/wait.h>
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -28,12 +29,10 @@ int	main(int argc, char **argv, char **envp)
 	while (data.cmds[++i])
 	{
 		data.path = ft_strjoin(path, data.cmds[i][0]);
-		if (!i)
-			data.cmds[i] = append_item(data.cmds[i], argv[1]);
 		fork_lpipes_execute(&data, i);
 		free(data.path);
 	}
-	//while (--i > 0)
-	// wait (NULL);
+	while (--i > 0)
+	 wait(NULL);
 	free_and_exit(&data, 0);
 }

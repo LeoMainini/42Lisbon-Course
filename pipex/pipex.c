@@ -33,6 +33,6 @@ int	main(int argc, char **argv, char **envp)
 		free(data.path);
 	}
 	while (--i > 0)
-	 wait(NULL);
+		wait(NULL);
 	free_and_exit(&data, 0);
 }

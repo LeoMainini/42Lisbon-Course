@@ -13,7 +13,7 @@
 #include "pipex.h"
 #include <sys/wait.h>
 
-int dupe_pipes(t_vars *data, int i)
+int	dupe_pipes(t_vars *data, int i)
 {
 	int	result;
 
@@ -59,9 +59,8 @@ void	exec_parent(t_vars *data, int i, int pid)
 	close(data->xfds[1]);
 	if (i == 1)
 		close(data->in_fd);
-	if (i == data->arg_count - 4) {
+	if (i == data->arg_count - 4)
 		waitpid(pid, &status, 0);
-	}
 }
 
 int	fork_lpipes_execute(t_vars *data, int i)
@@ -82,6 +81,5 @@ int	fork_lpipes_execute(t_vars *data, int i)
 		exec_child(data, data->cmds[i], i);
 	else
 		exec_parent(data, i, pid);
-
 	return (0);
 }

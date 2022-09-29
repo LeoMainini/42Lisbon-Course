@@ -33,7 +33,7 @@ int	dupe_pipes(t_vars *data, int i)
 	return (result);
 }
 
-void	exec_child(t_vars *data, char **cmd_argv, int i)
+void	exec_child(t_vars *data, char **cmd_argv, int i, char **envp)
 {
 	if (dupe_pipes(data, i) == -1)
 		free_and_exit(data, 5);
@@ -41,7 +41,7 @@ void	exec_child(t_vars *data, char **cmd_argv, int i)
 	close(data->fds[1]);
 	close(data->xfds[0]);
 	close(data->xfds[1]);
-	if (execve(data->path, cmd_argv, NULL) == -1)
+	if (execve(data->path, cmd_argv, envp) == -1)
 		perror("Failed executing");
 	ft_putstr_fd("Command not found: ", STDERR_FILENO);
 	ft_putendl_fd(data->cmds[i][0], STDERR_FILENO);
@@ -63,7 +63,7 @@ void	exec_parent(t_vars *data, int i, int pid)
 		waitpid(pid, &status, 0);
 }
 
-int	fork_lpipes_execute(t_vars *data, int i)
+int	fork_lpipes_execute(t_vars *data, int i, char **envp)
 {
 	pid_t	pid;
 
@@ -78,7 +78,7 @@ int	fork_lpipes_execute(t_vars *data, int i)
 	if (pid == -1 && ft_printf("Fork Error\n"))
 		return (1);
 	else if (pid == 0)
-		exec_child(data, data->cmds[i], i);
+		exec_child(data, data->cmds[i], i, envp);
 	else
 		exec_parent(data, i, pid);
 	return (0);

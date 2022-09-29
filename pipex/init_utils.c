@@ -55,10 +55,56 @@ char	*find_shell_path(char **envp)
 		temp = ft_strfree_join(&all_paths[i], "/ls");
 		if (!access(temp, F_OK | X_OK) && !output)
 			output = ft_strdup(temp);
-		free(temp);
+		if (temp)
+			free(temp);
 	}
-	free(all_paths);
+	if (all_paths)
+		free(all_paths);
 	if (!output)
 		return (0);
 	return (clean_path(&output, "ls"));
+}
+
+char	*get_pwd(char **envp)
+{
+	int		i;
+	char	*pwd;
+
+	i = -1;
+	while (envp[++i])
+		if (!ft_strncmp(envp[i], "PWD", 3))
+			pwd = ft_strdup(&envp[i][4]);
+	if (pwd)
+		return (ft_strfree_join(&pwd, "/"));
+	return (0);
+}
+
+int	check_file_cmd(t_vars *data, int i)
+{
+	if (!ft_strchr(data->cmds[i][0], '.') || !ft_strchr(data->cmds[i][0], '/'))
+		return (0);
+	if (access(data->cmds[i][0], F_OK) && ft_printf("File not found\n"))
+		return (0);
+	if (access(data->cmds[i][0], X_OK) && ft_printf("File not executable\n"))
+		return (0);
+	return (1);
+}
+
+int	get_path(t_vars *data, int i, char *path, char **envp)
+{
+	char	*file;
+
+	if (check_file_cmd(data, i))
+	{
+		data->path = get_pwd(envp);
+		file = ft_strtrim(data->cmds[i][0], "./");
+		data->path = absolute_to_relative_pwd(data, i, data->path);
+		data->path = ft_strfree_join(&data->path, file);
+		free(file);
+	}
+	else
+		data->path = ft_strjoin(path, data->cmds[i][0]);
+	if (data->path)
+		return (1);
+	return (0);
 }

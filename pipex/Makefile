@@ -1,6 +1,6 @@
 
 SRCS	=	pipex.c		utils.c		process_utils.c		init_utils.c	\
-			argument_processing.c
+			argument_processing.c	path_finding.c
 
 OBJS	=	${SRCS:.c=.o}
 

@@ -30,16 +30,19 @@ typedef struct s_vars {
 	int		arg_count;
 }			t_vars;
 
+int		get_path(t_vars *data, int i, char *path, char **envp);
+char	*get_pwd(char **envp);
 char	**append_item(char **src, char *entry);
 char	*ft_strfree_join(char **s1, char *s2);
 void	free_and_exit(t_vars *data, int status);
-void	exec_child(t_vars *data, char **cmd_argv, int i);
-void	exec_parent(t_vars *data, int i, int pid);
-int		fork_lpipes_execute(t_vars *data, int i);
+int		fork_lpipes_execute(t_vars *data, int i, char **envp);
 int		check_cmd_error(char ***cmds, int i, int argc);
 char	***get_commands(int argc, char **argv);
 int		init_struct(t_vars *data, int argc, char **argv);
 char	*clean_path(char **dirty_path, char *extra);
 char	*find_shell_path(char **envp);
+int		steps_back(t_vars *data, int i);
+char	*join_chunks(char **str_chunks, char *sep, int limiter);
+char	*absolute_to_relative_pwd(t_vars *data, int i, char *pwd);
 
 #endif

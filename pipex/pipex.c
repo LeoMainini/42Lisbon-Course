@@ -28,11 +28,13 @@ int	main(int argc, char **argv, char **envp)
 		free_and_exit(&data, 0);
 	while (data.cmds[++i])
 	{
-		data.path = ft_strjoin(path, data.cmds[i][0]);
-		fork_lpipes_execute(&data, i);
+		if (!get_path(&data, i, path, envp))
+			break ;
+		fork_lpipes_execute(&data, i, envp);
 		free(data.path);
 	}
 	while (--i > 0)
 		wait(NULL);
 	free_and_exit(&data, 0);
+	return (0);
 }

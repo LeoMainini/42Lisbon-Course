@@ -29,26 +29,27 @@ RM		=	rm -f
 
 AR		=	ar rc
 
-CFLAGS	=	-Wall -Werror -Wextra -fsanitize=address -g -lm
+CFLAGS	=	-Wall -Werror -Wextra #-fsanitize=address -g -lm
 
 INC		=	 -Lft_printf -I . -lftprintf
 
 %.o: %.c
-	@$(ECHO) "\033[32mCompiling $< in fancy colors"
 	@$(CC) -Wall -Wextra -Werror -Imlx -c $< -o $@
 
 $(NAME):	$(OBJS) $(PF_NAME)
-			$(CC) $(CFLAGS) $(OBJS) $(INC) -o $(NAME)
+			@$(CC) $(CFLAGS) $(OBJS) $(INC) -o $(NAME)
+			@echo "Compilation complete\n"
+
 
 $(PF_NAME):	${PF_OBJS}
-			${AR} $(PF_NAME) $(PF_OBJS)
+			@${AR} $(PF_NAME) $(PF_OBJS)
 
 all:		${NAME}
 
 clean:	
 			
-			@$(ECHO) "\033[31mCleaning files in fancy colors"
 			@${RM} ${OBJS} ${PF_OBJS}
+			@echo "Files cleaned\n"
 
 fclean:		clean
 			@${RM} ${NAME} ${PF_NAME}

@@ -1,17 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ps.c                                               :+:      :+:    :+:   */
+/*   checker.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leferrei <leferrei@student.42lisboa>       +#+  +:+       +#+        */
+/*   By: leferrei <leferrei@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/30 16:25:02 by leferrei          #+#    #+#             */
-/*   Updated: 2022/05/30 16:25:05 by leferrei         ###   ########.fr       */
+/*   Created: 2022/10/06 11:45:40 by leferrei          #+#    #+#             */
+/*   Updated: 2022/10/06 11:45:42 by leferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include "push_swap.h"
+#include "checker.h"
 
 void	check_free_output(char ***output, int k)
 {
@@ -26,7 +25,7 @@ void	check_free_output(char ***output, int k)
 
 int	error_out_free(t_node **stack, char ***output, int k)
 {
-	ft_putstr_fd("ERROR\n", STDERR_FILENO, &k);
+	pf_putstr_fd("ERROR\n", STDERR_FILENO, &k);
 	k = k -6;
 	if (*stack)
 		ft_lstiterf(stack, &free);
@@ -64,44 +63,46 @@ int	get_and_check_stack(int argc, char **argv, t_node **a, int null)
 	return (check_duplicates_and_index(*a));
 }
 
-static void	check_sort_stack(t_node **a, t_node **b, int max_i)
+int	check_args(int argc, char **argv, t_node **a)
 {
-	int	done_sorting;
+	int	i;
+	int	max_i;
 
-	done_sorting = 0;
-	if (!is_sorted(a, 0) && ft_lstsize(a) < 4)
+	i = 0;
+	if (argc < 2)
 	{
-		while (!done_sorting)
-			done_sorting = sort_3(a, max_i);
+		pf_putstr_fd("Error\n", STDERR_FILENO, &i);
+		return (-1);
 	}
-	else if (!is_sorted(a, 0) && ft_lstsize(a) < 6)
-	{
-		while (!done_sorting)
-			done_sorting = insert_sort(a, b, max_i);
-		push_all_a(a, b);
-	}
-	else if (!is_sorted(a, 0))
-		while (!done_sorting)
-			done_sorting = predictive_insert_sort(a, b, max_i);
+	max_i = get_and_check_stack(argc, argv, a, i);
+	if (max_i == -1)
+		return (-1);
+	return (max_i);
 }
 
-//to check output ft_lstiterf(&a, &print_node); after check_sort_stack
 int	main(int argc, char **argv)
 {
 	t_node	*a;
 	t_node	*b;
 	int		max_i;
 	int		null;
+	char	**inst;
 
-	null = 0;
 	b = 0;
 	a = 0;
-	if (argc < 2)
-		return (0);
-	max_i = get_and_check_stack(argc, argv, &a, null);
+	null = -1;
+	max_i = check_args(argc, argv, &a);
 	if (max_i == -1)
 		return (0);
-	check_sort_stack(&a, &b, max_i);
+	inst = parse_stdin();
+	exec_insts(&inst, &a, &b);
+	null = -1;
+	while (inst[++null])
+		free(inst[null]);
+	free(inst);
+	if (is_sorted(&a, 0) && !b)
+		ft_printf("OK.\n");
+	else
+		pf_putstr_fd("KO\n", STDERR_FILENO, &null);
 	ft_lstiterf(&a, &free);
-	ft_lstiterf(&b, &free);
 }

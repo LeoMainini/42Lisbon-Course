@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "checker.h"
 
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 {
@@ -56,7 +56,7 @@ char	**ft_split(char const *s, char c, int *null)
 	char	*str;
 	int		i;
 
-	dst = (char **)malloc(sizeof(char *) * (char_counter(s, c) + 1));
+	dst = (char **)malloc(sizeof(char *) * char_counter(s, c) + 10);
 	if (!s || !dst)
 		return (0);
 	i = 0;
@@ -74,6 +74,6 @@ char	**ft_split(char const *s, char c, int *null)
 			s++;
 	}
 	*null = i;
-	dst[i] = NULL;
+	dst[i] = 0;
 	return (dst);
 }

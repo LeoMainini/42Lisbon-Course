@@ -29,7 +29,7 @@ RM		=	rm -f
 
 AR		=	ar rc
 
-CFLAGS	=	-Wall -Werror -Wextra #-fsanitize=address -g -lm
+CFLAGS	=	-Wall -Werror -Wextra -fsanitize=address -g -lm
 
 INC		=	 -Lft_printf -I . -lftprintf
 
@@ -38,7 +38,7 @@ INC		=	 -Lft_printf -I . -lftprintf
 
 $(NAME):	$(OBJS) $(PF_NAME)
 			@$(CC) $(CFLAGS) $(OBJS) $(INC) -o $(NAME)
-			@echo "Compilation complete\n"
+			@printf "\nCompilation complete\n"
 
 
 $(PF_NAME):	${PF_OBJS}
@@ -49,7 +49,7 @@ all:		${NAME}
 clean:	
 			
 			@${RM} ${OBJS} ${PF_OBJS}
-			@echo "Files cleaned\n"
+			@printf "\nFiles cleaned\n"
 
 fclean:		clean
 			@${RM} ${NAME} ${PF_NAME}

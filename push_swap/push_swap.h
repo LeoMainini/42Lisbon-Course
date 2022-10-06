@@ -39,6 +39,7 @@ typedef struct stacks {
 	t_node	*bt;
 }	t_ps;
 
+int		get_and_check_stack(int argc, char **argv, t_node **a, int null);
 int		gmini(t_node **a, int size, int max_i);
 int		gmi_in_s(t_node **a, int size);
 //void	check_is_in_array(t_node **a, t_node **b, int *array);

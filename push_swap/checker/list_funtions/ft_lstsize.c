@@ -1,37 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstiterf.c                                      :+:      :+:    :+:   */
+/*   ft_lstsize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: leferrei <leferrei@student.42lisboa>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/02 15:30:42 by leferrei          #+#    #+#             */
-/*   Updated: 2022/06/02 15:30:47 by leferrei         ###   ########.fr       */
+/*   Created: 2022/02/24 18:20:11 by leferrei          #+#    #+#             */
+/*   Updated: 2022/02/24 18:25:42 by leferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../push_swap.h"
+#include "../checker.h"
 
-void	print_node(t_node *stack)
+int	ft_lstsize(t_node **start)
 {
-	ft_printf("NUMBER = %d, 	INDEX = %d\n", stack->number, stack->index);
-}
-
-void	ft_lstiterf(t_node **stack, void (*f)())
-{
+	int		size;
 	t_node	*temp;
-	t_node	*ktemp;
 
-	if (!*stack)
-		return ;
-	temp = (*stack)->next;
-	while (temp != *stack)
+	if (!*start)
+		return (0);
+	temp = (*start)->next;
+	size = 0;
+	while (temp && temp != *start && temp != temp->next)
 	{
-		ktemp = temp->next;
-		f(temp);
-		temp = ktemp;
-		ktemp = 0;
+		size++;
+		temp = temp->next;
 	}
-	if (*stack)
-		f(*stack);
+	if (temp)
+		size++;
+	return (size);
 }

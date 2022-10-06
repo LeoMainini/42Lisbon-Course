@@ -1,37 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstiterf.c                                      :+:      :+:    :+:   */
+/*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: leferrei <leferrei@student.42lisboa>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/02 15:30:42 by leferrei          #+#    #+#             */
-/*   Updated: 2022/06/02 15:30:47 by leferrei         ###   ########.fr       */
+/*   Created: 2022/02/24 15:32:01 by leferrei          #+#    #+#             */
+/*   Updated: 2022/03/04 15:20:42 by leferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../push_swap.h"
+#include "../checker.h"
 
-void	print_node(t_node *stack)
+void	ft_lstnew(int num, t_node **head)
 {
-	ft_printf("NUMBER = %d, 	INDEX = %d\n", stack->number, stack->index);
-}
+	t_node	*n;
 
-void	ft_lstiterf(t_node **stack, void (*f)())
-{
-	t_node	*temp;
-	t_node	*ktemp;
-
-	if (!*stack)
+	n = (t_node *)malloc(sizeof(t_node));
+	if (!n)
 		return ;
-	temp = (*stack)->next;
-	while (temp != *stack)
+	if (!*head)
 	{
-		ktemp = temp->next;
-		f(temp);
-		temp = ktemp;
-		ktemp = 0;
+		*head = n;
+		n->index = 0;
+		n->prev = n;
 	}
-	if (*stack)
-		f(*stack);
+	else
+	{
+		n->prev = (*head)->prev;
+		n->prev->next = n;
+		(*head)->prev = n;
+		n->index = n->prev->index + 1;
+	}
+	n->next = (*head);
+	n->number = num;
 }

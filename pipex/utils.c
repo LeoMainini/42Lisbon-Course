@@ -36,5 +36,10 @@ void	free_and_exit(t_vars *data, int status)
 	close(data->fds[0]);
 	close(data->in_fd);
 	close(data->out_fd);
+	i = -1;
+	while (data->lines_in && data->lines_in[++i])
+		free(data->lines_in[i]);
+	if (data->lines_in)
+		free(data->lines_in);
 	exit (status);
 }

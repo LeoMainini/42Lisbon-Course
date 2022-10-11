@@ -13,22 +13,45 @@
 #include "pipex.h"
 #include <sys/wait.h>
 
+int	write_array_to_fd(char **array,	int fd)
+{
+	int	i;
+
+	if (!array)
+		return (-1);
+	i = -1;
+	while (array[++i])
+		if (write(fd, array[i], ft_strlen(array[i])) == -1)
+			return (-1);
+	return (1);
+}
+
 int	dupe_pipes(t_vars *data, int i)
 {
 	int	result;
-
-	if (i == data->arg_count - 4)
+	
+	if ((i == data->arg_count - 4 && !data->here_doc)
+		|| (i == data->arg_count - 5 && data->here_doc))
 		result = dup2(data->out_fd, STDOUT_FILENO);
-	else if (i && i < data->arg_count - 4)
+	else if ((i && i < data->arg_count - 4 && !data->here_doc)
+			 || (i && i < data->arg_count - 5 && data->here_doc))
 		result = dup2(data->xfds[1], STDOUT_FILENO);
 	if (i && result != -1)
 		result = dup2(data->xfds[0], STDIN_FILENO);
 	else if (result != -1)
 	{
 		result = dup2(data->fds[1], STDOUT_FILENO);
-		if (result != -1)
-			result = dup2(data->in_fd, STDIN_FILENO);
-		close(data->in_fd);
+		if (!data->here_doc)
+		{
+			if (result != -1)
+				result = dup2(data->in_fd, STDIN_FILENO);
+			close(data->in_fd);
+		}
+		else
+		{
+			write_array_to_fd(data->lines_in, data->hd_fds[1]);
+			result = dup2(data->hd_fds[0], STDIN_FILENO);
+		}
 	}
 	return (result);
 }
@@ -37,6 +60,8 @@ void	exec_child(t_vars *data, char **cmd_argv, int i, char **envp)
 {
 	if (dupe_pipes(data, i) == -1)
 		free_and_exit(data, 5);
+	close(data->hd_fds[0]);
+	close(data->hd_fds[1]);
 	close(data->fds[0]);
 	close(data->fds[1]);
 	close(data->xfds[0]);
@@ -55,6 +80,8 @@ void	exec_parent(t_vars *data, int i, int pid)
 	if (!i)
 		close(data->fds[1]);
 	status = 0;
+	close(data->hd_fds[0]);
+	close(data->hd_fds[1]);
 	close(data->xfds[0]);
 	close(data->xfds[1]);
 	if (i == 1)

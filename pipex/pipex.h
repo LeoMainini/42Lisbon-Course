@@ -26,8 +26,11 @@ typedef struct s_vars {
 	int		xfds[2];
 	int		in_fd;
 	int		out_fd;
-	char	*path;
 	int		arg_count;
+	int		here_doc;
+	int 	hd_fds[2];
+	char	*path;
+	char	**lines_in;
 }			t_vars;
 
 int		get_path(t_vars *data, int i, char *path, char **envp);
@@ -44,5 +47,6 @@ char	*find_shell_path(char **envp);
 int		steps_back(t_vars *data, int i);
 char	*join_chunks(char **str_chunks, char *sep, int limiter);
 char	*absolute_to_relative_pwd(t_vars *data, int i, char *pwd);
+char	***get_hd_commands(int argc, char **argv);
 
 #endif

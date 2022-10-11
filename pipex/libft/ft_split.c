@@ -39,7 +39,7 @@ char	**ft_split(char const *s, char c)
 	char	*str;
 	int		i;
 
-	dst = (char **)malloc(sizeof(char *) * char_counter(s, c) + 1);
+	dst = (char **)malloc(sizeof(char *) * (char_counter(s, c) + 1));
 	if (!s || !dst)
 		return (0);
 	i = 0;

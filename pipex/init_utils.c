@@ -11,6 +11,65 @@
 /* ************************************************************************** */
 
 #include "pipex.h"
+#include "get_next_line/get_next_line.h"
+
+char	*ft_strfreedup(char *s)
+{
+	int		i;
+	char	*res;
+
+	if (!s)
+		return (0);
+	i = 0;
+	while (s[i] != 0)
+		i++;
+	res = (char *)malloc((i + 1) * sizeof(char));
+	i = -1;
+	while (s[++i] != 0)
+		res[i] = s[i];
+	res[i] = 0;
+	free(s);
+	return (res);
+}
+
+char	**parse_stdin_tolimit(char *limiter)
+{
+	char	**lines_in;
+	char	**temp;
+	char 	*temp1;
+	int		k;
+	int		i;
+
+	lines_in = (char **) malloc(2 * sizeof(char *));
+	lines_in[1] = 0;
+	k = 0;
+	lines_in[k] = get_next_line(STDIN_FILENO);
+	while (lines_in[k++])
+	{
+		lines_in[k] = ft_strfreedup(get_next_line(STDIN_FILENO));
+		temp1 = ft_strjoin(limiter, "\n");
+		if (!ft_strcmp(lines_in[k], temp1))
+		{
+			free(lines_in[k]);
+			free(temp1);
+			lines_in[k] = 0;
+			break ;
+		}
+		free(temp1);
+		temp = (char **) malloc((k + 2) * sizeof(char *));
+		i = -1;
+		while (++i <= k)
+			temp[i] = ft_strfreedup(lines_in[i]);
+		temp[i] = 0;
+		free(lines_in);
+		lines_in = (char **) malloc((k + 3) * sizeof(char *));
+		i = -1;
+		while (++i <= k)
+			lines_in[i] = ft_strfreedup(temp[i]);
+		free(temp);
+	}
+	return (lines_in);
+}
 
 int	init_struct(t_vars *data, int argc, char **argv)
 {
@@ -21,10 +80,21 @@ int	init_struct(t_vars *data, int argc, char **argv)
 	if (!ft_strcmp(argv[1], argv[argc - 1])
 		&& ft_printf("ERROR:\tInfile same as outfile\n"))
 		return (0);
-	data->in_fd = open(argv[1], O_RDONLY);
-	if (data->in_fd < 0 && ft_printf("ERROR:\tIncorrect input file path\n"))
-		return (0);
-	data->cmds = get_commands(argc, argv);
+	if (!ft_strcmp(argv[1], "here_doc"))
+	{
+		data->lines_in = parse_stdin_tolimit(argv[2]);
+		data->here_doc = 1;
+		data->cmds = get_hd_commands(argc, argv);
+	}
+	else
+	{
+		data->here_doc = 0;
+		data->lines_in = 0;
+		data->in_fd = open(argv[1], O_RDONLY);
+		if (data->in_fd < 0 && ft_printf("ERROR:\tIncorrect input file path\n"))
+			return (0);
+		data->cmds = get_commands(argc, argv);
+	}
 	if (!data->cmds && ft_printf("ERROR:\tArgument parsing error\n"))
 		return (0);
 	data->out_fd = open(argv[argc - 1], O_RDWR | O_CREAT | O_TRUNC, 0666);
@@ -33,6 +103,8 @@ int	init_struct(t_vars *data, int argc, char **argv)
 	if (pipe(data->fds) == -1 && ft_printf("Pipe Error\n"))
 		return (0);
 	if (pipe(data->xfds) == -1 && ft_printf("Pipe Error\n"))
+		return (0);
+	if (pipe(data->hd_fds) == -1 && ft_printf("Pipe Error\n"))
 		return (0);
 	return (1);
 }

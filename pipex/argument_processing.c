@@ -75,6 +75,7 @@ char	***get_hd_commands(int argc, char **argv)
 	cmds[i - 3] = 0;
 	return (cmds);
 }
+
 char	*clean_path(char **dirty_path, char *extra)
 {
 	char	*eo_path;

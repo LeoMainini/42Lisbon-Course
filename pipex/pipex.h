@@ -28,7 +28,7 @@ typedef struct s_vars {
 	int		out_fd;
 	int		arg_count;
 	int		here_doc;
-	int 	hd_fds[2];
+	int		hd_fds[2];
 	char	*path;
 	char	**lines_in;
 }			t_vars;
@@ -48,5 +48,6 @@ int		steps_back(t_vars *data, int i);
 char	*join_chunks(char **str_chunks, char *sep, int limiter);
 char	*absolute_to_relative_pwd(t_vars *data, int i, char *pwd);
 char	***get_hd_commands(int argc, char **argv);
+char	**parse_stdin_tolimit(char *limiter);
 
 #endif

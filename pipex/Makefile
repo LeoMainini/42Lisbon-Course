@@ -2,6 +2,7 @@
 SRCS	=	pipex.c		utils.c		process_utils.c		init_utils.c	\
 			argument_processing.c	path_finding.c						\
 			get_next_line/get_next_line.c	get_next_line/get_next_line_utils.c	\
+			stdin_parsing.c
 
 
 OBJS	=	${SRCS:.c=.o}

@@ -44,6 +44,15 @@ char	**parse_stdin_tolimit(char *limiter)
 	lines_in[1] = 0;
 	k = 0;
 	lines_in[k] = get_next_line(STDIN_FILENO);
+	temp1 = ft_strjoin(limiter, "\n");
+	if (!ft_strcmp(lines_in[k], temp1))
+	{
+		//free(lines_in[k]);
+		free(temp1);
+		lines_in[1] = 0;
+		return (lines_in);
+	}
+	free(temp1);
 	while (lines_in[k++])
 	{
 		lines_in[k] = ft_strfreedup(get_next_line(STDIN_FILENO));
@@ -85,6 +94,9 @@ int	init_struct(t_vars *data, int argc, char **argv)
 		data->lines_in = parse_stdin_tolimit(argv[2]);
 		data->here_doc = 1;
 		data->cmds = get_hd_commands(argc, argv);
+		data->out_fd = open(argv[argc - 1], O_RDWR | O_CREAT | O_APPEND, 0666);
+		if (data->out_fd < 0 && ft_printf("ERROR:\tOutput file error\n"))
+			return (0);
 	}
 	else
 	{
@@ -94,12 +106,13 @@ int	init_struct(t_vars *data, int argc, char **argv)
 		if (data->in_fd < 0 && ft_printf("ERROR:\tIncorrect input file path\n"))
 			return (0);
 		data->cmds = get_commands(argc, argv);
+		data->out_fd = open(argv[argc - 1], O_RDWR | O_CREAT | O_TRUNC, 0666);
+		if (data->out_fd < 0 && ft_printf("ERROR:\tOutput file error\n"))
+			return (0);
 	}
 	if (!data->cmds && ft_printf("ERROR:\tArgument parsing error\n"))
 		return (0);
-	data->out_fd = open(argv[argc - 1], O_RDWR | O_CREAT | O_TRUNC, 0666);
-	if (data->out_fd < 0 && ft_printf("ERROR:\tOutput file error\n"))
-		return (0);
+
 	if (pipe(data->fds) == -1 && ft_printf("Pipe Error\n"))
 		return (0);
 	if (pipe(data->xfds) == -1 && ft_printf("Pipe Error\n"))

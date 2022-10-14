@@ -19,7 +19,7 @@ int	check_cmd_error(char ***cmds, int i, int argc)
 	if (!cmds[i - 2][0])
 	{
 		i = 1;
-		while (++i < argc - 1)
+		while (++i < argc - 1 && cmds[i - 2])
 		{
 			k = -1;
 			while (cmds[i - 2][++k])

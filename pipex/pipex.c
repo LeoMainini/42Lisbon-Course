@@ -33,6 +33,7 @@ int	main(int argc, char **argv, char **envp)
 			break ;
 		fork_lpipes_execute(data, i, envp);
 		free(data->path);
+		data->path = 0;
 	}
 	while (--i > 0)
 		wait(NULL);

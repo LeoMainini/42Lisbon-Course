@@ -71,6 +71,8 @@ void	free_and_exit(t_vars *data, int status)
 		free(data->lines_in[i]);
 	if (data->lines_in)
 		free(data->lines_in);
+	if (data->path)
+		free(data->path);
 	if (data)
 		free (data);
 	exit (status);

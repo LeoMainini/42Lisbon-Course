@@ -24,6 +24,8 @@ char	*ft_strfreedup(char *s)
 	while (s[i] != 0)
 		i++;
 	res = (char *)malloc((i + 1) * sizeof(char));
+	if (!res)
+		return (0);
 	i = -1;
 	while (s[++i] != 0)
 		res[i] = s[i];
@@ -49,24 +51,21 @@ static int	check_limiter(char **str_array, int index, char *limiter,
 	return (str_array[index + null_index_delta] == 0);
 }
 
-static void	extend_array(char ***str_array, int k)
+static int	extend_array(char ***str_array, int k)
 {
 	char	**temp;
 	int		i;
 
-	temp = (char **) malloc((k + 2) * sizeof(char *));
+	temp = (char **) ft_calloc((k + 2), sizeof(char *));
 	if (!temp)
-		return ;
+		return (0);
 	i = -1;
 	while (++i <= k)
 		temp[i] = ft_strfreedup((*str_array)[i]);
 	temp[i] = 0;
 	free(*str_array);
-	*str_array = (char **) malloc((k + 3) * sizeof(char *));
-	i = -1;
-	while (++i <= k)
-		(*str_array)[i] = ft_strfreedup(temp[i]);
-	free(temp);
+	*str_array = temp;
+	return (1);
 }
 
 char	**parse_stdin_tolimit(char *limiter)
@@ -75,6 +74,8 @@ char	**parse_stdin_tolimit(char *limiter)
 	int		k;
 
 	lines_in = (char **) malloc(2 * sizeof(char *));
+	if (!lines_in)
+		return (0);
 	k = 0;
 	lines_in[k] = get_next_line(STDIN_FILENO);
 	if (check_limiter(lines_in, k, limiter, 1))

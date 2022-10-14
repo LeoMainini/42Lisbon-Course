@@ -20,7 +20,7 @@ int	main(int argc, char **argv, char **envp)
 	t_vars	*data;
 
 	data = (t_vars *) malloc(sizeof(t_vars));
-	if (!init_struct(data, argc, argv))
+	if (!data || !init_struct(data, argc, argv))
 		exit(1);
 	i = -1;
 	path = 0;

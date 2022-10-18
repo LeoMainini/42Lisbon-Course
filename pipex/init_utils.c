@@ -78,12 +78,14 @@ char	*get_pwd(char **envp)
 
 int	check_file_cmd(t_vars *data, int i)
 {
-	if (!ft_strchr(data->cmds[i][0], '.') || !ft_strchr(data->cmds[i][0], '/'))
+	if (!ft_strchr(data->cmds[i][0], '.') && !ft_strchr(data->cmds[i][0], '/'))
 		return (0);
 	if (access(data->cmds[i][0], F_OK) && ft_printf("File not found\n"))
 		return (0);
 	if (access(data->cmds[i][0], X_OK) && ft_printf("File not executable\n"))
 		return (0);
+	if (!ft_strncmp(data->cmds[i][0], "..", 2) || !ft_strncmp(data->cmds[i][0], "./", 2))
+		return (2);
 	return (1);
 }
 
@@ -91,7 +93,7 @@ int	get_path(t_vars *data, int i, char *path, char **envp)
 {
 	char	*file;
 
-	if (check_file_cmd(data, i))
+	if (check_file_cmd(data, i) == 2)
 	{
 		data->path = get_pwd(envp);
 		file = ft_strtrim(data->cmds[i][0], "./");
@@ -99,6 +101,8 @@ int	get_path(t_vars *data, int i, char *path, char **envp)
 		data->path = ft_strfree_join(&data->path, file);
 		free(file);
 	}
+	else if (check_file_cmd(data, i))
+		data->path = ft_strdup(data->cmds[i][0]);
 	else
 		data->path = ft_strjoin(path, data->cmds[i][0]);
 	if (data->path)

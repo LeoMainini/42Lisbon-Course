@@ -25,7 +25,7 @@ RM		=	rm -f
 
 AR		=	ar rc
 
-CFLAGS	=	-Wall -Werror -Wextra -D BUFFER_SIZE=1 -fsanitize=address -g
+CFLAGS	=	-Wall -Werror -Wextra -D BUFFER_SIZE=1 #-fsanitize=address -g
 
 INC		=	 -Lft_printf -Llibft -Lget_next_line -I . -lftprintf -lft
 

@@ -18,7 +18,8 @@
 //#TODO: Fix set indexes and lock only forks not philos ✅
 //#TODO: Fix still eating or sleeping on en = 0 ✅
 //#TODO: Formatting ✅
-//#NOTE: PTHREAD LIB LEAKS INCONSISTENTLY CHECK --leak-check=full --show-leak-kinds=all
+//#NOTE: PTHREAD LIB LEAKS INCONSISTENTLY CHECK --leak-check=full
+// --show-leak-kinds=all
 
 int	main(int argc, char **argv)
 {

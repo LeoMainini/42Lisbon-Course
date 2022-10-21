@@ -82,7 +82,7 @@ void	exec_parent(t_vars *data, int i, int pid)
 	close(data->hd_fds[1]);
 	close(data->xfds[0]);
 	close(data->xfds[1]);
-	if (i == 1)
+	if (i == 1 && !data->here_doc)
 		close(data->in_fd);
 	if ((i == data->arg_count - 4 && !data->here_doc)
 		|| (i == data->arg_count - 5 && data->here_doc))

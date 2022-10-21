@@ -50,7 +50,6 @@ char	*join_chunks(char **str_chunks, char *sep, int limiter)
 	}
 	if (complete_str)
 		return (ft_strfree_join(&complete_str, sep));
-	ft_printf("complete str = %s\n", complete_str);
 	return (complete_str);
 }
 

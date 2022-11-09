@@ -1,7 +1,1 @@
-rra
-pb
-rra
-pb
-rra
-pa
-pa
+42

@@ -38,17 +38,20 @@ static int	check_limiter(char **str_array, int index, char *limiter,
 							int null_index_delta)
 {
 	char	*temp;
+	int 	result;
 
+	result = 0;
 	temp = 0;
 	temp = ft_strjoin(limiter, "\n");
-	if (!ft_strcmp(str_array[index], temp))
+	result = ft_strcmp(str_array[index], temp);
+	if (!result)
 	{
 		if (!null_index_delta)
 			free(str_array[index]);
 		str_array[index + null_index_delta] = 0;
 	}
 	free(temp);
-	return (str_array[index + null_index_delta] == 0);
+	return (result == 0);
 }
 
 static int	extend_array(char ***str_array, int k)

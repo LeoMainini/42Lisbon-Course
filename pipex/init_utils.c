@@ -28,10 +28,10 @@ int	check_hd_get_cmds(t_vars *data, int argc, char **argv)
 	{
 		data->here_doc = 0;
 		data->lines_in = 0;
+		data->cmds = get_commands(argc, argv);
 		data->in_fd = open(argv[1], O_RDONLY);
 		if (data->in_fd < 0 && ft_printf("ERROR:\tIncorrect input file path\n"))
 			return (0);
-		data->cmds = get_commands(argc, argv);
 		data->out_fd = open(argv[argc - 1], O_RDWR | O_CREAT | O_TRUNC, 0666);
 		if (data->out_fd < 0 && ft_printf("ERROR:\tOutput file error\n"))
 			return (0);

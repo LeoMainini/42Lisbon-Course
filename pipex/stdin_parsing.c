@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   stdin_parsing.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leferrei <leferrei@student.42lisboa.com>   +#+  +:+       +#+        */
+/*   By: leferrei <leferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 17:15:06 by leferrei          #+#    #+#             */
-/*   Updated: 2022/10/12 17:15:07 by leferrei         ###   ########.fr       */
+/*   Updated: 2022/11/09 13:08:34 by leferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

@@ -84,7 +84,8 @@ int	check_file_cmd(t_vars *data, int i)
 		return (0);
 	if (access(data->cmds[i][0], X_OK) && ft_printf("File not executable\n"))
 		return (0);
-	if (!ft_strncmp(data->cmds[i][0], "..", 2) || !ft_strncmp(data->cmds[i][0], "./", 2))
+	if (!ft_strncmp(data->cmds[i][0], "..", 2)
+		|| !ft_strncmp(data->cmds[i][0], "./", 2))
 		return (2);
 	return (1);
 }

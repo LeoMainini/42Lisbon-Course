@@ -31,6 +31,7 @@ int	dupe_pipes(t_vars *data, int i)
 {
 	int	result;
 
+	result = 0;
 	if ((i == data->arg_count - 4 && !data->here_doc)
 		|| (i == data->arg_count - 5 && data->here_doc))
 		result = dup2(data->out_fd, STDOUT_FILENO);
@@ -49,7 +50,7 @@ int	dupe_pipes(t_vars *data, int i)
 			close(data->in_fd);
 		}
 		else
-			write_array_to_fd(data->lines_in, data->hd_fds, &result);
+			result = write_array_to_fd(data->lines_in, data->hd_fds, &result);
 	}
 	return (result);
 }
@@ -68,7 +69,7 @@ void	exec_child(t_vars *data, char **cmd_argv, int i, char **envp)
 		perror("Failed executing");
 	ft_putstr_fd("Command not found: ", STDERR_FILENO);
 	ft_putendl_fd(data->cmds[i][0], STDERR_FILENO);
-	free_and_exit(data, 1);
+	free_and_exit(data, 6);
 }
 
 void	exec_parent(t_vars *data, int i, int pid)
@@ -97,7 +98,7 @@ int	fork_lpipes_execute(t_vars *data, int i, char **envp)
 	{
 		data->xfds[0] = data->fds[0];
 		if (pipe(data->fds) == -1)
-			free_and_exit(data, 1);
+			free_and_exit(data, 3);
 		data->xfds[1] = data->fds[1];
 	}
 	pid = fork();

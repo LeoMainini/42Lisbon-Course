@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   stdin_parsing.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leferrei <leferrei@student.42lisboa.com>   +#+  +:+       +#+        */
+/*   By: leferrei <leferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 17:15:06 by leferrei          #+#    #+#             */
-/*   Updated: 2022/10/12 17:15:07 by leferrei         ###   ########.fr       */
+/*   Updated: 2022/11/09 13:08:34 by leferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,19 +38,20 @@ static int	check_limiter(char **str_array, int index, char *limiter,
 							int null_index_delta)
 {
 	char	*temp;
-	int		limitr_diff;
+	int 	result;
 
+	result = 0;
 	temp = 0;
 	temp = ft_strjoin(limiter, "\n");
-	limitr_diff = ft_strcmp(str_array[index], temp);
-	if (!limitr_diff)
+	result = ft_strcmp(str_array[index], temp);
+	if (!result)
 	{
 		if (!null_index_delta)
 			free(str_array[index]);
 		str_array[index + null_index_delta] = 0;
 	}
 	free(temp);
-	return (limitr_diff == 0);
+	return (result == 0);
 }
 
 static int	extend_array(char ***str_array, int k)

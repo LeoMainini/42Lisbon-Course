@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leferrei <leferrei@student.42lisboa.com>   +#+  +:+       +#+        */
+/*   By: leferrei <leferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 19:50:08 by leferrei          #+#    #+#             */
-/*   Updated: 2022/08/17 19:50:09 by leferrei         ###   ########.fr       */
+/*   Updated: 2022/12/19 15:43:03 by leferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,9 @@ void	unlock_all_forks(t_philo *philo)
 
 int	unlock_forks_return_status(t_philo *philo, int prev, int next, int status)
 {
-	pthread_mutex_unlock(&philo->dt->mutex[prev]);
 	pthread_mutex_unlock(&philo->dt->mutex[next]);
 	philo->dt->mutex_index[next] = 0;
+	pthread_mutex_unlock(&philo->dt->mutex[prev]);
 	philo->dt->mutex_index[prev] = 0;
 	return (status);
 }

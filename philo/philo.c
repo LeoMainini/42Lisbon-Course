@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leferrei <leferrei@student.42lisboa.com>   +#+  +:+       +#+        */
+/*   By: leferrei <leferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 17:25:39 by leferrei          #+#    #+#             */
-/*   Updated: 2022/08/03 17:25:41 by leferrei         ###   ########.fr       */
+/*   Updated: 2022/12/19 17:44:25 by leferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	main(int argc, char **argv)
 		return (0);
 	initiate_simulation(philos);
 	i = -1;
-	while (++i < data.n_p)
+	while (++i < data.n_p && philos && philos[i])
 		free(philos[i]);
 	free(philos);
 }

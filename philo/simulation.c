@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   simulation.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leferrei <leferrei@student.42lisboa.com>   +#+  +:+       +#+        */
+/*   By: leferrei <leferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 17:54:55 by leferrei          #+#    #+#             */
-/*   Updated: 2022/08/05 17:54:59 by leferrei         ###   ########.fr       */
+/*   Updated: 2022/12/19 17:32:31 by leferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,11 @@ void	decide_state_change(t_philo *ph, int *dn)
 		return ;
 	if (is_dead(ph))
 		return ;
-	print_state_change(ph, 0);
+	print_state_change(ph, 3);
+	usleep(ph->dt->tts * 1000);
 	if (is_dead(ph))
 		return ;
-	print_state_change(ph, 3);
+	print_state_change(ph, 0);
 	if (is_dead(ph))
 		return ;
 	if (((ph->dt->en == 0) || (ph->en > ph->dt->en && ph->dt->en > -1)))
@@ -67,7 +68,6 @@ void	decide_state_change(t_philo *ph, int *dn)
 		*dn = 1;
 		ph->dt->dead_threads++;
 	}
-	usleep(ph->dt->tts * 1000);
 }
 
 void	*sim_routine(void *ph)
@@ -99,12 +99,13 @@ void	initiate_simulation(t_philo **philos)
 	int			i;
 
 	set_start_time(philos);
-	init_sim_state(philos, &philo_threads, &returns);
+	if (init_sim_state(philos, &philo_threads, &returns) == -1)
+		return ;
 	i = -1;
 	while (++i < philos[0]->dt->n_p)
 	{
 		input_i = &i;
-		pthread_create(philo_threads + i, NULL, &sim_routine, philos[*input_i]);
+		pthread_create(philo_threads + i, 0, &sim_routine, philos[*input_i]);
 	}
 	death_checker(philos);
 	i = -1;

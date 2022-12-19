@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leferrei <leferrei@student.42lisboa.com>   +#+  +:+       +#+        */
+/*   By: leferrei <leferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 17:33:27 by leferrei          #+#    #+#             */
-/*   Updated: 2022/08/03 17:35:12 by leferrei         ###   ########.fr       */
+/*   Updated: 2022/12/19 17:36:14 by leferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ t_philo	**init_state(int argc, char **argv, t_data *data);
 void	initiate_simulation(t_philo **philos);
 void	set_start_time(t_philo **philos);
 long	get_timed(struct timeval start);
-void	init_sim_state(t_philo **philos, pthread_t **philo_threads, int **rets);
+int		init_sim_state(t_philo **philos, pthread_t **philo_threads, int **rets);
 void	print_state_change(t_philo *philo, int option);
 void	set_indexes(t_philo *philo, int *prev, int *next);
 void	unlock_all_forks(t_philo *philo);
